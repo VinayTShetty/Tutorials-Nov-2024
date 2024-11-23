@@ -1,0 +1,15 @@
+
+1) To update the UI in any composble function.The composable function should be called again with the updated value.
+
+2)We can use remember{mutablestateOf()} to update the value of the composable.
+
+3)mutableStateOf is used to create an observable state of the object.
+  When the value inside mutableStateOf changes, it triggers recomposition of any composables that read this state.
+
+  i.e it acts as observable to keep track of the changes.
+
+4) remember helps to make the composable to remember the old state.
+        i.e if its incremented to 1 old state was 0.
+        i.e if its incremented to 2 old state was 1.
+        Its used because without knowing the previous state the composables will never get to know that they have a new value and its changed.
+
