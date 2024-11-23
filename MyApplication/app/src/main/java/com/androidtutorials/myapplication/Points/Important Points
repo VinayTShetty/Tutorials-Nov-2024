@@ -1,0 +1,2 @@
+We cannot access ApplicationContext in the Composable function.
+We can access locale.context from the composable function.
