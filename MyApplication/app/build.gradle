@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace 'com.androidtutorials.myapplication'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.androidtutorials.myapplication"
@@ -64,4 +64,9 @@ dependencies {
     androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
     debugImplementation 'androidx.compose.ui:ui-tooling'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
+    /**
+     * Compose LiveData Depedency
+     * https://developer.android.com/jetpack/androidx/releases/compose-runtime
+     */
+    implementation "androidx.compose.runtime:runtime-livedata:1.7.5"
 }
