@@ -1,0 +1,104 @@
+Question Here:-why the property getter or setter is expected here and gives error
+
+package com.androidtutorials.androidhelloworld
+
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+
+class CounterViewModel:ViewModel() {
+    /**
+     * This value can be easily changed.i.e mutableLiveData , for that reason i have kept it as private.Provided a default value of 0
+     */
+    private val _counter=MutableLiveData<Int>(0)
+    val counter:LiveData<Int>=_counter
+
+    fun incrementCountervalue(){
+        _counter.value = (_counter.value ?: 0) + 1
+    }
+
+    fun decrementCountervalue(){
+        _counter.value = (_counter.value ?: 0) - 1
+    }
+
+}
+
+
+
+why the property getter or setter is expected here and gives error
+ChatGPT said:
+ChatGPT
+The error regarding the getter or setter is likely due to how Kotlin handles property initialization and type inference, especially when working with LiveData. Let’s examine the issue step by step.
+
+The Problem
+Here’s the problematic line:
+
+kotlin
+Copy code
+private val _counter = MutableLiveData<Int>(0)
+The constructor of MutableLiveData does not accept a direct value as a parameter in some cases. The correct way to set an initial value is by assigning to the .value property after creating the instance.
+
+Fix
+You should initialize _counter using .apply or set the .value explicitly after creating the object:
+
+Option 1: Using apply
+kotlin
+Copy code
+private val _counter = MutableLiveData<Int>().apply { value = 0 }
+Option 2: Directly Assign the Value After Initialization
+kotlin
+Copy code
+private val _counter = MutableLiveData<Int>()
+init {
+    _counter.value = 0
+}
+Both approaches ensure the default value (0) is properly assigned.
+
+Why Does the Error Occur?
+Kotlin Property Initialization Rules:
+
+MutableLiveData doesn’t have a primary constructor that directly sets the value. Attempting to pass 0 as an argument results in a mismatch because it expects no arguments.
+LiveData API:
+
+The correct way to set the initial value is by assigning to the .value property.
+Getter/Setter Expectation:
+
+When the property initialization isn’t correct, Kotlin expects you to provide a custom getter or setter to resolve the type/value conflict. Since _counter was improperly initialized, Kotlin complains about the missing getter/setter.
+Corrected Code
+Here’s the complete, corrected code:
+
+kotlin
+Copy code
+package com.androidtutorials.androidhelloworld
+
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+
+class CounterViewModel : ViewModel() {
+    /**
+     * Private MutableLiveData to restrict external modification.
+     * Initial value is set to 0 using .apply.
+     */
+    private val _counter = MutableLiveData<Int>().apply { value = 0 }
+
+    /**
+     * Public LiveData for observing counter changes.
+     */
+    val counter: LiveData<Int> = _counter
+
+    fun incrementCounterValue() {
+        _counter.value = (_counter.value ?: 0) + 1
+    }
+
+    fun decrementCounterValue() {
+        _counter.value = (_counter.value ?: 0) - 1
+    }
+}
+Key Points
+MutableLiveData should be initialized without parameters.
+Set the default value using .apply { value = defaultValue } or inside an init block.
+Use value or postValue to set the data in MutableLiveData.
+This should resolve the issue. Let me know if you have any further questions!
+***********************************************************************************************************************************
+
