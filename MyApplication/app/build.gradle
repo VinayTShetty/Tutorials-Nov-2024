@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace 'com.androidtutorials.myapplication'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.androidtutorials.myapplication"
@@ -64,4 +64,14 @@ dependencies {
     androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
     debugImplementation 'androidx.compose.ui:ui-tooling'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
+
+    /**
+     * Jetpack compose navigation depedency
+     * https://developer.android.com/develop/ui/compose/navigation#groovy
+     *
+     * Change the dependency here to lowest version as the kotlin version is not supported
+     File -->Project Structure -->Dependencies -->All Dependencies -->Library Dependency
+     */
+    def nav_version = "2.6.0"
+    implementation "androidx.navigation:navigation-compose:$nav_version"
 }

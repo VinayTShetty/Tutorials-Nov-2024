@@ -1,0 +1,53 @@
+This explains how the composable method is implemented
+
+public fun NavGraphBuilder.composable(
+    route: String,
+    arguments: List<NamedNavArgument>,
+    deepLinks: List<NavDeepLink>,
+    content: @Composable (NavBackStackEntry) -> Unit
+): Unit
+
+https://chatgpt.com/share/676124f0-a154-8006-ab75-e260ce13066a
+
+
+1. Method Definition
+Suppose we define an add method with the following structure:
+
+fun add(
+    num1: Int, // 1st parameter
+    num2: Int, // 2nd parameter
+    resultProcessor: (Int) -> Unit // 3rd parameter (a lambda)
+) {
+    val sum = num1 + num2
+    resultProcessor(sum) // Invoke the lambda, passing the sum as its argument
+}
+
+
+num1 and num2 are inputs for the addition.
+resultProcessor is a lambda function that takes the result (Int) and does something with it.
+
+
+Method Usage
+
+Now, let’s call the add function:
+
+add(5, 3) { sum ->
+    println("The sum is $sum") // Lambda to process the result
+}
+
+Here’s what happens:
+
+Parameters passed to add:
+
+num1 = 5
+num2 = 3
+A lambda ({ sum -> println("The sum is $sum") }) is passed as the resultProcessor.
+Inside add:
+
+sum is calculated as 5 + 3 = 8.
+The lambda (resultProcessor) is invoked, and the calculated sum (8) is passed to it.
+
+
+Key Clarification
+The lambda { sum -> println("The sum is $sum") } is passed as the 3rd parameter (resultProcessor) to add.
+The variable sum is not a direct parameter of add. Instead, it is the parameter passed to the lambda by the add method.
