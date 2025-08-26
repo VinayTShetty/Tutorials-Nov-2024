@@ -1,0 +1,93 @@
+Depedency Injection https://chatgpt.com/share/689d3afb-bd9c-8006-b9ec-8ee950d0cf62
+*******************
+1. Basics of Dependency Injection
+	What is Dependency Injection?
+	Definition & concept
+	Advantages over manual dependency creation
+
+	Coupling vs decoupling
+	Types of DI
+	Constructor Injection
+	Property Injection
+	Method Injection
+	Service Locator vs Dependency Injection
+	Manual DI in Kotlin
+	Passing dependencies via constructors
+	Creating interfaces for better testability
+
+2. DI in Android Without Libraries
+	Injecting dependencies in:
+	Activity
+	Fragment
+
+	ViewModel (using constructor injection)
+	Using Application class as a container
+	Custom dependency provider classes
+
+3. Introduction to DI Frameworks
+	Why use frameworks like Hilt, Dagger 2, or Koin?
+	Compile-time vs runtime DI
+	Scopes & lifecycles in Android DI
+
+4. Hilt Basics (Recommended for modern Android)
+	Setup
+	Adding Hilt Gradle plugin & dependencies
+	Annotating @HiltAndroidApp in Application
+	Injecting into Activities & Fragments
+	@AndroidEntryPoint
+	@Inject usage
+	Providing Dependencies
+	@Module and @Provides
+	@Singleton scope
+	Injecting ViewModels with Hilt
+	@HiltViewModel
+	@Inject constructor
+
+5. Advanced Hilt Usage
+	Qualifiers
+	@Named & custom qualifiers for multiple bindings
+	Custom Scopes
+	@ActivityRetainedScoped
+	@ViewModelScoped
+	Binding Interfaces
+	@Binds vs @Provides
+	Assisted Injection
+	Using @Assisted for parameters only known at runtime
+	Injecting into:
+	Services
+	Broadcast Receivers
+	WorkManager
+	Navigation Graph scoped ViewModels
+	Entry Points for non-Hilt classes
+
+6. Koin Basics (Alternative DI framework)
+	Adding dependencies
+	Defining modules with module { }
+	Declaring singletons & factories
+	Starting Koin in Application
+	Injecting with by inject() & get()
+	ViewModel injection in Koin
+
+7. Testing with DI
+	Using fake or mock dependencies
+	Swapping modules for test configurations
+	Hilt testing annotations (@HiltAndroidTest, @TestInstallIn)
+	Koin test modules
+
+8. Multi-Module Project DI
+	Sharing dependencies between modules
+	Hilt’s @InstallIn for specific components
+	Module-level scopes
+
+9. Performance & Best Practices
+	Avoiding memory leaks with scoped instances
+	Keeping modules small & meaningful
+	Using interface-based injection for flexibility
+
+10. Real-World Examples
+	Injecting Retrofit & OkHttp clients
+	Injecting Room Database & DAOs
+	Injecting Repositories into ViewModels
+	Injecting UseCases in Clean Architecture
+
+Combining DI with Coroutine Dispatchers (@IoDispatcher, @DefaultDispatcher)
