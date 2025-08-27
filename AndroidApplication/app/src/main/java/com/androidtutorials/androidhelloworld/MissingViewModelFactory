@@ -1,0 +1,51 @@
+In manual DI you always had to write your own ViewModelProvider.
+Factory to tell Android how to construct a ViewModel with dependencies.
+
+But when you switched to Hilt, that factory disappeared. Let’s unpack why:
+
+1. Manual DI case (without Hilt)
+
+When you did dependency injection manually:
+
+class UserViewModel(    private val repository: UserRepository) : ViewModel()
+
+class UserViewModelFactory( private val repository: UserRepository) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(UserViewModel::class.java)) {
+            return UserViewModel(repository) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
+}
+
+
+And then in Activity:
+
+val factory = UserViewModelFactory(repository)
+val viewModel = ViewModelProvider(this, factory).get(UserViewModel::class.java)
+
+
+➡️ You needed the factory because Android has no idea how to pass UserRepository into the constructor.
+
+
+2. With Hilt
+
+When you annotate with:
+
+@HiltViewModel
+class UserViewModel @Inject constructor( private val repository: UserRepository) : ViewModel()
+
+
+@HiltViewModel tells Hilt: “I’ll manage this ViewModel’s dependencies”.
+
+@Inject constructor tells Hilt how to build it.
+
+Hilt automatically generates a ViewModelProvider.
+Factory behind the scenes (called HiltViewModelFactory) and wires it into ViewModelProvider.
+
+So in Activity/Fragment you just do:
+
+private val viewModel: UserViewModel by viewModels()
+orval viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+
+➡️ No need for a custom factory — Hilt provides one globally.

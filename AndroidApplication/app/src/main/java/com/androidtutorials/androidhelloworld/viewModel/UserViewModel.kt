@@ -8,15 +8,20 @@ import androidx.lifecycle.viewModelScope
 
 import com.androidtutorials.androidhelloworld.data.User
 import com.androidtutorials.androidhelloworld.repository.UserRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
+import javax.inject.Inject
 
-class UserViewModel(private val repository: UserRepository) : ViewModel() {
+// @HiltViewModel → Marks this ViewModel as injectable via Hilt
+// @Inject constructor → Hilt knows how to create this ViewModel by injecting UserRepository
+@HiltViewModel
+class UserViewModel @Inject constructor(private val repository: UserRepository) : ViewModel() {
 
     private val _users = MutableLiveData<List<User>>()
     val users: LiveData<List<User>> = _users
 
+    // Loads users asynchronously using viewModelScope (lifecycle-aware CoroutineScope)
     fun loadUsers() {
-
         viewModelScope.launch {
             try {
                 val response = repository.fetchUsers()
@@ -29,25 +34,5 @@ class UserViewModel(private val repository: UserRepository) : ViewModel() {
 }
 
 /**
-constructor injection: The UserRepository is injected instead of being created inside ViewModel.
-Makes UserViewModel independent of the actual data source.
- */
-
-class UserViewModelFactory(
-    private val repository: UserRepository
-) : ViewModelProvider.Factory {
-
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(UserViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return UserViewModel(repository) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
-    }
-}
-
-/**
-This is factory-based DI.
-Since ViewModel is created by the Android framework, you can’t directly pass arguments (like repository) into its constructor.
-The Factory acts as a bridge for dependency injection into ViewModel.
+ * Removed UserViewModel factory as Hilt automatically handles it.
  */

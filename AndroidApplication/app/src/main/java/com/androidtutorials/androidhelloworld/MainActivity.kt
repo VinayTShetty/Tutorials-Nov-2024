@@ -5,8 +5,11 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.androidtutorials.androidhelloworld.viewModel.UserViewModel
-import com.androidtutorials.androidhelloworld.viewModel.UserViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 
+// @AndroidEntryPoint → Marks this Activity as a Hilt container,
+// so it can receive injected dependencies (like ViewModel)
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var viewModel: UserViewModel
@@ -15,14 +18,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Create repository from Application class
-        val repository = (application as MyApplication).repository
-        // Pass repository to factory
-        val factory = UserViewModelFactory(repository)
         // Get ViewModel instance
-        viewModel = ViewModelProvider(this, factory).get(UserViewModel::class.java)
+        // ViewModelProvider(this) automatically uses Hilt’s factory under the hood
+        viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
         // Observe LiveData
+        // Observe LiveData, gets called whenever data changes
         viewModel.users.observe(this, Observer { name ->
             println("UserName: $name")  // logcat output
         })

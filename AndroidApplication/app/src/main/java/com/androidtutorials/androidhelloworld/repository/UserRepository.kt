@@ -2,8 +2,10 @@ package com.androidtutorials.androidhelloworld.repository
 
 import com.androidtutorials.androidhelloworld.data.User
 import com.androidtutorials.androidhelloworld.retrofit.ApiService
+import javax.inject.Inject
 
-class UserRepository(private val apiService: ApiService){
+// @Inject constructor → Tells Hilt how to create UserRepository by passing ApiService
+class UserRepository @Inject constructor(private val apiService: ApiService){
 
     suspend fun fetchUsers() :List<User>{
         return apiService.getUsers()

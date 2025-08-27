@@ -1,41 +1,15 @@
-Constructor Injection
-*********************
+@Module → Class that provides dependencies.
 
-UserRepository(private val apiService: ApiService)
-UserViewModel(private val repository: UserRepository)
+@InstallIn(SingletonComponent::class) → Defines lifetime (Application-wide).
 
-✅ Why this is Constructor Injection
-*************************************
-Dependencies are passed in via constructor, not created inside class/Fragment/Activity
+@Provides → Function that tells Hilt how to build a dependency.
 
-Factory Injection (for ViewModel)
-***********************************
-UserViewModelFactory injects UserRepository into UserViewModel.
+@Singleton → Ensures a single instance across the whole app.
 
-Manual Composition Root (Application class)
-***********************************
-MyApplication wires everything together and provides repository as a singleton.
+@Inject → Constructor/property injection.
 
+@HiltViewModel → Special annotation for ViewModels (works with @Inject constructor).
 
+@AndroidEntryPoint → Marks Activity/Fragment as an injection target.
 
-✅ Pros of Your Approach
-************************
-No external library → lightweight.
-Clear dependency graph: you can see where each dependency is created.
-Testability: You can replace ApiService or Repository with fake ones for unit tests.
-
-⚠️ Cons / Limitations
-*********************
-Manual wiring becomes harder as the project grows (many dependencies).
-You need to write boilerplate Factories for every ViewModel.
-Dependency graph management is manual → harder to track.
-Not lifecycle-aware across multiple modules (compared to Hilt/Dagger)
-
-
-🔥 Final Summary
-*****************
-You are using Manual Dependency Injection.
-Inside classes → Constructor Injection.For ViewModel creation → Factory Injection.
-
-
-MyApplication acts as your Service Locator / Composition Root.
+@HiltAndroidApp → Initializes Hilt at Application level.
