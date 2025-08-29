@@ -1,0 +1,7 @@
+How dependencies are wired:
+**************************
+
+MainActivity asks for Car.
+Hilt sees Car needs Engine.
+Hilt builds Engine, injects it into Car.
+MainActivity gets a ready-to-use Car instance.
