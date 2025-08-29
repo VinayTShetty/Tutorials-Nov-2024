@@ -5,3 +5,28 @@ MainActivity asks for Car.
 Hilt sees Car needs Engine.
 Hilt builds Engine, injects it into Car.
 MainActivity gets a ready-to-use Car instance.
+
+
+
+Field Injection Points
+**********************
+App Starts → MyApplication
+    @HiltAndroidApp sets up Hilt globally.
+
+MainActivity is Created
+    Because of @AndroidEntryPoint, Hilt generates a special subclass of MainActivity that knows how to inject dependencies.
+
+Field Injection Happens
+    Before onCreate() is called, Hilt creates a Car object.
+    While creating Car, Hilt sees that it has a method @Inject fun setEngine(...) →
+    It first creates an Engine, then calls setEngine() automatically.
+
+Ready-to-use Car is Assigned
+    car field is initialized.
+
+onCreate() Runs
+    You use car.drive() safely since it is already injected with Engine
+
+
+    Important Point :- In a method Injection.
+    If a method is annotated with @Inject. Then Hilt will call this method automatically.
