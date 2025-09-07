@@ -1,0 +1,41 @@
+com.example.cleanmvvm
+├── data                          // 📦 DATA LAYER (implements "how" data is fetched/stored)
+│   ├── mapper                    // 🔄 MAPPERS: Convert external DTOs ↔ domain models
+│   │   └── UserMappers.kt        // e.g. UserDto.toDomain() — keeps API schema separate from core app
+│   ├── remote                    // 🌐 REMOTE SOURCES (network/REST APIs)
+│   │   ├── api                   // Retrofit interfaces — only define endpoints, no logic
+│   │   │   └── UserApi.kt
+│   │   └── dto                   // Data Transfer Objects (DTOs) matching API JSON
+│   │       └── UserDto.kt
+│   └── repository                // Repository IMPLEMENTATIONS (concrete classes)
+│       └── UserRepositoryImpl.kt // Implements domain repository interface, uses Retrofit + Mappers
+│
+├── di                            // 🧩 DEPENDENCY INJECTION / SERVICE LOCATOR
+│   └── ServiceLocator.kt         // Creates Retrofit, Repositories, UseCases and wires them together
+│
+├── domain                        // 💡 DOMAIN LAYER (business rules, pure Kotlin)
+│   ├── model                     // Core entities used throughout the app
+│   │   └── User.kt
+│   ├── repository                // Abstract definitions (interfaces) of data operations
+│   │   └── UserRepository.kt     // e.g. fun getUsers(): List<User>
+│   ├── usecase                   // One class per use case (single responsibility)
+│   │   └── GetUsersUseCase.kt    // Encapsulates "Get Users" business logic
+│   └── util                      // Shared domain utilities (e.g. Resource<T>, validation helpers)
+│       └── Resource.kt
+│
+└── presentation                  // 🎨 PRESENTATION LAYER (UI + state)
+    ├── ui                        // Composables/Fragments/Activities (only show data)
+    │   └── UsersScreen.kt
+    ├── viewmodel                 // ViewModels (state holders, call UseCases)
+    │   └── UsersViewModel.kt
+    └── MainActivity.kt           // Entry point Activity that sets Compose content
+
+
+
+
+| Layer            | Why It Exists                                              | Why It Should Be Separate                                                                                                                            |
+| ---------------- | ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **data**         | Contains API calls, DB access, and mappers.                | Keeps infrastructure (Retrofit, Room) isolated, so you can switch data source (e.g. offline cache, different API) without touching business/UI code. |
+| **domain**       | Core business rules (entities, use cases).                 | Independent of Android framework, Retrofit, DB, etc. This layer is 100% testable with plain JUnit.                                                   |
+| **presentation** | UI & state logic (ViewModels, Compose screens, Fragments). | Keeps UI dumb — just observes `ViewModel` state. No network calls here.                                                                              |
+| **di**           | Central place to wire dependencies.                        | Keeps construction logic out of Activities/ViewModels. If you later use Hilt/Koin, this folder becomes your `Module` definitions.                    |
