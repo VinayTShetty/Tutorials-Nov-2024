@@ -14,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -33,7 +34,7 @@ class MainActivity : ComponentActivity() {
 
         Log.i(TAG, "mainScreen_Composoable executed")
 
-        var counter = remember{ mutableStateOf(0) }
+        var counter = rememberSaveable { mutableStateOf(0) }
 
         var incerementCounter = {
             counter.value=++counter.value
