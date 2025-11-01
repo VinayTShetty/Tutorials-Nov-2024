@@ -1,0 +1,14 @@
+🎯 Purpose of derivedStateOf
+
+👉 It’s mainly used when you have multiple states
+and you want to create a single combined or computed value that depends on them.
+
+It helps you:
+
+Combine multiple state values together
+
+Track changes efficiently
+
+Avoid redoing heavy calculations unnecessarily
+
+Prevent unwanted recompositions
