@@ -1,0 +1,40 @@
+⃣rememberCoroutineScope
+🔍 What it is
+
+rememberCoroutineScope() provides a lifecycle-aware CoroutineScope that survives recomposition,
+ But is cancelled when the composable leaves the composition.
+
+It won t be executed during the First Time of the composition.
+
+ 🎯 When to Use rememberCoroutineScope
+  Use it when you need to launch coroutines from user-driven actions, such as:
+
+
+ ✔ Button clicks
+ ✔ UI event handlers
+ ✔ Manual coroutine launches
+ ✔ API calls triggered from user interaction
+ ✔ Animations that start on a click (not automatically on composition)
+
+
+ ⚙️ Why We Use It
+
+ Because LaunchedEffect cannot be triggered manually.
+
+ 👉 LaunchedEffect = automatic coroutine (runs when KEY changes)
+ 👉 rememberCoroutineScope = manual coroutine (runs when YOU trigger it)
+
+
+ So use rememberCoroutineScope when:
+ ✔ You need full control
+ ✔ You don’t want coroutine to run automatically
+ ✔ You don’t want to depend on state keys
+
+
+ 🛡️ Lifecycle Behavior
+
+ 🔸 Survives recomposition
+  Does not restart on recomposition.
+ 🔸 Cancelled when composable leaves UI
+  Safe for short-lived UI operations.
+
