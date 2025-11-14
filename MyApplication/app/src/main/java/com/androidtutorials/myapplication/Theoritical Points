@@ -1,0 +1,35 @@
+🧲 3️⃣ DisposableEffect — Simple Explanation
+*********************************************
+Syntax
+******
+DisposableEffect(key) {
+    // setup
+    onDispose { /* cleanup */ }
+}
+
+✅ DisposableEffect is used for:
+
+Attaching something when the composable enters the screen
+(e.g., start listener, register callback)
+
+Removing it automatically when the composable leaves the screen
+(e.g., stop listener, unregister callback)
+
+
+🎯 Super Simple One-Line Definition
+*************************************
+👉 DisposableEffect runs when the key changes AND allows you to clean up when the composable leaves the UI.
+
+
+🧠 When to use DisposableEffect?
+*********************************
+Use it when you need:
+
+✔️ Start a listener / observer
+✔️ Register a broadcast receiver
+✔️ Start location updates / sensor updates
+✔️ Register callbacks
+✔️ And most importantly → stop them in onDispose()
+
+💡 Very Important Rules
+✔️ You CANNOT run suspend functions inside DisposableEffect.
