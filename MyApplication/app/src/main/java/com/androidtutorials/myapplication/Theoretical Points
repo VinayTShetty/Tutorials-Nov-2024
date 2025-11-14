@@ -1,0 +1,10 @@
+⚙️ 4️⃣ SideEffect
+
+➡️ Runs after every successful recomposition —
+Ideal for non-suspending side effects that update something outside Compose (e.g., analytics, logs, external variables).
+
+
+🧠 When to use:
+
+Logging, analytics, debug printouts
+Mutating non-Compose states safely after recomposition
