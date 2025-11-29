@@ -1,0 +1,104 @@
+Android 
+ 
+
+ General Topics
+ **************
+ Android Architecture
+ APK/ABB
+ File Structure
+ Gradle Types
+
+JetPack Components
+******************
+LiveData ✅
+ViewModel ✅ 
+Navigation
+Pagination
+WorkManager✅
+LifeCycleAware
+
+Architecture
+*************
+MVVM ✅
+MVP
+Clean Architecture
+
+
+ JetPack Compose
+    StateManagement
+    UI
+     Buttons
+    Motion Layout
+    Lazy Column/Lazy Row
+    Passing Data in JetPack Compose
+    Scafold
+
+
+ Permission
+ Depedency Injection
+ Retrofit
+ SQL ite.
+ Activity LifeCycle
+ Fragment LifeCycle
+ Intents
+ BroadCast Receievers
+ Layout Basiscs
+    Constraint-Layout/Constraint-LayoutAdvance.
+    Linear-Layout
+    Relative-Layout
+ TabView
+ MulitScreen Support
+ Launch-Mode
+ Notification
+ FireBase Integration
+ Animation & Transition
+ DownLoad Manager
+ 
+ Aysnc Task
+ Handlers/Loopers/Message Que
+ Testing
+  UnitTesting
+ JobScheduler/JobService
+ Services
+ CameraX.
+ File Handling
+ ContentProviders
+ Solid Principes
+
+    
+
+ 
+ 
+
+
+
+Kotlin
+ fucntion
+  Scope fucntion
+  Extension Function
+  Higher Order Function
+  Inline Function
+  
+
+ Lambda
+ Loops
+ interfaces
+ val/Var
+ enum
+ Sealed Class
+ Coroutines
+ Flows
+ Channels
+
+
+
+
+
+Core Java
+ Variables
+ Methods
+ Classes
+ Loops
+ OOPS
+ MutliThreading
+ Exception Handling
