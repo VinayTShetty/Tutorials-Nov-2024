@@ -2,6 +2,34 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!--
+           ============================================================
+           PERMISSIONS SECTION
+           ============================================================
+
+           These permissions must be declared here BEFORE requesting
+           them at runtime.
+
+           ⚠️ Important:
+           - Declaring a permission in the Manifest DOES NOT mean
+             the permission is granted.
+           - The user must still approve it through the runtime dialog.
+       -->
+    <!-- 📸 CAMERA PERMISSION -->
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- 📍 LOCATION PERMISSIONS -->
+    <!-- Fine location (GPS-level accuracy) -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!--
+        Optional:
+        Coarse location is automatically granted when fine is granted,
+        but you may explicitly declare it for clarity:
+    -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
