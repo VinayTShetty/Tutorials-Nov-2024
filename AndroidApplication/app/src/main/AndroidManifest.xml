@@ -21,6 +21,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
+        <!--Declaration of the Service in the Manifest-->
+
+        <service android:name=".MyStartedService"
+            android:exported="false"
+            />
+
+    </application>
 </manifest>
