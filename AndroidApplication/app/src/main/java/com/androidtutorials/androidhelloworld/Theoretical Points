@@ -1,0 +1,46 @@
+WHY WE CANNOT CREATE A SERVICE OBJECT DIRECTLY (POINTS)
+
+1. Services are Android framework components, not normal classes.
+2. Android system is responsible for creating and destroying Services.
+3. Creating a Service using a constructor bypasses Android lifecycle management.
+4. Lifecycle methods like onCreate(), onBind(), onDestroy() will not be called.
+5. The Service will not be registered with the Android system.
+6. Android cannot manage memory and resources for that Service.
+7. Security checks and permissions will not be enforced.
+8. Inter-process communication (IPC) will not work.
+9. Android cannot restart or stop the Service when required.
+10. It violates Android component architecture rules.
+11. Can cause memory leaks and unpredictable behavior.
+12. Official Android documentation does not allow manual Service instantiation.
+
+
+WHY WE SHOULD USE BINDER (POINTS)
+
+1. Binder is the official communication mechanism provided by Android.
+2. Android requires an IBinder object for binding to a Service.
+3. Ensures proper lifecycle management of the Service.
+4. Provides a controlled and safe way to access the Service.
+5. Allows the Activity to communicate with the Service.
+6. Works for both local and remote Services.
+7. Enforces Android security and permission model.
+8. Allows Android to track which clients are using the Service.
+9. Supports multiple clients binding to the same Service.
+10. Prevents unsafe direct object access.
+11. Handles thread and process boundaries safely.
+12. Mandatory because onBind() must return an IBinder.
+
+
+WHY WE NEED ServiceConnection (POINTS)
+
+1. Binding a Service is an asynchronous operation.
+2. ServiceConnection tells when the Service is connected.
+3. onServiceConnected() provides the IBinder safely.
+4. Prevents calling Service methods before it is ready.
+5. Handles unexpected Service disconnections.
+6. onServiceDisconnected() is called if Service crashes.
+7. Helps avoid NullPointerException.
+8. Allows proper cleanup when Service is disconnected.
+9. Required by the bindService() API.
+10. Helps Android manage the Service–client relationship.
+11. Supports multiple clients binding to the same Service.
+12. Maintains connection lifecycle between Activity and Service.
