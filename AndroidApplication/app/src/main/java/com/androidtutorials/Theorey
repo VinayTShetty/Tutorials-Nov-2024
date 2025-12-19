@@ -1,0 +1,115 @@
+HILT: @Provides vs @Binds — COMPLETE COMPARISON
+==============================================
+
+@Provides
+---------
+WHAT IT DOES
+• Tells Hilt HOW to create an object
+• Acts like a factory method
+• Hilt EXECUTES this method at runtime
+
+OBJECT CREATION
+• You manually create the object
+• Example: return Calculator()
+
+REQUIRES @Inject CONSTRUCTOR?
+• ❌ NO
+• The class can be a plain Kotlin/Java class
+
+WHERE USED
+• Inside a @Module class
+• Can be object class or normal class
+
+METHOD TYPE
+• Normal function
+• Has a method body
+
+WHEN TO USE
+• Third-party classes (Retrofit, OkHttp, Room)
+• Classes you do NOT own
+• Object creation needs logic
+• No interface required
+
+PERFORMANCE
+• Slightly slower (method call)
+• Negligible in real apps
+
+EXAMPLE MENTAL MODEL
+• "I will create this object for you"
+
+----------------------------------------------
+
+@Binds
+------
+WHAT IT DOES
+• Tells Hilt WHICH implementation to use
+• Acts like a mapping rule
+• Method is NEVER executed
+
+OBJECT CREATION
+• Hilt creates the object itself
+• Uses @Inject constructor of implementation
+
+REQUIRES @Inject CONSTRUCTOR?
+• ✅ YES (on the implementation class)
+• Otherwise Hilt cannot create it
+
+WHERE USED
+• Inside a @Module class
+• Module MUST be abstract
+
+METHOD TYPE
+• Abstract function
+• No method body
+
+WHEN TO USE
+• Interface → Implementation binding
+• You own the implementation class
+• Simple, direct mapping
+• No creation logic needed
+
+PERFORMANCE
+• Faster than @Provides
+• Preferred by Hilt/Dagger
+
+EXAMPLE MENTAL MODEL
+• "When X is requested, use Y"
+
+----------------------------------------------
+
+SIDE-BY-SIDE SUMMARY
+-------------------
+
+@Provides
+• HOW to create
+• You build the object
+• No @Inject constructor
+• Can return any type
+• More flexible
+• More boilerplate
+
+@Binds
+• WHICH implementation
+• Hilt builds the object
+• Requires @Inject constructor
+• Interface required
+• Less boilerplate
+• Faster
+
+----------------------------------------------
+
+GOLDEN RULE (VERY IMPORTANT)
+----------------------------
+• Object creation info must exist exactly ONCE
+
+Creation can come from:
+• @Provides  ✅
+• @Inject constructor  ✅
+
+----------------------------------------------
+
+DECISION RULE (MEMORIZE THIS)
+-----------------------------
+• Prefer @Inject constructor
+• Use @Binds for interface → implementation
+• Use @Provides only when necessary
