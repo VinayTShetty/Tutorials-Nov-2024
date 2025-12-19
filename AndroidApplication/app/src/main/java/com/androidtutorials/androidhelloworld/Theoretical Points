@@ -1,0 +1,120 @@
+==============================
+@Binds — HILT INTERNAL RULES
+==============================
+
+🧠 WHAT HILT READS (IMPORTANT)
+
+Hilt DOES NOT execute the method.
+Hilt ONLY reads the method signature.
+
+FROM THE METHOD SIGNATURE:
+--------------------------------
+RETURN TYPE  → Adder
+PARAM TYPE   → SimpleAdder
+
+Hilt builds this mapping rule:
+--------------------------------
+Adder ← SimpleAdder
+
+
+==============================
+REQUIRED RULES FOR @Binds
+(MUST MEMORIZE)
+==============================
+
+1️⃣ INTERFACE IS COMPULSORY
+--------------------------------
+• @Binds works ONLY with interface or abstract return types
+• Concrete class as return type → ❌ NOT ALLOWED
+
+Reason:
+@Binds is for mapping abstractions, not creating objects
+
+
+2️⃣ @Inject CONSTRUCTOR IS COMPULSORY
+--------------------------------
+• The implementation (SimpleAdder) MUST have @Inject constructor
+• Hilt must know HOW to create the implementation
+• Without @Inject constructor → ❌ Compile-time error
+
+Reason:
+@Binds does NOT create objects
+It only selects which implementation to use
+
+
+3️⃣ MODULE MUST BE ABSTRACT
+--------------------------------
+• @Binds methods have no body
+• Abstract methods require abstract class
+• Object / concrete class → ❌ NOT ALLOWED
+
+
+4️⃣ METHOD MUST BE ABSTRACT
+--------------------------------
+• No method body { }
+• No return statement
+• No logic
+• Hilt NEVER executes this method
+
+Reason:
+This is a rule declaration, not executable code
+
+
+5️⃣ NO CREATION LOGIC ALLOWED
+--------------------------------
+• Cannot use:
+  - new
+  - return
+  - if / when
+  - parameters logic
+
+• Only TYPE MAPPING is allowed
+
+Reason:
+Creation responsibility belongs to @Inject constructor
+
+
+==============================
+WHEN TO USE @Binds
+==============================
+
+Use @Binds WHEN:
+--------------------------------
+• You have an interface
+• You own the implementation
+• Implementation has @Inject constructor
+• No custom creation logic needed
+• You want compile-time efficiency
+
+
+==============================
+WHEN NOT TO USE @Binds
+==============================
+
+Do NOT use @Binds WHEN:
+--------------------------------
+• Object creation requires logic
+• Third-party class
+• No @Inject constructor possible
+• You need conditional creation
+
+Use @Provides instead
+
+
+==============================
+FINAL MEMORY HOOK (GOLDEN)
+==============================
+
+@Inject constructor → HOW to create
+@Binds              → WHICH implementation
+@Inject field       → WHAT is required
+
+
+==============================
+ONE-LINE SUMMARY
+==============================
+
+@Binds does NOT create objects.
+@Binds only maps:
+--------------------------------
+Interface  →  Implementation
