@@ -1,0 +1,186 @@
+===============================
+FOREGROUND SERVICE – COMPLETE NOTES
+===============================
+
+--------------------------------
+WHAT IS A FOREGROUND SERVICE?
+--------------------------------
+A Foreground Service is a type of Android Service that:
+- Runs in the background
+- MUST display a persistent notification
+- Has higher priority than normal background services
+- Is less likely to be killed by the system
+
+It tells the system:
+👉 “The user is actively aware of this task, do not stop it.”
+
+--------------------------------
+KEY CHARACTERISTICS
+--------------------------------
+• Runs even when app is minimized or closed
+• Always shows a notification
+• User can see and control it
+• High priority in system memory
+• Requires FOREGROUND_SERVICE permission
+• Uses startForeground() method
+
+--------------------------------
+WHEN TO USE FOREGROUND SERVICE?
+--------------------------------
+Use Foreground Service when:
+
+✔ Task is important to user
+✔ Task must continue even if app is closed
+✔ Task should not be killed by system
+✔ User must be informed that task is running
+
+--------------------------------
+WHY TO USE FOREGROUND SERVICE?
+--------------------------------
+• Normal background services are restricted (Android 8+)
+• System may kill background tasks anytime
+• Foreground Service guarantees execution
+• Mandatory for long-running tasks
+
+--------------------------------
+COMMON USE CASES
+--------------------------------
+• Music playback
+• GPS / Location tracking
+• File download / upload
+• Fitness tracking
+• Screen recording
+• Call recording
+• Data synchronization
+• Navigation apps (Google Maps)
+
+--------------------------------
+FOREGROUND SERVICE LIFECYCLE
+--------------------------------
+1. startForegroundService()
+2. onCreate()
+3. onStartCommand()
+4. startForeground(notification)
+5. Service runs
+6. stopService() OR stopSelf()
+7. onDestroy()
+8. Notification removed
+
+--------------------------------
+IMPORTANT METHODS
+--------------------------------
+• startForegroundService()
+  → Starts foreground service
+
+• startForeground(id, notification)
+  → Promotes service to foreground
+
+• stopForeground(true)
+  → Removes notification
+
+• stopSelf()
+  → Stops service internally
+
+--------------------------------
+PERMISSION REQUIRED
+--------------------------------
+<uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+
+(Android 13+ may need additional permissions like location, media, etc.)
+
+--------------------------------
+FOREGROUND vs BACKGROUND vs BOUND SERVICE
+--------------------------------
+
+
+
+--------------------------------
+ADVANTAGES
+--------------------------------
+• Reliable execution
+• High system priority
+• User transparency
+• Suitable for critical tasks
+• Works even in low-memory situations
+
+--------------------------------
+DISADVANTAGES
+--------------------------------
+• Mandatory notification (can annoy users)
+• Battery consumption
+• Overuse may lead to bad UX
+• Play Store policy restrictions
+
+--------------------------------
+ANDROID VERSION NOTES
+--------------------------------
+• Android 8+ → Background services restricted
+• Foreground Service preferred
+• Android 10+ → Foreground service type required
+• Android 13+ → More strict permissions
+
+--------------------------------
+BEST PRACTICES
+--------------------------------
+✔ Use only when necessary
+✔ Stop service when task finishes
+✔ Provide meaningful notification
+✔ Don’t misuse for background work
+✔ Respect user privacy
+
+--------------------------------
+EXAM ONE-LINER
+--------------------------------
+"A Foreground Service is an Android service that performs long-running tasks
+while showing a persistent notification to the user."
+
+--------------------------------
+INTERVIEW ONE-LINER
+--------------------------------
+"Foreground Services are used for user-visible, high-priority background tasks
+that must continue even when the app is not in the foreground."
+
+===============================
+END
+===============================
+
+
+
+========================================================
+SERVICE COMPARISON TABLES (CORRECTLY FORMATTED)
+========================================================
+
+-----------------------------------------------
+FOREGROUND SERVICE vs BACKGROUND vs BOUND SERVICE
+-----------------------------------------------
+
++----------------------+----------------------+----------------------+----------------------+
+| Feature              | Foreground Service   | Background Service   | Bound Service        |
++----------------------+----------------------+----------------------+----------------------+
+| Runs in background   | YES                  | YES                  | YES                  |
+| Notification shown   | YES (Mandatory)      | NO                   | NO                   |
+| User aware           | YES                  | NO                   | YES                  |
+| High priority        | YES                  | NO                   | NO                   |
+| Can be killed        | Rare                 | Very likely          | When unbound         |
+| Best for long tasks  | YES                  | NO                   | NO                   |
+| UI interaction       | NO                   | NO                   | YES (via binding)    |
++----------------------+----------------------+----------------------+----------------------+
+
+------------------------------------------------
+FOREGROUND SERVICE vs WORKMANAGER
+------------------------------------------------
+
++-----------------------+----------------------+----------------------+
+| Feature               | Foreground Service   | WorkManager          |
++-----------------------+----------------------+----------------------+
+| Immediate execution   | YES                  | NO                   |
+| Long-running          | YES                  | NO                   |
+| Guaranteed execution  | YES                  | YES                  |
+| Needs notification    | YES                  | NO                   |
+| User visible          | YES                  | NO                   |
+| Best for              | Music, GPS, Calls    | Background sync      |
++-----------------------+----------------------+----------------------+
+
+========================================================
+END
+========================================================
