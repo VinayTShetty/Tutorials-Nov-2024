@@ -1,0 +1,171 @@
+/*
+========================================================
+ANDROID ACTIVITY LIFE CYCLE – COMPLETE NOTES IN CODE FORM
+========================================================
+
+WHAT IS ACTIVITY LIFE CYCLE?
+----------------------------
+Activity Life Cycle defines the different states an Activity
+goes through from the time it is created until it is destroyed.
+Android OS controls these states using callback methods.
+
+LIFE CYCLE METHODS ORDER
+------------------------
+onCreate()
+onStart()
+onResume()
+onPause()
+onStop()
+onRestart()
+onDestroy()
+
+----------------------------------------------------------
+REAL LIFE EXAMPLE
+----------------------------------------------------------
+Open App        -> onCreate → onStart → onResume
+Press Home     -> onPause → onStop
+Reopen App     -> onRestart → onStart → onResume
+Press Back     -> onPause → onStop → onDestroy
+
+----------------------------------------------------------
+LOGCAT TAG USED
+----------------------------------------------------------
+TAG = "ActivityLifeCycle"
+----------------------------------------------------------
+*/
+
+package com.androidtutorials.androidhelloworld
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.util.Log
+
+class MainActivity : AppCompatActivity() {
+
+    private val TAG = "ActivityLifeCycle"
+
+    /*
+    ------------------------------------------------------
+    1. onCreate()
+    ------------------------------------------------------
+    - Called when activity is created for the first time
+    - Used to initialize UI and data
+    - setContentView() is called here
+    - Called only once (unless activity destroyed)
+    */
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        Log.d(TAG, "onCreate called")
+    }
+
+    /*
+    ------------------------------------------------------
+    2. onStart()
+    ------------------------------------------------------
+    - Called when activity becomes visible to user
+    - Activity is not yet interactive
+    */
+    override fun onStart() {
+        super.onStart()
+        Log.d(TAG, "onStart called")
+    }
+
+    /*
+    ------------------------------------------------------
+    3. onResume()
+    ------------------------------------------------------
+    - Called when activity comes to foreground
+    - User can interact with UI
+    - Start animations, camera, sensors here
+    */
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "onResume called")
+    }
+
+    /*
+    ------------------------------------------------------
+    4. onPause()
+    ------------------------------------------------------
+    - Called when another activity comes in front
+    - Activity is partially visible
+    - Save data, pause animations
+    - Must execute quickly
+    */
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "onPause called")
+    }
+
+    /*
+    ------------------------------------------------------
+    5. onStop()
+    ------------------------------------------------------
+    - Activity is no longer visible
+    - Release heavy resources
+    */
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG, "onStop called")
+    }
+
+    /*
+    ------------------------------------------------------
+    6. onRestart()
+    ------------------------------------------------------
+    - Called when activity is restarting after stop
+    - Followed by onStart() and onResume()
+    */
+    override fun onRestart() {
+        super.onRestart()
+        Log.d(TAG, "onRestart called")
+    }
+
+    /*
+    ------------------------------------------------------
+    7. onDestroy()
+    ------------------------------------------------------
+    - Called before activity is destroyed
+    - Cleanup resources
+    - Final state of activity
+    */
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG, "onDestroy called")
+    }
+}
+
+/*
+----------------------------------------------------------
+SAMPLE LOGCAT OUTPUT
+----------------------------------------------------------
+
+App Launched:
+onCreate called
+onStart called
+onResume called
+
+Home Button Pressed:
+onPause called
+onStop called
+
+App Reopened:
+onRestart called
+onStart called
+onResume called
+
+Back Button Pressed:
+onPause called
+onStop called
+onDestroy called
+
+----------------------------------------------------------
+IMPORTANT INTERVIEW POINTS
+----------------------------------------------------------
+- onCreate() is called only once
+- onResume() is when user can interact
+- onPause() should be fast
+- onDestroy() is not guaranteed always
+----------------------------------------------------------
+*/
