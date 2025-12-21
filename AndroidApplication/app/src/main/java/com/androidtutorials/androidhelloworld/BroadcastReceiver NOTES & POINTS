@@ -1,0 +1,79 @@
+/*
+========================================================
+ANDROID BROADCAST RECEIVER – NOTES & POINTS
+========================================================
+
+WHAT IS A BROADCAST RECEIVER?
+----------------------------
+A BroadcastReceiver is an Android component used to listen
+and respond to broadcast messages sent by:
+- Android system
+- Other apps
+- Your own app
+
+It does NOT have a UI.
+
+--------------------------------------------------------
+WHY TO USE BROADCAST RECEIVER?
+--------------------------------------------------------
+- To listen for system-wide events
+- To perform actions even when app is not running
+- To communicate between app components
+- To react instantly to changes (battery, network, etc.)
+
+--------------------------------------------------------
+WHEN TO USE BROADCAST RECEIVER?
+--------------------------------------------------------
+- Battery charging / discharging
+- Network connectivity changes
+- SMS received
+- Device boot completed
+- Airplane mode enabled/disabled
+- Custom app events
+
+--------------------------------------------------------
+TYPES OF BROADCAST RECEIVERS
+--------------------------------------------------------
+1. Static (Manifest Registered)
+   - Declared in AndroidManifest.xml
+   - Works even when app is closed
+
+2. Dynamic (Runtime Registered)
+   - Registered in code
+   - Active only while app/activity is running
+
+--------------------------------------------------------
+IMPORTANT METHODS
+--------------------------------------------------------
+onReceive(context: Context, intent: Intent)
+
+- Called when broadcast is received
+- Runs on Main Thread
+- Must execute quickly
+
+--------------------------------------------------------
+IMPORTANT RULES
+--------------------------------------------------------
+✔ No UI allowed
+✔ Runs on Main Thread
+✔ Do NOT do long operations
+✔ Use Service / WorkManager for long tasks
+✔ Always unregister dynamic receivers
+
+--------------------------------------------------------
+REAL LIFE EXAMPLE
+--------------------------------------------------------
+User connects charger →
+Android sends POWER_CONNECTED broadcast →
+BroadcastReceiver receives it →
+App logs or reacts to event
+
+--------------------------------------------------------
+INTERVIEW POINTS
+--------------------------------------------------------
+✔ BroadcastReceiver has no UI
+✔ onReceive() is short-lived
+✔ Static receiver works even if app is killed
+✔ Dynamic receiver is safer for UI-related tasks
+========================================================
+*/
