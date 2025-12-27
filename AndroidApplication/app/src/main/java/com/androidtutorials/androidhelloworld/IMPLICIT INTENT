@@ -1,0 +1,25 @@
+/*
+---------------------------------------
+IMPLICIT INTENT - THEORY
+---------------------------------------
+
+👉 Implicit Intent does NOT specify the target component.
+
+👉 Android system decides which app can handle the request.
+
+👉 It is mostly used to open system apps or other apps.
+
+---------------------------------------
+COMMON USE CASES
+---------------------------------------
+✔ Open Dialer
+✔ Open Browser
+✔ Send Email
+✔ Share Text
+✔ Open Camera
+
+---------------------------------------
+KEY POINT
+---------------------------------------
+Action + Data = Implicit Intent
+*/
