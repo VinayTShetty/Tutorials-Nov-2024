@@ -1,0 +1,107 @@
+/*
+========================================================
+ADDITIONAL POINTS – ACTIVITY RESULT EXAMPLE
+(BASED ON YOUR CODE)
+========================================================
+
+--------------------------------------------------------
+WHY RESULT IS SENT USING INTENT ?
+--------------------------------------------------------
+• Intent is the standard carrier of data between components
+• Result data is packed inside Intent as Extras
+• Keeps consistency with normal Intent communication
+• Allows passing multiple values easily
+
+Example:
+resultIntent.putExtra("result_key", value)
+
+--------------------------------------------------------
+WHY RESULT KEY SHOULD BE CONSTANT ?
+--------------------------------------------------------
+• Avoids typo-related bugs
+• Improves readability and maintenance
+• Best practice for large projects
+
+Example:
+const val RESULT_KEY = "result_key"
+
+--------------------------------------------------------
+WHY RESULT_OK IS USED ?
+--------------------------------------------------------
+• Indicates successful operation
+• Helps caller decide what to do
+• Alternative values:
+  - RESULT_CANCELED
+  - Custom result codes
+
+--------------------------------------------------------
+WHAT IF USER PRESSES BACK BUTTON ?
+--------------------------------------------------------
+• System automatically calls finish()
+• RESULT_CANCELED is returned by default
+• No data is sent unless setResult() was called
+
+--------------------------------------------------------
+HOW MAIN ACTIVITY RECEIVES RESULT ?
+--------------------------------------------------------
+• Through Activity Result Launcher callback
+• Callback is triggered only after finish()
+• Result is delivered in result.data Intent
+
+--------------------------------------------------------
+WHY REGISTER LAUNCHER OUTSIDE onCreate() ?
+--------------------------------------------------------
+• Required by Activity Result API
+• Ensures lifecycle awareness
+• Prevents memory leaks
+• Avoids re-registration on rotation
+
+--------------------------------------------------------
+WHAT HAPPENS ON CONFIGURATION CHANGE ?
+--------------------------------------------------------
+• Launcher survives configuration change
+• Result callback remains active
+• Safer than deprecated onActivityResult()
+
+--------------------------------------------------------
+WHY NOT USE startActivityForResult() ?
+--------------------------------------------------------
+• Deprecated
+• Not lifecycle-aware
+• Hard to manage request codes
+• Activity Result API is safer and cleaner
+
+--------------------------------------------------------
+WHY THIS APPROACH IS BEST PRACTICE ?
+--------------------------------------------------------
+• Official Android recommendation
+• Cleaner code structure
+• Better lifecycle handling
+• Works well with fragments
+
+--------------------------------------------------------
+COMMON MISTAKES TO AVOID
+--------------------------------------------------------
+• Forgetting finish()
+• Using wrong onCreate() signature
+• Not checking RESULT_OK
+• Using hardcoded keys everywhere
+• Registering launcher inside onCreate()
+
+--------------------------------------------------------
+REAL-WORLD USE CASES
+--------------------------------------------------------
+• Login screen returning user info
+• Form submission result
+• Image picker returning URI
+• Selecting item from list
+• Payment success/failure
+
+--------------------------------------------------------
+ONE-LINE TAKEAWAY
+--------------------------------------------------------
+Activity Result API + finish() ensures
+safe, clean, and lifecycle-aware
+communication between activities.
+========================================================
+*/

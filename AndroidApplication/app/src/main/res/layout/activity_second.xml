@@ -6,16 +6,8 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/btnOpen"
+        android:id="@+id/btnSendResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Open Second Activity" />
-
-    <TextView
-        android:id="@+id/txtResult"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Result will appear here"
-        android:layout_marginTop="16dp"
-        android:textSize="18sp"/>
+        android:text="Send Result Back" />
 </LinearLayout>

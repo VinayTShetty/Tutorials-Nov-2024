@@ -1,0 +1,94 @@
+/*
+========================================================
+finish() IN ANDROID - COMPLETE NOTES
+========================================================
+
+WHAT IS finish() ?
+--------------------------------------------------------
+• finish() is a method of Activity class
+• It closes the current Activity
+• Removes the Activity from the back stack
+• Returns control to the previous Activity
+
+--------------------------------------------------------
+WHY finish() IS USED ?
+--------------------------------------------------------
+• To close an Activity when its job is done
+• To return to previous Activity
+• To send result back to calling Activity
+• To prevent multiple instances of Activity
+• To control navigation flow
+
+--------------------------------------------------------
+finish() IN ACTIVITY RESULT SCENARIO
+--------------------------------------------------------
+• setResult() alone is NOT enough
+• Result is delivered ONLY when Activity finishes
+• finish() triggers the result callback in caller
+
+Example:
+setResult(RESULT_OK, intent)
+finish()   // <-- mandatory
+
+--------------------------------------------------------
+WHAT HAPPENS INTERNALLY ?
+--------------------------------------------------------
+1. Activity lifecycle enters onPause()
+2. Then onStop()
+3. Then onDestroy()
+4. Activity is removed from back stack
+5. Previous Activity resumes
+6. Result is delivered (if setResult was called)
+
+--------------------------------------------------------
+WHAT IF finish() IS NOT USED ?
+--------------------------------------------------------
+• Current Activity remains open
+• Back stack is NOT cleared
+• Caller Activity does NOT receive result
+• Activity Result callback is NOT triggered
+• User must press back manually
+
+--------------------------------------------------------
+finish() vs BACK BUTTON
+--------------------------------------------------------
+• Back button → System calls finish()
+• finish() → App calls finish()
+
+Both result in Activity closure
+
+--------------------------------------------------------
+WHEN TO USE finish() ?
+--------------------------------------------------------
+• After submitting a form
+• After login success
+• After returning result
+• After splash screen
+• When Activity should not stay in back stack
+
+--------------------------------------------------------
+WHEN NOT TO USE finish() ?
+--------------------------------------------------------
+• When user may return to Activity
+• When temporary pause is needed
+• When Activity state should persist
+
+--------------------------------------------------------
+COMMON INTERVIEW QUESTIONS
+--------------------------------------------------------
+Q: Is finish() mandatory for returning result?
+A: YES
+
+Q: Does finish() destroy activity?
+A: YES
+
+Q: Can finish() be called inside onCreate()?
+A: YES (for splash screens)
+
+--------------------------------------------------------
+ONE-LINE SUMMARY
+--------------------------------------------------------
+finish() closes the current Activity and is required
+to deliver results and manage navigation properly.
+========================================================
+*/
