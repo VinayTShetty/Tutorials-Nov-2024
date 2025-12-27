@@ -1,0 +1,29 @@
+
+---------------------------------------
+TYPES OF INTENTS
+---------------------------------------
+
+1️⃣ EXPLICIT INTENT
+- Target component is known
+- Used inside the same app
+- Example: Move from MainActivity to SecondActivity
+
+2️⃣ IMPLICIT INTENT
+- Target component is NOT known
+- Android decides which app can handle it
+- Example: Open Dialer, Browser, Share text
+
+---------------------------------------
+COMPARISON
+---------------------------------------
+
+EXPLICIT INTENT
+✔ Used within app
+✔ Faster
+✔ More control
+
+IMPLICIT INTENT
+✔ Used for system apps
+✔ Flexible
+✔ Depends on user choice
+

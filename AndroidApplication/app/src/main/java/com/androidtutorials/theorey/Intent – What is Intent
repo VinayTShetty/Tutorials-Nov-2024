@@ -1,0 +1,34 @@
+---------------------------------------
+INTENT - THEORY (BASIC)
+---------------------------------------
+
+👉 An Intent is a messaging object in Android.
+
+👉 It is used to request an action from another app component.
+
+👉 Intent acts as a bridge between components.
+
+Android Components that use Intent:
+1. Activity
+2. Service
+3. Broadcast Receiver
+
+---------------------------------------
+WHAT CAN INTENT DO?
+---------------------------------------
+✔ Start an Activity
+✔ Send data between Activities
+✔ Open system apps (Dialer, Browser, Camera)
+✔ Start background services
+✔ Send broadcasts
+
+---------------------------------------
+REAL LIFE EXAMPLE
+---------------------------------------
+Like a letter:
+- Address → Target component
+- Content → Data (Extras)
+- Action → What you want to do
+
+
+
