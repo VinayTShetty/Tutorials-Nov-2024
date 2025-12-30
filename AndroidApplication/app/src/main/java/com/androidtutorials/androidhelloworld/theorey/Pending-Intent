@@ -1,0 +1,102 @@
+/*
+========================================================
+PENDING INTENT – INTUITIVE + ANDROID-LEVEL EXPLANATION
+========================================================
+
+--------------------------------------------------------
+WHAT IS PendingIntent (IN SIMPLE WORDS)
+--------------------------------------------------------
+PendingIntent is a special object that gives
+the Android SYSTEM permission to execute
+your Intent later on your app’s behalf.
+
+--------------------------------------------------------
+THE “PERMISSION SLIP” ANALOGY (IMPORTANT)
+--------------------------------------------------------
+Think of PendingIntent like a signed slip saying:
+
+"Dear Android,
+If my app is not running or is killed,
+you are ALLOWED to perform this action
+for me later."
+
+--------------------------------------------------------
+WHY ANDROID NEEDS THIS SLIP
+--------------------------------------------------------
+• Your app process may be dead
+• System cannot trust normal Intent
+• Android must have explicit permission
+• Security & lifecycle safety
+
+--------------------------------------------------------
+NORMAL Intent vs PendingIntent
+--------------------------------------------------------
+Intent:
+• Owned by your app
+• Works immediately
+• Fails if app is killed
+
+PendingIntent:
+• Owned by Android system
+• Can be executed later
+• Survives app death
+• Can wake your app
+
+--------------------------------------------------------
+WHAT ANDROID DOES INTERNALLY
+--------------------------------------------------------
+• Android stores the PendingIntent
+• Android remembers:
+   - What to do
+   - Which app owns it
+   - What permissions it has
+• At trigger time, Android executes it
+  as if YOUR app requested it
+
+--------------------------------------------------------
+WHY PendingIntent IS REQUIRED FOR:
+--------------------------------------------------------
+• AlarmManager
+• Notification clicks
+• App widgets
+• System callbacks
+
+--------------------------------------------------------
+HOW ANDROID EXECUTES IT
+--------------------------------------------------------
+AlarmManager fires →
+Android checks PendingIntent →
+Android temporarily assumes your app’s identity →
+Android performs the Intent
+
+--------------------------------------------------------
+SECURITY BENEFIT
+--------------------------------------------------------
+• Prevents other apps from modifying your intent
+• Controlled execution
+• Requires explicit flags (IMMUTABLE / MUTABLE)
+
+--------------------------------------------------------
+ANDROID 12+ SECURITY NOTE
+--------------------------------------------------------
+PendingIntent must specify:
+• FLAG_IMMUTABLE (recommended)
+• FLAG_MUTABLE (only when needed)
+
+--------------------------------------------------------
+REAL-WORLD ANALOGY (BEST ONE)
+--------------------------------------------------------
+PendingIntent =
+"Pre-approved instruction card"
+stored with Android system,
+used later when conditions are met.
+
+--------------------------------------------------------
+ONE-LINE TAKEAWAY (MEMORIZE)
+--------------------------------------------------------
+PendingIntent is Android’s trusted
+permission slip that allows the system
+to safely run your Intent later,
+even if your app is not alive.
+========================================================
+*/

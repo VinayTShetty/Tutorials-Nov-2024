@@ -1,0 +1,191 @@
+/*
+========================================================
+ALARM MANAGER – COMPLETE UNDERSTANDING (ALL POINTS TOGETHER)
+ANDROID-CONCEPT-CENTRIC EXPLANATION
+========================================================
+
+--------------------------------------------------------
+WHAT IS AlarmManager ?
+--------------------------------------------------------
+• AlarmManager is an Android SYSTEM API
+• Used to schedule an event at a specific time
+• Works even if the app is closed or killed
+• It does NOT execute code directly
+
+--------------------------------------------------------
+VERY IMPORTANT RULE
+--------------------------------------------------------
+AlarmManager DOES NOT run your code.
+It ONLY triggers a PendingIntent.
+
+--------------------------------------------------------
+WHAT AlarmManager CAN TRIGGER
+--------------------------------------------------------
+• PendingIntent → Activity
+• PendingIntent → Service
+• PendingIntent → BroadcastReceiver (BEST PRACTICE)
+
+--------------------------------------------------------
+WHAT IS PendingIntent ?
+--------------------------------------------------------
+• A wrapper around Intent
+• Given to Android SYSTEM, not kept by your app
+• Allows system to perform your Intent later
+• Works even if app process is killed
+
+--------------------------------------------------------
+WHY NORMAL Intent IS NOT ENOUGH
+--------------------------------------------------------
+• Normal Intent works only while app is alive
+• App may be killed before alarm fires
+• System cannot execute a normal Intent safely
+
+--------------------------------------------------------
+PendingIntent = SYSTEM PERMISSION
+--------------------------------------------------------
+• "Dear Android, you are allowed to do this on my behalf"
+• This is why it survives app death
+
+--------------------------------------------------------
+WHY BroadcastReceiver IS USED WITH AlarmManager
+--------------------------------------------------------
+• Lightweight component
+• No UI
+• Designed for system events
+• Works when app is closed
+• Fast execution (10 seconds limit)
+
+--------------------------------------------------------
+STANDARD ANDROID FLOW (CORRECT)
+--------------------------------------------------------
+MainActivity
+   ↓
+AlarmManager (schedule time)
+   ↓
+PendingIntent (what to do)
+   ↓
+BroadcastReceiver.onReceive()
+   ↓
+Notification / Service / Logic
+
+--------------------------------------------------------
+CAN AlarmManager OPEN APP SCREEN WHEN APP IS CLOSED?
+--------------------------------------------------------
+✔ YES – Technically possible
+❌ NOT recommended
+❌ Often blocked on modern Android
+
+--------------------------------------------------------
+WHY OPENING ACTIVITY DIRECTLY IS BAD
+--------------------------------------------------------
+• Bad user experience
+• App suddenly pops on screen
+• Restricted from Android 10+
+• Violates background execution rules
+
+--------------------------------------------------------
+WHAT ANDROID ALLOWS (BEST PRACTICE)
+--------------------------------------------------------
+✔ Alarm fires
+✔ Show notification
+✔ User clicks notification
+✔ App screen opens
+
+--------------------------------------------------------
+THIS USER-CONTROLLED FLOW IS MANDATORY
+--------------------------------------------------------
+System Event → Notification → User Action → UI
+
+--------------------------------------------------------
+WHEN DIRECT UI LAUNCH IS ALLOWED
+--------------------------------------------------------
+• Alarm clock apps
+• Incoming call screen
+• Calendar alarms
+• Foreground apps
+
+--------------------------------------------------------
+WHY NOT START SERVICE DIRECTLY?
+--------------------------------------------------------
+• Background service launch is restricted
+• Heavy component
+• May fail silently
+
+BEST PRACTICE:
+Alarm → BroadcastReceiver → Foreground Service (if needed)
+
+--------------------------------------------------------
+ALARM TYPES (IMPORTANT)
+--------------------------------------------------------
+RTC
+→ Real time clock
+→ Does NOT wake device
+
+RTC_WAKEUP
+→ Real time clock
+→ Wakes device
+
+ELAPSED_REALTIME
+→ Time since boot
+→ No wake
+
+ELAPSED_REALTIME_WAKEUP
+→ Time since boot
+→ Wakes device
+
+--------------------------------------------------------
+EXACT vs INEXACT ALARMS
+--------------------------------------------------------
+setExact()
+→ Fires at exact time
+→ Battery expensive
+
+setInexactRepeating()
+→ System batches alarms
+→ Battery friendly
+
+--------------------------------------------------------
+ANDROID 12+ RESTRICTIONS
+--------------------------------------------------------
+• Exact alarms need permission
+• Use ONLY when necessary
+
+<uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
+
+--------------------------------------------------------
+COMMON MISTAKES
+--------------------------------------------------------
+❌ Expecting AlarmManager to run code
+❌ Skipping PendingIntent
+❌ Not using BroadcastReceiver
+❌ Forcing UI launch
+❌ Using AlarmManager for background work
+
+--------------------------------------------------------
+WHEN NOT TO USE AlarmManager
+--------------------------------------------------------
+❌ Background syncing
+❌ Network-dependent work
+❌ Guaranteed execution
+
+USE INSTEAD:
+• WorkManager
+• JobScheduler
+
+--------------------------------------------------------
+REAL-WORLD USE CASES
+--------------------------------------------------------
+✔ Alarm clock
+✔ Medicine reminder
+✔ Calendar alerts
+✔ Time-critical notifications
+
+--------------------------------------------------------
+ONE-LINE SUMMARY (MEMORIZE THIS)
+--------------------------------------------------------
+AlarmManager schedules WHEN,
+PendingIntent defines WHAT,
+BroadcastReceiver decides WHERE code runs.
+UI should open only with user action.
+========================================================
+*/
