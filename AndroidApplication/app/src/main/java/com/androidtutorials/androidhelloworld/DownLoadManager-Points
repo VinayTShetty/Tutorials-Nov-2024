@@ -1,0 +1,190 @@
+/*
+========================================================
+DOWNLOAD MANAGER – COMPLETE THEORY (ANDROID)
+========================================================
+
+--------------------------------------------------------
+WHAT IS DownloadManager ?
+--------------------------------------------------------
+• DownloadManager is an ANDROID SYSTEM SERVICE
+• Provided by Android OS
+• Used to download files in background
+• Works even if app is closed or killed
+• Android system performs the actual download
+
+IMPORTANT:
+Your app DOES NOT download the file.
+Android OS downloads the file on your behalf.
+
+--------------------------------------------------------
+WHY SHOULD WE USE DownloadManager ?
+--------------------------------------------------------
+Because Android already solves all hard problems:
+
+✔ Background execution
+✔ App process death handling
+✔ Network changes (Wi-Fi ↔ Mobile)
+✔ Retry logic
+✔ Battery optimization
+✔ System download notifications
+✔ Large file handling
+
+Using DownloadManager = Using Android best practices.
+
+--------------------------------------------------------
+WHEN SHOULD WE USE DownloadManager ?
+--------------------------------------------------------
+Use DownloadManager when:
+
+✔ Downloading LARGE files
+✔ Download must continue if app is killed
+✔ File should be user-visible
+✔ Reliability is important
+✔ System notification is required
+
+REAL-WORLD USE CASES:
+• Image / Video download
+• PDF / ZIP download
+• Music files
+• Reports / invoices
+• Offline content
+
+--------------------------------------------------------
+IS DownloadManager LEGACY ?
+--------------------------------------------------------
+❌ NO — DownloadManager is NOT legacy
+
+FACTS:
+• Still part of Android SDK
+• Actively maintained
+• Used internally by Google apps
+• Not deprecated
+
+It is STABLE, not obsolete.
+
+--------------------------------------------------------
+WHEN SHOULD WE NOT USE DownloadManager ?
+--------------------------------------------------------
+❌ Do NOT use DownloadManager for:
+
+• API calls (JSON / XML)
+• Uploading files
+• Streaming data
+• Real-time sync
+• Custom authentication headers
+• Small network requests
+
+--------------------------------------------------------
+WHAT ARE THE ALTERNATIVES ?
+--------------------------------------------------------
+Depends on use-case (NOT replacements).
+
+--------------------------------------------------------
+COMPARISON TABLE
+--------------------------------------------------------
+
+| Tool / Feature        | DownloadManager | Service | WorkManager | Retrofit | Flow |
+|----------------------|-----------------|---------|-------------|----------|------|
+| Runs if app killed   | YES             | NO      | YES         | NO       | NO   |
+| Large file support   | BEST            | RISKY   | LIMITED     | MANUAL   | NO   |
+| System notification  | AUTO            | MANUAL  | MANUAL      | MANUAL   | NO   |
+| Battery optimized    | YES             | NO      | YES         | DEPENDS  | NO   |
+| Retry handling       | AUTO            | MANUAL  | AUTO        | MANUAL   | NO   |
+| User-visible file    | YES             | NO      | NO          | NO       | NO   |
+| Background safe      | YES             | NO      | YES         | NO       | NO   |
+
+--------------------------------------------------------
+DOWNLOADMANAGER vs SERVICE
+--------------------------------------------------------
+SERVICE:
+• App-owned
+• Easily killed
+• Must manage threads
+• Background restricted
+• Battery unfriendly
+
+DOWNLOADMANAGER:
+• System-owned
+• Never killed
+• Background-safe
+• Optimized by OS
+
+RULE:
+Never use Service for file downloads.
+
+--------------------------------------------------------
+DOWNLOADMANAGER vs WORKMANAGER
+--------------------------------------------------------
+DownloadManager:
+• File downloads
+• User-visible
+• Immediate execution
+• System notifications
+
+WorkManager:
+• Background tasks
+• App logic
+• Deferred execution
+• No built-in notifications
+
+They solve DIFFERENT problems.
+
+--------------------------------------------------------
+DOWNLOADMANAGER vs RETROFIT / OKHTTP
+--------------------------------------------------------
+DownloadManager:
+• Files
+• Background safe
+• Automatic retries
+• Limited control
+
+Retrofit / OkHttp:
+• API calls
+• App must be alive
+• Full control
+• Manual handling
+
+RULE:
+APIs → Retrofit
+Files → DownloadManager
+
+--------------------------------------------------------
+WHERE DOES FLOW FIT ?
+--------------------------------------------------------
+Flow is NOT a downloader.
+
+• Flow is a reactive data stream
+• Used to observe data changes
+• Needs Retrofit / DownloadManager underneath
+
+Flow can OBSERVE download status,
+but cannot download files itself.
+
+--------------------------------------------------------
+ARCHITECTURAL RULE (MUST REMEMBER)
+--------------------------------------------------------
+API DATA        → Retrofit / OkHttp
+FILE DOWNLOAD  → DownloadManager
+BACKGROUND JOB → WorkManager
+UI STATE       → Flow / LiveData
+
+--------------------------------------------------------
+ONE-LINE INTERVIEW ANSWERS
+--------------------------------------------------------
+Q: Why DownloadManager?
+A: Because it is system-managed and background-safe.
+
+Q: Is it deprecated?
+A: No, it is stable and recommended.
+
+Q: When not to use?
+A: For APIs, uploads, or streaming.
+
+--------------------------------------------------------
+FINAL ONE-LINE SUMMARY (MEMORIZE)
+--------------------------------------------------------
+DownloadManager is the safest,
+system-approved way to download files
+that must survive app death.
+========================================================
+*/
