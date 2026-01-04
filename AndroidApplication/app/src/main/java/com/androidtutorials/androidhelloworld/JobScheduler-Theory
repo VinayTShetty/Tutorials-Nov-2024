@@ -1,0 +1,225 @@
+/*
+================================================================================
+JOB SCHEDULER – COMPLETE THEORY + COMPARISON (ANDROID)
+================================================================================
+
+-----------------------------------------
+WHAT IS JobScheduler ?
+-----------------------------------------
+• JobScheduler is an ANDROID SYSTEM API
+• Introduced in Android 5.0 (API 21)
+• Used to schedule BACKGROUND work intelligently
+• System decides WHEN to run your task based on constraints
+• Optimized for battery, performance, and system health
+
+-----------------------------------------
+WHY JobScheduler EXISTS (THE CORE REASON)
+-----------------------------------------
+Before JobScheduler:
+• Developers ran background work freely
+• Apps drained battery
+• Too many background services
+• Poor user experience
+
+Android’s solution:
+👉 Centralize background work
+👉 Let SYSTEM decide execution time
+👉 Save battery + CPU + memory
+
+-----------------------------------------
+WHY NOT JUST USE Service ?
+-----------------------------------------
+Service:
+• Runs immediately
+• Runs on main thread by default
+• Developer controls lifecycle
+• Can easily misuse and drain battery
+
+JobScheduler:
+• Runs ONLY when conditions are satisfied
+• System controls execution
+• Automatically paused/resumed
+• Battery-optimized
+
+-----------------------------------------
+WHY JobScheduler EVEN IF WE HAVE FLOWS / THREADS ?
+-----------------------------------------
+Flows / Threads:
+• Only control EXECUTION
+• DO NOT control WHEN system allows execution
+• App-level only
+
+JobScheduler:
+• SYSTEM-level scheduling
+• Survives app kill
+• Survives reboot (optional)
+• Respects device state
+
+👉 Flows/Threads = HOW to do work
+👉 JobScheduler = WHEN system allows work
+
+-----------------------------------------
+WHEN SHOULD YOU USE JobScheduler ?
+-----------------------------------------
+✔ Background tasks
+✔ Network dependent work
+✔ Periodic syncing
+✔ Deferred work
+✔ Work that can wait
+✔ Work that must survive app kill
+
+-----------------------------------------
+WHEN YOU SHOULD NOT USE JobScheduler ?
+-----------------------------------------
+❌ Immediate UI tasks
+❌ User-triggered instant actions
+❌ Very short tasks
+❌ Foreground-only work
+
+-----------------------------------------
+JOB SCHEDULER – WORKING PRINCIPLE
+-----------------------------------------
+1. App creates JobInfo
+2. App defines constraints
+3. App schedules job
+4. Android stores job
+5. Android waits for conditions
+6. Android starts JobService
+7. JobService does work
+8. JobService calls jobFinished()
+
+-----------------------------------------
+JOB SCHEDULER CORE METHODS
+-----------------------------------------
+JobInfo.Builder()
+→ Define constraints
+
+JobScheduler.schedule()
+→ Hand job to Android system
+
+JobService.onStartJob()
+→ System starts work
+
+jobFinished()
+→ Inform system job is done
+
+onStopJob()
+→ System stops job if needed
+
+-----------------------------------------
+IMPORTANT CONSTRAINTS YOU CAN SET
+-----------------------------------------
+• Network type
+• Charging state
+• Device idle
+• Periodic execution
+• Persistence across reboot
+
+-----------------------------------------
+WHY JobScheduler IS BETTER THAN MANUAL THREADS
+-----------------------------------------
+• System-managed lifecycle
+• Battery aware
+• App kill safe
+• System throttling support
+
+-----------------------------------------
+IS JobScheduler LEGACY ?
+-----------------------------------------
+❌ NO (still valid)
+BUT:
+⚠ Direct usage is discouraged in modern apps
+
+RECOMMENDED:
+✔ WorkManager (internally uses JobScheduler)
+
+-----------------------------------------
+WHAT IS THE MODERN ALTERNATIVE ?
+-----------------------------------------
+WorkManager
+• Higher-level API
+• Backward compatible
+• Handles retries
+• Handles constraints
+• Uses JobScheduler internally
+
+-----------------------------------------
+COMPARISON TABLE – ALL BACKGROUND OPTIONS
+-----------------------------------------
+
+| Feature / Tool       | Service | Foreground Service | JobScheduler | AlarmManager | WorkManager |
+|----------------------|--------|--------------------|--------------|--------------|-------------|
+| Runs immediately     | YES    | YES                | NO           | YES          | NO          |
+| Battery optimized    | NO     | NO                 | YES          | NO           | YES         |
+| System controlled    | NO     | NO                 | YES          | PARTIAL      | YES         |
+| Survives app kill    | NO     | YES                | YES          | YES          | YES         |
+| Network constraints  | NO     | NO                 | YES          | NO           | YES         |
+| Periodic work        | HARD   | NO                 | YES          | YES          | YES         |
+| Recommended today    | ❌     | ⚠                  | ⚠            | ❌           | ✅ BEST     |
+
+-----------------------------------------
+WHEN TO USE WHAT (RULES TO MEMORIZE)
+-----------------------------------------
+
+| Use Case                          | Best Choice      |
+|----------------------------------|------------------|
+| Immediate background task        | Service          |
+| User-visible ongoing task        | ForegroundService|
+| Time-based exact trigger         | AlarmManager     |
+| System-optimized background work | JobScheduler     |
+| Guaranteed background work       | WorkManager      |
+
+-----------------------------------------
+JOB SCHEDULER vs ALARM MANAGER
+-----------------------------------------
+AlarmManager:
+• Triggers at EXACT time
+• Not battery friendly
+• No constraints
+• Time-based only
+
+JobScheduler:
+• Constraint-based
+• Battery friendly
+• Not exact timing
+• Smart scheduling
+
+-----------------------------------------
+REAL WORLD EXAMPLES
+-----------------------------------------
+JobScheduler:
+✔ Sync contacts when WiFi available
+✔ Upload logs when charging
+✔ Background cleanup
+
+AlarmManager:
+✔ Alarm clock
+✔ Calendar reminder
+✔ Medicine alert
+
+Service:
+✔ Music playback
+✔ File upload with progress
+✔ Active user task
+
+-----------------------------------------
+INTERVIEW ONE-LINERS (VERY IMPORTANT)
+-----------------------------------------
+• JobScheduler lets SYSTEM decide when background work should run.
+• It improves battery life by batching background jobs.
+• It is constraint-based, not time-based.
+• WorkManager is the modern recommended alternative.
+
+-----------------------------------------
+FINAL SUMMARY (MEMORIZE THIS)
+-----------------------------------------
+Service = Immediate work
+Thread/Flow = Execution mechanism
+AlarmManager = Exact time trigger
+JobScheduler = Smart system scheduling
+WorkManager = Best modern solution
+
+================================================================================
+END OF JOB SCHEDULER THEORY
+================================================================================
+*/
