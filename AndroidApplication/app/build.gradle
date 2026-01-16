@@ -41,4 +41,17 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.2.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
+    /*
+        WHY THIS DEPENDENCY IS REQUIRED:
+
+        androidx.activity:activity-ktx
+
+        1) Provides Kotlin extensions (KTX) for Activity.
+        2) Enables usage of:
+           - by viewModels()
+           - lifecycle-aware APIs
+        3) Removes boilerplate code like ViewModelProvider.
+        4) REQUIRED for viewModels() delegate to work.
+       */
+    implementation "androidx.activity:activity-ktx:1.8.2"
 }

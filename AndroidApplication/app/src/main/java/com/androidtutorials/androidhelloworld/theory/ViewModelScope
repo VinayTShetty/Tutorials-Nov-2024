@@ -1,0 +1,35 @@
+
+ViewModelScope — Theory
+
+1) viewModelScope is a CoroutineScope tied to ViewModel lifecycle.
+
+2) It automatically cancels all coroutines when:
+   → ViewModel.onCleared() is called.
+
+3) ViewModel survives:
+   → Configuration changes (rotation).
+
+4) ViewModel is destroyed when:
+   → The owning Activity or Fragment is FINISHED.
+
+5) viewModelScope is best suited for:
+   → Business logic
+   → Network calls
+   → Database operations
+
+6) viewModelScope.launch { } uses:
+   → Dispatchers.Main by default
+
+7) Prevents memory leaks by following structured concurrency.
+
+
+
+
+viewModelScope.launch { }
+
+1) launch starts a new coroutine.
+2) Coroutine runs as long as ViewModel is alive.
+3) Automatically cancelled when ViewModel is cleared.
+4) No need to manually cancel the coroutine.
+5) Encouraged by Android Architecture Components.
+
