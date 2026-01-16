@@ -1,0 +1,114 @@
+/**
+ * 📌 GlobalScope – Key Points (Code Editor Notes)
+ *
+ * --------------------------------------------------
+ * 1️⃣ What is GlobalScope?
+ * --------------------------------------------------
+ * - GlobalScope is a CoroutineScope provided by Kotlin Coroutines
+ * - It is NOT lifecycle-aware
+ * - Coroutines launched in GlobalScope live as long as the application process
+ *
+ *
+ * --------------------------------------------------
+ * 2️⃣ Lifetime of GlobalScope
+ * --------------------------------------------------
+ * - GlobalScope coroutines:
+ *     • Do NOT stop when Activity is destroyed
+ *     • Do NOT stop on screen rotation
+ *     • Do NOT stop when user leaves the screen
+ *
+ * - They are cancelled only when:
+ *     • The app process is killed
+ *     • Coroutine is manually cancelled
+ *
+ *
+ * --------------------------------------------------
+ * 3️⃣ Why GlobalScope is dangerous in Android
+ * --------------------------------------------------
+ * - Can easily cause memory leaks
+ * - Holds references to destroyed Activities
+ * - Background work may continue with no UI
+ * - Can cause crashes when updating UI after Activity is gone
+ *
+ *
+ * --------------------------------------------------
+ * 4️⃣ Thread behavior
+ * --------------------------------------------------
+ * - GlobalScope.launch { } uses Dispatchers.Default by default
+ * - NOT guaranteed to run on Main thread
+ * - UI updates must switch to Dispatchers.Main explicitly
+ *
+ *
+ * --------------------------------------------------
+ * 5️⃣ Example behavior in this Activity
+ * --------------------------------------------------
+ * Timeline:
+ *   1. Activity is created → coroutine starts
+ *   2. User exits Activity or rotates screen
+ *   3. onDestroy() is called
+ *   4. GlobalScope coroutine CONTINUES running
+ *   5. "Coroutine Finished after the Delay" still prints
+ *
+ *
+ * --------------------------------------------------
+ * 6️⃣ Comparison with lifecycleScope
+ * --------------------------------------------------
+ * - lifecycleScope:
+ *     • Cancels automatically on onDestroy()
+ *     • Safe for UI work
+ *
+ * - GlobalScope:
+ *     • Never cancels automatically
+ *     • Unsafe for UI work
+ *
+ *
+ * --------------------------------------------------
+ * 7️⃣ When GlobalScope should be used (RARE)
+ * --------------------------------------------------
+ * - Very rare cases:
+ *     • App-wide background logging
+ *     • Analytics fire-and-forget
+ *     • Tasks independent of UI
+ *
+ * - Even in these cases, structured scopes are preferred
+ *
+ *
+ * --------------------------------------------------
+ * 8️⃣ What NOT to use GlobalScope for
+ * --------------------------------------------------
+ * ❌ Network calls tied to UI
+ * ❌ Database operations for screens
+ * ❌ Timers for Activities
+ * ❌ Delays related to UI state
+ *
+ *
+ * --------------------------------------------------
+ * 9️⃣ Better alternatives
+ * --------------------------------------------------
+ * - lifecycleScope → UI-related work
+ * - viewModelScope → data that survives rotation
+ * - WorkManager → background / long-running tasks
+ *
+ *
+ * --------------------------------------------------
+ * 🔟 Manual cancellation required
+ * --------------------------------------------------
+ * - If you use GlobalScope, YOU must cancel it manually
+ * - Otherwise, coroutine runs until process death
+ *
+ *
+ * --------------------------------------------------
+ * 1️⃣1️⃣ Required dependency
+ * --------------------------------------------------
+ * - Comes with Kotlin Coroutines
+ * - No lifecycle dependency included
+ *
+ *
+ * --------------------------------------------------
+ * ⚠️ Final Warning
+ * --------------------------------------------------
+ * - GlobalScope is strongly DISCOURAGED in Android UI code
+ * - Google officially recommends avoiding it
+ * - Use lifecycle-aware scopes instead
+ *
+ */
