@@ -1,0 +1,65 @@
+/*
+================================================================================
+📌 MainScope — THEORY
+================================================================================
+
+1️⃣ What is MainScope?
+---------------------
+MainScope() is a READY-MADE CoroutineScope provided by Kotlin.
+
+Internally (simplified), it is defined as:
+
+MainScope() = CoroutineScope(
+    Dispatchers.Main + SupervisorJob()
+)
+
+So it already contains:
+✔ Dispatcher → Dispatchers.Main (UI thread)
+✔ Job        → SupervisorJob (lifecycle & cancellation)
+
+That is why we DO NOT manually pass Dispatcher or Job.
+
+
+2️⃣ When to use MainScope?
+-------------------------
+- UI-related coroutine work
+- Helper / Logic / Presenter classes
+- When lifecycleScope or viewModelScope is NOT available
+
+
+3️⃣ Is MainScope lifecycle-aware?
+--------------------------------
+❌ NO
+
+- Android does NOT cancel it automatically
+- YOU must cancel it manually
+- Forgetting to cancel → MEMORY LEAK
+
+
+4️⃣ What happens when MainScope is cancelled?
+---------------------------------------------
+- All coroutines inside it are cancelled
+- The scope becomes DEAD
+- A cancelled scope CANNOT be reused
+- To run again → create a NEW MainScope()
+
+
+5️⃣ MainScope vs Custom CoroutineScope
+-------------------------------------
+Custom Scope:
+CoroutineScope(Dispatchers.Main + Job())
+→ You provide everything manually
+
+MainScope:
+MainScope()
+→ Kotlin provides Dispatcher + Job internally
+
+
+================================================================================
+📌 GOLDEN RULE
+================================================================================
+
+✔ MainScope is simple but dangerous if misused
+✔ Always cancel it when work is finished
+✔ Cancelled scope must be recreated to reuse
+*/
