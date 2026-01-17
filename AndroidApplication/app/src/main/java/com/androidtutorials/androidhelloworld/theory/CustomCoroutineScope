@@ -1,0 +1,171 @@
+/*
+================================================================================
+CUSTOM COROUTINE SCOPE — THEORY (COMPLETE & RE-ARRANGED)
+================================================================================
+
+1️⃣ What is a Custom CoroutineScope?
+-----------------------------------
+- A Custom CoroutineScope means:
+  → YOU create the scope manually
+  → YOU control its lifecycle
+
+- Android does NOT manage this scope for you.
+
+
+2️⃣ Difference from lifecycleScope / viewModelScope
+---------------------------------------------------
+- lifecycleScope / viewModelScope:
+  ✔ Automatically managed by Android
+  ✔ Cancelled when lifecycle ends
+
+- Custom CoroutineScope:
+  ❌ NOT lifecycle-aware
+  ❌ YOU must cancel it manually
+
+
+3️⃣ When should we use a Custom CoroutineScope?
+-----------------------------------------------
+Use Custom CoroutineScope when:
+- Code is OUTSIDE Activity / Fragment / ViewModel
+- Repository classes
+- Manager / Helper / SDK classes
+- Background logic classes
+- When you want FULL control over coroutine lifetime
+
+
+4️⃣ Risk of Custom CoroutineScope
+--------------------------------
+❌ If you forget to cancel it → MEMORY LEAK
+
+Because:
+- Coroutine keeps running
+- References remain in memory
+
+RULE:
+Custom Scope = Manual Start + Manual Cancel
+
+
+================================================================================
+5️⃣ How to Create a New CoroutineScope (CORRECT WAY)
+================================================================================
+
+To create a NEW CoroutineScope, we must provide a CoroutineContext.
+
+CoroutineContext = Dispatcher + Job
+
+Example:
+*/
+private val scope = CoroutineScope(Dispatchers.Main + Job())
+
+/*
+================================================================================
+6️⃣ WHY do we need BOTH Dispatchers.Main AND Job()?
+================================================================================
+
+CoroutineScope needs TWO things:
+
+1) Dispatcher → WHERE the coroutine runs
+2) Job        → HOW LONG the coroutine lives
+
+------------------------------------------
+Dispatchers.Main
+------------------------------------------
+- Runs coroutine on Main (UI) Thread
+- Required for UI updates (TextView, Button, etc.)
+- Without dispatcher → coroutine has no thread
+
+------------------------------------------
+Job()
+------------------------------------------
+- Controls lifecycle of coroutine
+- Enables cancellation
+- Acts as parent for child coroutines
+
+------------------------------------------
+Why BOTH are required?
+------------------------------------------
+When creating a scope manually, Kotlin asks:
+
+❓ Where should this coroutine run?
+❓ Who owns it and who cancels it?
+
+So YOU must explicitly answer BOTH.
+*/
+
+
+/*
+================================================================================
+7️⃣ What happens if we DON’T pass these parameters?
+================================================================================
+
+❌ INVALID:
+CoroutineScope()
+
+WHY?
+- No Dispatcher → no thread info
+- No Job → no lifecycle control
+
+Kotlin enforces this to prevent unsafe,
+uncontrolled coroutines.
+*/
+
+
+/*
+================================================================================
+8️⃣ Why don’t we pass Dispatcher + Job for GlobalScope?
+================================================================================
+
+GlobalScope already HAS an internal CoroutineContext.
+
+Conceptual internal definition:
+
+GlobalScope = CoroutineScope(
+    Dispatchers.Default + SupervisorJob()
+)
+
+So when you write:
+GlobalScope.launch { }
+
+You are automatically using:
+- Dispatcher → Dispatchers.Default
+- Job → SupervisorJob
+
+That is why you DON'T pass them manually.
+*/
+
+
+/*
+================================================================================
+9️⃣ Comparison — Custom CoroutineScope vs GlobalScope
+================================================================================
+
+Custom CoroutineScope
+--------------------
+- YOU create it
+- YOU provide Dispatcher
+- YOU provide Job
+- YOU cancel it manually
+- Risk of memory leak if misused
+
+GlobalScope
+-----------
+- Kotlin provides it
+- Dispatcher already set
+- Job already set
+- Lives as long as app process
+- Dangerous for most Android cases
+*/
+
+
+/*
+================================================================================
+🔟 FINAL GOLDEN RULE (VERY IMPORTANT)
+================================================================================
+
+✔ If YOU create the scope →
+  YOU must provide:
+  Dispatcher + Job
+
+✔ If Kotlin / Android provides the scope →
+  Dispatcher + Job are already included
+*/
