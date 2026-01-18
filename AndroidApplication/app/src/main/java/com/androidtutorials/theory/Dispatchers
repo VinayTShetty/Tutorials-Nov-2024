@@ -1,0 +1,11 @@
+Dispatchers Concept – Definition (Clean & Precise)
+*************************************************
+Official-Level Definition
+
+A Coroutine Dispatcher determines which thread or thread pool a coroutine runs on and
+ manages scheduling,suspension. And resumption in coordination with the coroutine context.
+
+🔹 In simple words
+Dispatcher = Smart thread man6ager for coroutines
+
+
