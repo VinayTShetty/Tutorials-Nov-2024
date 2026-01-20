@@ -1,0 +1,77 @@
+/*
+===============================================================================
+DISPATCHERS.DEFAULT vs DISPATCHERS.IO
+===============================================================================
+
+INTERNAL IMPLEMENTATION (IMPORTANT):
+
+    Dispatchers.Default  ┐
+                         ├── SAME underlying thread pool
+    Dispatchers.IO       ┘
+
+✔ Both Dispatchers.Default and Dispatchers.IO execute on the SAME underlying
+  thread pool internally.
+✔ This shared pool is implemented as the "Default Dispatcher".
+
+-------------------------------------------------------------------------------
+
+WHY THREAD NAMES LOOK THE SAME:
+
+When you log thread names, you may see:
+
+    DefaultDispatcher-worker-1
+    DefaultDispatcher-worker-3
+    DefaultDispatcher-worker-7
+    ...
+
+This happens EVEN WHEN using Dispatchers.IO.
+
+❌ There is NO separate thread naming like:
+    "IODispatcher-worker-1"
+
+Thread names come from the SHARED underlying thread pool,
+not from the dispatcher itself.
+
+-------------------------------------------------------------------------------
+
+WHAT ACTUALLY DIFFERS BETWEEN DEFAULT AND IO:
+
+Dispatcher ≠ Thread Pool
+
+Dispatcher controls:
+✔ Task scheduling behavior
+✔ Allowed parallelism
+✔ Type of workload optimization
+
+Thread pool controls:
+✔ The actual threads on which code executes
+
+-------------------------------------------------------------------------------
+
+DISPATCHERS.DEFAULT
+- Designed for CPU-bound work
+- Uses limited parallelism
+- Parallelism roughly equals number of CPU cores
+- Suitable for:
+    * Computation
+    * Data processing
+    * In-memory transformations
+
+-------------------------------------------------------------------------------
+
+DISPATCHERS.IO
+- Designed for blocking I/O operations
+- Allows significantly higher parallelism
+- Can scale up to a large number of threads (≈ 64)
+- Reuses threads from the Default dispatcher pool
+
+-------------------------------------------------------------------------------
+
+KEY POINT TO REMEMBER:
+
+Dispatchers.IO is NOT a separate thread pool.
+It is a different scheduling strategy built on top of
+the SAME thread pool used by Dispatchers.Default.
+
+===============================================================================
+*/
