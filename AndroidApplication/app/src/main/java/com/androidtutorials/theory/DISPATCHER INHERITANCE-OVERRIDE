@@ -1,0 +1,134 @@
+/*
+========================================================
+DISPATCHER INHERITANCE & OVERRIDE — COMPLETE THEORY
+========================================================
+
+1️⃣ Core Rule (Golden Rule ⭐)
+-----------------------------
+A child coroutine inherits the parent's dispatcher
+UNLESS it explicitly overrides it.
+
+-----------------------------------------------
+
+2️⃣ What gets inherited?
+------------------------
+From parent coroutine:
+- Dispatcher
+- Job
+- CoroutineContext elements
+
+ChildContext = ParentContext + ChildOverrides
+
+-----------------------------------------------
+
+3️⃣ Inheritance applies to ALL coroutine builders
+------------------------------------------------
+These ALL follow IDENTICAL rules:
+✅ launch
+✅ async
+✅ runBlocking
+
+There is NO difference in:
+- inheritance
+- override
+- dispatcher selection
+
+-----------------------------------------------
+
+4️⃣ Difference between launch / async / runBlocking
+---------------------------------------------------
+launch:
+- Fire-and-forget
+- Returns Job
+- NON-blocking
+
+async:
+- Returns Deferred<T>
+- Used when result is needed
+- NON-blocking (until await)
+
+runBlocking:
+- BLOCKS the current thread
+- Used mainly for tests / main()
+- ❗ Avoid on Android UI thread
+
+⚠️ Dispatcher rules remain SAME for all three
+
+-----------------------------------------------
+
+5️⃣ Override behavior
+---------------------
+If dispatcher is explicitly specified:
+- Parent dispatcher is IGNORED
+- Child runs on specified dispatcher
+
+Example:
+launch(IO) {
+    async(Default) { } // Override
+}
+
+-----------------------------------------------
+
+6️⃣ Multi-level inheritance
+---------------------------
+Inheritance flows DOWNWARD:
+
+Parent(IO)
+ └─ Child(Default)   // override
+     └─ GrandChild() // inherits Default
+
+-----------------------------------------------
+
+7️⃣ Thread vs Dispatcher (Very Important)
+-----------------------------------------
+Dispatcher ≠ Thread
+
+- Dispatcher controls THREAD POOL
+- Same dispatcher can use DIFFERENT threads
+- Thread name change ≠ dispatcher change
+
+-----------------------------------------------
+
+8️⃣ Main Dispatcher Rule
+-----------------------
+Dispatchers.Main:
+- Always runs on UI thread
+- Single-threaded
+- Used for UI updates ONLY
+
+-----------------------------------------------
+
+9️⃣ Common misconceptions ❌
+-----------------------------
+❌ async always runs in background
+❌ launch decides dispatcher differently
+❌ runBlocking changes inheritance rules
+❌ same dispatcher means same thread
+
+✅ All false
+
+-----------------------------------------------
+
+🔟 Android Best Practice
+------------------------
+Avoid:
+GlobalScope.launch { }
+
+Prefer:
+lifecycleScope.launch { }
+viewModelScope.launch { }
+
+NOTE:
+Dispatcher inheritance rules DO NOT change
+
+-----------------------------------------------
+
+ONE-LINE SUMMARY ⭐
+------------------
+"Dispatcher inheritance & override rules are
+IDENTICAL for launch, async, and runBlocking."
+
+========================================================
+END OF THEORY
+========================================================
+*/

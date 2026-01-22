@@ -1,0 +1,71 @@
+/*
+========================================================
+LOG ANALYSIS : DISPATCHER INHERITANCE & OVERRIDE
+========================================================
+
+LOG:
+CASE 1 | Parent launch(IO) -> DefaultDispatcher-worker-1
+CASE 1 | Child async(INHERIT IO) -> DefaultDispatcher-worker-7
+
+ANALYSIS:
+- Parent uses Dispatchers.IO
+- Child async does NOT specify dispatcher
+✅ Child INHERITS parent's dispatcher (IO)
+- Thread name differs because IO uses a thread POOL
+- Dispatcher SAME, thread MAY differ
+
+-----------------------------------------------
+
+LOG:
+CASE 2 | Parent launch(IO) -> DefaultDispatcher-worker-4
+CASE 2 | Child async(OVERRIDE Default) -> DefaultDispatcher-worker-6
+
+ANALYSIS:
+- Parent uses Dispatchers.IO
+- Child explicitly uses Dispatchers.Default
+✅ OVERRIDE happens
+- Child runs on Default dispatcher pool
+- No inheritance from parent
+
+-----------------------------------------------
+
+LOG:
+CASE 3 | Parent launch(IO) -> DefaultDispatcher-worker-2
+CASE 3 | Child async(OVERRIDE Default) -> DefaultDispatcher-worker-8
+CASE 3 | GrandChild launch(INHERIT Default) -> DefaultDispatcher-worker-5
+
+ANALYSIS:
+- Parent = IO
+- Child overrides to Default
+- GrandChild does NOT specify dispatcher
+✅ GrandChild inherits Child's dispatcher (Default)
+- Inheritance flows DOWN the coroutine tree
+
+-----------------------------------------------
+
+LOG:
+CASE 4 | Parent launch(IO) -> DefaultDispatcher-worker-3
+CASE 4 | Child launch(OVERRIDE Default) -> DefaultDispatcher-worker-5
+CASE 4 | GrandChild async(OVERRIDE Main) -> main
+
+ANALYSIS:
+- Parent = IO
+- Child overrides to Default
+- GrandChild explicitly overrides to Main
+✅ Override can happen MULTIPLE TIMES
+- Main dispatcher runs on UI thread ONLY
+
+-----------------------------------------------
+
+IMPORTANT OBSERVATIONS:
+-----------------------
+1. Dispatcher inheritance is hierarchical
+2. Explicit dispatcher ALWAYS wins
+3. Thread name can change even if dispatcher is same
+4. Dispatcher decides THREAD POOL, not exact thread
+5. main dispatcher ALWAYS maps to UI thread
+
+========================================================
+END OF LOG ANALYSIS
+========================================================
+*/
