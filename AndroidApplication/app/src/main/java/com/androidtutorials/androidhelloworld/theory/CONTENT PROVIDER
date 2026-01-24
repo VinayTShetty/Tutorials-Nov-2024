@@ -1,0 +1,105 @@
+/*
+===========================
+ANDROID CONTENT PROVIDER
+===========================
+
+1) What is a Content Provider?
+- A Content Provider is an Android component used to share data between applications.
+- It provides a standard interface to access structured data.
+- Data can be stored in SQLite, files, or network.
+
+--------------------------------------------------
+
+2) Why do we need Content Providers?
+- To share data securely across apps
+- To enforce permissions on shared data
+- To provide a unified way to perform CRUD operations
+- To hide internal data implementation details
+
+--------------------------------------------------
+
+3) Examples of Built-in Content Providers
+- ContactsContract → Contacts data
+- MediaStore → Images, Videos, Audio
+- CalendarContract → Calendar events
+- CallLog → Call history
+
+--------------------------------------------------
+
+4) Main Components of Content Provider Architecture
+- ContentProvider → Actual data source
+- ContentResolver → Access point to provider
+- Content URI → Identifies the data
+- Cursor → Result returned from query
+
+--------------------------------------------------
+
+5) What is ContentResolver?
+- ContentResolver acts as a bridge between app and ContentProvider
+- Apps never access ContentProvider directly
+- It handles permission checks and IPC internally
+
+--------------------------------------------------
+
+6) What is a Content URI?
+- A URI that uniquely identifies data in a ContentProvider
+- Format:
+  content://authority/path/id
+
+Example:
+content://contacts/people/1
+
+--------------------------------------------------
+
+7) CRUD Operations in Content Provider
+- Create  → insert()
+- Read    → query()
+- Update  → update()
+- Delete  → delete()
+
+--------------------------------------------------
+
+8) What does query() return?
+- query() returns a Cursor object
+- Cursor points to rows returned by the provider
+- Data is read column-wise using Cursor methods
+
+--------------------------------------------------
+
+9) Why Cursor is needed?
+- Cursor provides efficient access to large datasets
+- Data is loaded lazily (row by row)
+- Helps in memory optimization
+
+--------------------------------------------------
+
+10) Permission Model in Content Providers
+- Some providers require runtime permissions (e.g., Contacts)
+- Permissions protect sensitive user data
+- Example:
+  READ_CONTACTS, WRITE_CONTACTS
+
+--------------------------------------------------
+
+11) Content Provider vs Room DB
+- Room → Used for internal app data
+- ContentProvider → Used for cross-app data sharing
+- Room does not expose data to other apps by default
+
+--------------------------------------------------
+
+12) Real World Usage
+- Reading contacts
+- Fetching images from gallery
+- Accessing call logs
+- Sharing app data with other apps
+
+--------------------------------------------------
+
+13) One-line Interview Answer
+- A Content Provider enables secure and structured data sharing between Android applications using URIs.
+
+===========================
+END
+===========================
+*/
