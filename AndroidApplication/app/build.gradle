@@ -41,4 +41,61 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.2.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
+
+    /**
+     * Retrofit – Core networking library
+     *
+     * Why it is required:
+     * - Retrofit provides a clean and type-safe way to make HTTP API calls.
+     * - It allows us to define REST APIs as Kotlin/Java interfaces
+     *   using annotations like @GET, @POST, @PUT, @DELETE, etc.
+     *
+     * Why it is used:
+     * - Converts HTTP APIs into easy-to-call Kotlin functions.
+     * - Manages request creation, execution, and response handling.
+     * - Internally uses OkHttp to perform the actual network calls.
+     *
+     * Important:
+     * - Retrofit alone does NOT handle JSON parsing.
+     * - Retrofit alone does NOT log network calls.
+     */
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    /**
+
+     /**
+     * Retrofit Gson Converter – JSON serialization/deserialization
+     *
+     * Why it is required:
+     * - Most APIs return data in JSON format.
+     * - Android apps work with Kotlin/Java objects (data classes).
+     *
+     * Why it is used:
+     * - Automatically converts JSON responses into Kotlin/Java data classes.
+     * - Converts Kotlin/Java objects into JSON for request bodies.
+     * - Removes the need for manual JSON parsing.
+     *
+     * Without this:
+     * - Retrofit would return raw ResponseBody.
+     * - Developer would need to manually parse JSON using Gson or other libraries.
+     */
+    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+    /**
+     * OkHttp Logging Interceptor – Network request/response logging
+     *
+     * Why it is required:
+     * - Helps developers debug API calls during development.
+     *
+     * Why it is used:
+     * - Logs HTTP request and response details to Logcat.
+     * - Shows URL, headers, request body, and response body.
+     * - Makes it easy to verify API inputs and outputs.
+     *
+     * Important:
+     * - This is OPTIONAL.
+     * - Mostly used only in DEBUG builds.
+     * - Should be avoided or limited in RELEASE builds to prevent
+     *   logging sensitive information.
+     */
+    implementation "com.squareup.okhttp3:logging-interceptor:4.12.0"
+
 }
