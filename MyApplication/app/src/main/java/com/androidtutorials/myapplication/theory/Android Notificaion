@@ -1,0 +1,75 @@
+/*******************************************************
+ * ANDROID NOTIFICATIONS – THEORY
+ *
+ * -----------------------------------------------------
+ * WHAT IS A NOTIFICATION?
+ * -----------------------------------------------------
+ * • A notification is a system-level UI message.
+ * • It appears outside the app (status bar / tray).
+ * • It can be shown even when the app is closed.
+ *
+ * -----------------------------------------------------
+ * WHY NOTIFICATIONS ARE USED
+ * -----------------------------------------------------
+ * • Inform users about important events
+ * • Background updates
+ * • Messages / Alerts / Reminders
+ *
+ * Real-world Examples:
+ * • WhatsApp new message
+ * • Email received
+ * • Download completed
+ * • Payment alert
+ *
+ * -----------------------------------------------------
+ * ANDROID NOTIFICATION FLOW
+ * -----------------------------------------------------
+ *
+ * App Code
+ *   ↓
+ * NotificationCompat.Builder
+ *   ↓
+ * NotificationManager / NotificationManagerCompat
+ *   ↓
+ * Android System UI
+ *   ↓
+ * Status Bar / Notification Drawer
+ *
+ * -----------------------------------------------------
+ * IMPORTANT ANDROID RULES
+ * -----------------------------------------------------
+ *
+ * ANDROID 8+ (API 26):
+ * • Notification CHANNEL is mandatory
+ * • Without channel → app crashes / no notification
+ *
+ * ANDROID 13+ (API 33):
+ * • POST_NOTIFICATIONS permission is required
+ * • Runtime permission (like camera/location)
+ *
+ * -----------------------------------------------------
+ * CORE COMPONENTS
+ * -----------------------------------------------------
+ *
+ * 1️⃣ Notification Channel
+ *    - Controls sound, vibration, importance
+ *
+ * 2️⃣ Notification Permission
+ *    - User must allow notifications explicitly
+ *
+ * 3️⃣ Notification ID
+ *    - Same ID → update notification
+ *    - Different ID → multiple notifications
+ *
+ * 4️⃣ Priority / Importance
+ *    - LOW / DEFAULT / HIGH
+ *
+ * -----------------------------------------------------
+ * BEST PRACTICES
+ * -----------------------------------------------------
+ * • Always create channel before sending notification
+ * • Always use NotificationCompat (backward compatible)
+ * • Always provide small icon
+ * • Keep notification text short & clear
+ *
+ *******************************************************/
