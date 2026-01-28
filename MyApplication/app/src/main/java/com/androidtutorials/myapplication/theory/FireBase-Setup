@@ -1,0 +1,147 @@
+========================================
+FIREBASE REALTIME DATABASE SETUP (ANDROID)
+========================================
+
+1. CREATE FIREBASE PROJECT
+--------------------------
+- Open https://console.firebase.google.com
+- Click "Add Project"
+- Project Name: TestDemo
+- Disable Google Analytics (optional)
+- Finish project creation
+
+
+2. ADD ANDROID APP TO FIREBASE
+------------------------------
+- Open Firebase Project → Project Settings
+- Click "Add App" → Android
+- Enter Package Name:
+    com.androidtutorials.myapplication
+- Register App
+- Download file:
+    google-services.json
+- Place file at:
+    app/google-services.json
+
+
+3. CONFIGURE GRADLE (PROJECT LEVEL)
+----------------------------------
+File: build.gradle (Project)
+
+Add Google services plugin:
+
+buildscript {
+    dependencies {
+        classpath "com.google.gms:google-services:4.4.0"
+    }
+}
+
+
+4. CONFIGURE GRADLE (APP LEVEL)
+------------------------------
+File: build.gradle (Module: app)
+
+plugins {
+    id "com.google.gms.google-services"
+}
+
+dependencies {
+    implementation platform("com.google.firebase:firebase-bom:32.7.0")
+    implementation "com.google.firebase:firebase-database"
+}
+
+→ Sync Gradle
+
+
+5. CREATE REALTIME DATABASE
+---------------------------
+- Firebase Console → Realtime Database
+- Click "Create Database"
+- Location: us-central1
+- Start in TEST MODE
+
+
+6. SET DATABASE RULES (TEST MODE)
+--------------------------------
+Firebase Console → Realtime Database → Rules
+
+{
+  "rules": {
+    ".read": true,
+    ".write": true
+  }
+}
+
+
+7. FIREBASE AUTO INITIALIZATION
+-------------------------------
+- Firebase initializes automatically using:
+    google-services.json
+
+Verify in Logcat:
+FirebaseApp initialization successful
+
+
+8. JETPACK COMPOSE UI
+--------------------
+- Button placed at center of screen
+- Button triggers Firebase write operation
+
+@Composable
+fun sendDataUI() {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Button(onClick = { sendDataToFireBase() }) {
+            Text("Send Data")
+        }
+    }
+}
+
+
+9. FIREBASE WRITE LOGIC
+----------------------
+IMPORTANT:
+- getReference() takes PATH, not URL
+
+private fun sendDataToFireBase() {
+    val database = FirebaseDatabase.getInstance()
+    val ref = database.getReference("Users")
+
+    val user = mapOf(
+        "name" to "Vinay TS",
+        "age" to 28,
+        "City" to "Bangalore"
+    )
+
+    ref.push().setValue(user)
+}
+
+
+10. SET CONTENT IN ACTIVITY
+---------------------------
+override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+
+    setContent {
+        sendDataUI()
+    }
+}
+
+
+11. VERIFY DATA IN FIREBASE CONSOLE
+----------------------------------
+Firebase Console → Realtime Database → Data
+
+Users
+ └─ -Ok1D2KNP88i1R6KFfiU
+     ├─ name : "Vinay TS"
+     ├─ age  : 28
+     └─ City : "Bangalore"
+
+
+STATUS: SUCCESS ✅
+- Firebase connected
+- Button click works
+- Data stored in Realtime Database
