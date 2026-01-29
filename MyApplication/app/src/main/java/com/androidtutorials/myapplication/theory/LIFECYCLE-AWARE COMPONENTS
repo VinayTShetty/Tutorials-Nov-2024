@@ -1,0 +1,178 @@
+==========================
+LIFECYCLE-AWARE COMPONENTS
+(Jetpack Compose – Theory)
+==========================
+
+1) WHAT IS A LIFECYCLE-AWARE COMPONENT?
+
+A lifecycle-aware component is a class that reacts to lifecycle events
+(onStart, onStop, onDestroy, etc.) WITHOUT being tightly coupled
+to an Activity, Fragment, or UI code.
+
+Example:
+- DefaultLifecycleObserver
+- ViewModel
+- LiveData
+
+Its main goal is:
+✔ Separation of concerns
+✔ Prevent memory leaks
+✔ Reusable lifecycle logic
+
+
+------------------------------------------------
+
+2) WHY NOT USE ACTIVITY onCreate(), onStart(), onResume() DIRECTLY?
+
+Activity lifecycle methods:
+- Are tied to ONE Activity
+- Mix UI + logic together
+- Become messy as app grows
+- Are hard to reuse and test
+
+If you put camera, sensors, analytics, media logic directly
+inside Activity methods, Activities become very large
+("God Activities").
+
+Lifecycle observers solve this by moving lifecycle logic OUT
+of the Activity.
+
+
+------------------------------------------------
+
+3) WHAT DOES DefaultLifecycleObserver SOLVE?
+
+DefaultLifecycleObserver:
+- Receives lifecycle callbacks
+- Is independent of UI
+- Can be attached to:
+  - Activity
+  - Fragment
+  - Compose screen
+  - Any LifecycleOwner
+
+This allows:
+✔ Clean architecture
+✔ Reusable behavior
+✔ Same logic across multiple screens
+
+
+------------------------------------------------
+
+4) WHY IS THIS IMPORTANT IN JETPACK COMPOSE?
+
+Jetpack Compose has NO:
+- onCreate()
+- onStart()
+- onResume()
+
+Composable functions:
+- Can run multiple times (recomposition)
+- Are NOT lifecycle callbacks
+- Should contain ONLY UI logic
+
+Because of this:
+✔ Lifecycle logic CANNOT live inside composables
+✔ We need a bridge to lifecycle
+
+That bridge is:
+LocalLifecycleOwner + DefaultLifecycleObserver
+
+
+------------------------------------------------
+
+5) ROLE OF DisposableEffect IN COMPOSE
+
+DisposableEffect is used to run SIDE EFFECTS that:
+- Touch the outside world
+- Need cleanup
+
+Examples:
+- Lifecycle observers
+- Sensors
+- Camera
+- Media
+- Analytics
+
+DisposableEffect guarantees:
+✔ Observer added only once
+✔ Observer removed automatically
+✔ Safe during recomposition
+✔ No memory leaks
+
+Without DisposableEffect:
+- Observer would be added multiple times
+- Logs would repeat
+- Memory leaks could occur
+
+
+------------------------------------------------
+
+6) WHY LIFECYCLE LOGIC IS KEPT IN A SEPARATE CLASS
+
+Keeping lifecycle logic in a separate observer class:
+✔ Follows Single Responsibility Principle
+✔ Keeps UI clean
+✔ Makes logic reusable
+✔ Easier to test
+✔ Easier to maintain
+
+UI = UI only
+Observer = lifecycle behavior only
+
+
+------------------------------------------------
+
+7) WHEN YOU DO NOT NEED DefaultLifecycleObserver
+
+You do NOT need it when:
+✔ Logic is already lifecycle-aware
+✔ You are inside ViewModel
+✔ You are handling simple UI state
+✔ No external resources involved
+
+Example:
+- ViewModel (already lifecycle-aware)
+- Business logic
+- Repository logic
+
+
+------------------------------------------------
+
+8) WHEN YOU SHOULD USE DefaultLifecycleObserver
+
+You SHOULD use it for:
+✔ Camera start/stop
+✔ Sensors register/unregister
+✔ Media play/pause
+✔ Location updates
+✔ Analytics tracking
+✔ Long-running listeners
+
+
+------------------------------------------------
+
+9) FINAL MENTAL MODEL
+
+Compose UI
+   ↓
+LocalLifecycleOwner
+   ↓
+DisposableEffect
+   ↓
+DefaultLifecycleObserver
+   ↓
+Lifecycle-aware behavior
+
+
+------------------------------------------------
+
+10) INTERVIEW ONE-LINER
+
+"In Jetpack Compose, DefaultLifecycleObserver combined with DisposableEffect
+allows lifecycle-aware logic to be safely separated from UI, since composables
+do not have lifecycle callbacks."
+
+==========================
+END
+==========================
