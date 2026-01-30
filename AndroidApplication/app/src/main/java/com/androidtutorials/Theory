@@ -1,0 +1,66 @@
+SINGLE RESPONSIBILITY PRINCIPLE (SRP)
+
+Definition:
+A class should have ONLY ONE reason to change.
+
+In simple words:
+👉 One class = One job
+
+------------------------------------
+
+WHY SRP IS IMPORTANT?
+
+1. Easier to maintain
+   - Changes are localized
+   - Less risk of breaking other logic
+
+2. Better readability
+   - Easy to understand what a class does
+
+3. Easier testing
+   - Each responsibility can be tested independently
+
+4. Better scalability
+   - You can extend features without modifying existing logic
+
+------------------------------------
+
+SRP IN ANDROID CONTEXT
+
+❌ Bad:
+Activity / Fragment doing:
+- API calls
+- Database access
+- UI logic
+- Business rules
+
+✅ Good:
+- Repository → API / Data source
+- Database class → Persistence
+- View / Compose → UI
+- ViewModel → Business logic
+
+------------------------------------
+
+INTERVIEW ONE-LINER
+
+"SRP means a class should focus on only one responsibility.
+If a class has multiple reasons to change, it violates SRP."
+
+------------------------------------
+
+REAL ANDROID EXAMPLE
+
+Activity / Compose:
+- Displays UI
+
+ViewModel:
+- Handles logic
+
+Repository:
+- Fetches data
+
+Database:
+- Stores data
+
+Each layer has ONE job → SRP followed ✔
