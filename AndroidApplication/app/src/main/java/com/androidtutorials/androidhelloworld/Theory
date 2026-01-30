@@ -1,0 +1,48 @@
+OPEN–CLOSED PRINCIPLE (OCP)
+
+Definition:
+----------------
+Software entities (classes, modules, functions)
+should be OPEN for extension but CLOSED for modification.
+
+Meaning:
+----------------
+• You should be able to add new behavior
+  without changing existing, tested code.
+• Achieved using:
+  - Interfaces
+  - Abstract classes
+  - Polymorphism
+
+Why OCP is Important:
+----------------
+• Prevents breaking existing functionality
+• Reduces regression bugs
+• Improves maintainability
+• Encourages clean architecture
+
+Bad Design (Violates OCP):
+----------------
+• if-else or when chains based on type
+• Frequent modification of core classes
+• Tight coupling
+
+Good Design (Follows OCP):
+----------------
+• Depend on abstractions
+• Use polymorphism
+• Add new classes instead of modifying old ones
+
+Real-World Analogy:
+----------------
+Switch Board:
+• Old way: Modify wiring for every new appliance ❌
+• OCP way: Plug new appliance into socket ✅
+
+Android Usage Examples:
+----------------
+• RecyclerView.Adapter
+• ViewModel with interfaces
+• Strategy pattern
+• Payment gateways
+• Notification handlers
