@@ -1,0 +1,95 @@
+============================================================
+DEPENDENCY INVERSION PRINCIPLE (DIP) – THEORY POINTS
+============================================================
+
+1️⃣ Definition (Formal)
+----------------------
+High-level modules should not depend on low-level modules.
+Both should depend on abstractions.
+
+Abstractions should not depend on details.
+Details should depend on abstractions.
+
+
+2️⃣ Layman Definition ⭐
+----------------------
+Do not depend on a specific class.
+Depend on an interface so that implementations can change
+without breaking your code.
+
+
+3️⃣ What Is a High-Level Module?
+-------------------------------
+• Contains business logic
+• Controls application flow
+• Example: OrderService, PaymentService
+
+
+4️⃣ What Is a Low-Level Module?
+------------------------------
+• Performs technical work
+• Sends emails, SMS, DB operations, APIs
+• Example: EmailService, WhatsAppService
+
+
+5️⃣ Why DIP Exists
+-----------------
+• Reduce tight coupling
+• Make code flexible
+• Support future changes
+• Improve testability
+• Enable clean architecture
+
+
+6️⃣ Common DIP Violations
+------------------------
+• Using `new` keyword inside business logic
+• Direct dependency on concrete classes
+• Hardcoding implementations
+• No abstraction layer
+
+
+7️⃣ How DIP Fixes the Problem
+-----------------------------
+• Introduce interfaces
+• High-level modules depend on interfaces
+• Low-level modules implement interfaces
+• Dependency is injected (Constructor / Setter / DI)
+
+
+8️⃣ DIP + Dependency Injection (DI)
+----------------------------------
+DIP is a DESIGN PRINCIPLE
+DI is a TECHNIQUE to implement DIP
+
+Example:
+• Constructor Injection
+• Setter Injection
+• Hilt / Dagger / Koin
+
+
+9️⃣ Real-World Analogy
+---------------------
+Switch board:
+• Old way ❌: Fixed wiring for each appliance
+• DIP way ✅: Plug any appliance into socket
+
+Socket = Interface
+Appliance = Implementation
+
+
+🔟 DIP in Android Development
+-----------------------------
+• Repository pattern
+• ViewModel depends on interface, not DB
+• Retrofit via interfaces
+• UseCase pattern
+• Hilt / Dagger dependency injection
+
+
+🎯 Interview One-Liners
+----------------------
+• “DIP says depend on abstractions, not implementations.”
+• “High-level logic should not depend on low-level details.”
+• “DIP enables loose coupling and flexibility.”
+============================================================
