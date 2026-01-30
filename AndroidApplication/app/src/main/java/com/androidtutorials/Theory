@@ -1,0 +1,99 @@
+============================================================
+INTERFACE SEGREGATION PRINCIPLE (ISP) – THEORY POINTS
+============================================================
+
+1️⃣ Definition
+--------------
+Interface Segregation Principle states:
+“Clients should not be forced to depend on methods they do not use.”
+
+In simple words:
+→ A class should implement ONLY those methods that are relevant to it.
+
+
+2️⃣ Core Idea
+-------------
+• Avoid large, “fat” interfaces
+• Prefer multiple small, specific interfaces
+• Each interface should represent ONE role or responsibility
+
+
+3️⃣ Why ISP is Needed
+---------------------
+• Prevents unnecessary method implementations
+• Avoids dummy or empty method bodies
+• Reduces confusion in code
+• Makes system easier to maintain and extend
+• Improves readability and clarity of responsibilities
+
+
+4️⃣ What Happens If ISP Is Violated
+----------------------------------
+• Classes are forced to implement methods they don’t need
+• Leads to meaningless implementations like:
+  - "Not Supported"
+  - Empty methods
+• Changes in one method may affect unrelated classes
+• Code becomes fragile and hard to refactor
+
+
+5️⃣ Benefits of Following ISP
+-----------------------------
+✔ Cleaner and more readable code
+✔ Clear separation of responsibilities
+✔ Easier testing (mock only required interfaces)
+✔ Better scalability
+✔ Aligns closely with real-world roles
+
+
+6️⃣ Real-World Analogy
+---------------------
+In an office:
+• Developer → writes code
+• Designer → designs UI
+• Admin → repairs coffee machine
+
+You should NOT force:
+• Developer to repair coffee machine
+• Admin to write code
+
+Each role has its own interface.
+
+
+7️⃣ ISP vs Fat Interface
+-----------------------
+Fat Interface:
+• Many unrelated methods
+• One interface for everything
+• Forces unwanted implementations
+
+ISP-Based Design:
+• Multiple small interfaces
+• Each interface has a single purpose
+• Classes implement only what they need
+
+
+8️⃣ ISP in Android Development
+------------------------------
+Common Android examples:
+• OnClickListener
+• OnLongClickListener
+• TextWatcher (beforeTextChanged, onTextChanged, afterTextChanged)
+• ViewModel vs View responsibilities
+• Repository interfaces with small contracts
+
+
+9️⃣ Relation to SOLID
+--------------------
+ISP is the "I" in SOLID:
+• S – Single Responsibility Principle
+• O – Open Closed Principle
+• L – Liskov Substitution Principle
+• I – Interface Segregation Principle
+• D – Dependency Inversion Principle
+
+
+🔟 Interview One-Liner
+---------------------
+“Interface Segregation Principle ensures that classes are not forced to implement methods they do not use by splitting large interfaces into smaller, focused ones.”
+============================================================
