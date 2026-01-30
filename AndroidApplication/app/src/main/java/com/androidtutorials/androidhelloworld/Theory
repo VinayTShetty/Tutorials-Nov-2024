@@ -1,0 +1,161 @@
+============================================================
+LISKOV SUBSTITUTION PRINCIPLE (LSP) – COMPLETE THEORY POINTS
+============================================================
+
+🧩 LSP – Liskov Substitution Principle
+
+🔹 One-line Definition
+---------------------
+A child class should be usable wherever its parent class is used
+— without breaking behavior.
+
+
+🔹 Layman (Very Simple) Definition ⭐
+-----------------------------------
+“If something claims to be a type of something else,
+it should behave exactly like that thing.”
+
+Or even simpler:
+👉 If I replace the parent with the child,
+nothing should go wrong/non-meaningfull/
+
+
+🤔 Why This Principle Exists
+---------------------------
+If a subclass changes the meaning of what the parent promises,
+your application breaks in unexpected places.
+
+LSP exists to:
+• Protect correctness
+• Avoid surprises at runtime
+• Ensure inheritance is used safely
+
+
+============================================================
+1️⃣ Formal Definition
+============================================================
+Liskov Substitution Principle states:
+“A subclass must be substitutable for its parent class
+without altering the correctness of the program.”
+
+
+============================================================
+2️⃣ Simple Meaning
+============================================================
+If a parent class object is expected,
+you should be able to pass its child class object
+WITHOUT causing bugs, crashes, or unexpected behavior.
+
+
+============================================================
+3️⃣ Golden Rule (Easy to Remember) ⭐
+============================================================
+If replacing Parent with Child causes bugs,
+then LSP is BROKEN.
+
+
+============================================================
+4️⃣ Why LSP Is Important
+============================================================
+• Ensures inheritance is meaningful
+• Prevents runtime failures
+• Keeps behavior predictable
+• Allows safe polymorphism
+• Makes systems extensible without fear
+
+
+============================================================
+5️⃣ Common LSP Violations
+============================================================
+• Throwing exceptions in overridden methods
+• Leaving overridden methods empty
+• Changing the meaning of a method
+• Returning incompatible or unexpected results
+• Adding restrictions that parent class never had
+• Saying “Not supported” in overridden methods
+
+
+============================================================
+6️⃣ Real-World Analogy (Layman-Friendly) ⭐
+============================================================
+Statement:
+“A bottle is something you can drink from”
+
+Valid substitutions:
+• Water bottle ✅
+• Juice bottle ✅
+
+Invalid substitution:
+• Petrol bottle ❌
+
+Why?
+Because petrol cannot be drunk.
+Replacing a normal bottle with a petrol bottle causes harm.
+
+➡️ Hence, PetrolBottle should NOT be treated as a Bottle.
+
+
+============================================================
+7️⃣ Another Layman Example
+============================================================
+Statement:
+“A vehicle can be driven”
+
+Valid:
+• Car ✅
+• Bike ✅
+
+Invalid:
+• Toy car ❌
+
+A toy car looks like a vehicle,
+but cannot be driven.
+Replacing Vehicle with ToyCar breaks behavior.
+
+
+============================================================
+8️⃣ How to Fix LSP Violations
+============================================================
+• Do NOT use inheritance if behavior differs
+• Split behavior using interfaces
+• Prefer composition over inheritance
+• Model real-world rules correctly
+• Ask: “Can I safely replace parent with this child?”
+
+
+============================================================
+9️⃣ LSP in Android Development
+============================================================
+Common real-world Android cases:
+• Custom View extending View must still behave like a View
+• RecyclerView.Adapter subclasses must respect adapter contracts
+• MediaPlayer subclasses must support play()
+• ViewModel subclasses must follow lifecycle expectations
+• Fragment subclasses must respect Fragment lifecycle rules
+
+
+============================================================
+🔟 Relation to SOLID
+============================================================
+LSP is the "L" in SOLID:
+
+• S – Single Responsibility Principle
+• O – Open Closed Principle
+• L – Liskov Substitution Principle
+• I – Interface Segregation Principle
+• D – Dependency Inversion Principle
+
+
+============================================================
+🎯 Interview One-Liners (Use Any)
+============================================================
+
+• “LSP ensures that child classes can replace parent classes
+   without breaking application behavior.”
+
+• “If a subclass breaks the promise of its parent,
+   Liskov Substitution Principle is violated.”
+
+• “Inheritance should strengthen behavior, not weaken it.”
+
+============================================================
