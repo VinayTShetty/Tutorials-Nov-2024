@@ -1,0 +1,133 @@
+/*
+====================================================
+LIVE DATA – THEORY & CONCEPTS (WITH EXPLANATION)
+====================================================
+
+WHAT IS LiveData?
+-----------------
+LiveData is a lifecycle-aware observable data holder.
+It means:
+- It holds data
+- It can be observed
+- It automatically updates the UI when data changes
+- It respects the lifecycle of UI components
+
+
+WHY NOT USE A NORMAL VARIABLE?
+------------------------------
+
+Example of normal variable:
+
+    var count = 0
+
+Problems with normal variable:
+1) UI is NOT notified when value changes
+2) Manual UI update is required
+3) Not lifecycle-aware
+4) Can cause bugs during configuration changes
+5) Not suitable for reactive UI (Jetpack Compose)
+
+Normal variable flow (BAD):
+Button Click → count++ → UI DOES NOT KNOW ABOUT CHANGE
+
+
+WHY LiveData IS BETTER
+---------------------
+
+LiveData solves the above problems.
+
+Key advantages:
+
+1) OBSERVABLE
+   LiveData allows UI to observe data changes.
+
+   Example:
+       counter.observe(...)
+
+   Whenever value changes, observers are notified automatically.
+
+2) LIFECYCLE-AWARE
+   LiveData updates UI only when:
+   - Activity / Composable is active
+   - Prevents memory leaks
+   - Stops updates when UI is destroyed
+
+3) AUTOMATIC UI UPDATE (COMPOSE)
+   Using observeAsState():
+
+       val count by liveData.observeAsState(0)
+
+   When LiveData value changes:
+   - Compose recomposes automatically
+   - No manual UI refresh needed
+
+4) SINGLE SOURCE OF TRUTH
+   Data is stored in one place (LiveData)
+   UI only reads data
+   Business logic updates data
+
+   This avoids:
+   - Inconsistent UI
+   - Multiple sources updating same value
+
+
+DATA FLOW USING LiveData
+------------------------
+
+Button Click
+    ↓
+LiveData value changes
+    ↓
+Observers are notified
+    ↓
+Compose recomposes UI automatically
+
+
+WHY LiveData IS IMPORTANT IN ANDROID
+------------------------------------
+
+- Android UI has lifecycle (created, started, destroyed)
+- LiveData understands lifecycle
+- Normal variables do NOT
+
+This makes LiveData safe, reliable, and scalable.
+
+
+INTERVIEW-READY DEFINITIONS
+---------------------------
+
+"LiveData is a lifecycle-aware observable data holder class
+that updates the UI automatically when data changes."
+
+"LiveData is preferred over normal variables because it
+supports observation, lifecycle awareness, and automatic UI updates."
+
+
+WHEN TO USE LiveData
+-------------------
+
+- When UI depends on changing data
+- When multiple UI components observe same data
+- When lifecycle safety is required
+- When building reactive UI (Compose / XML)
+
+
+SUMMARY
+-------
+
+Normal Variable:
+- Holds data only
+- No observation
+- No lifecycle awareness
+
+LiveData:
+- Holds data
+- Observable
+- Lifecycle-aware
+- Automatic UI updates
+- Recommended for Android UI
+
+====================================================
+END OF THEORY
+====================================================
+*/
