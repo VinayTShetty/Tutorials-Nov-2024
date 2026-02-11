@@ -1,0 +1,126 @@
+/*
+==================== ASYNC & AWAIT — COMPLETE THEORY ====================
+
+1️⃣ What is async?
+
+- async is a coroutine builder.
+- Used when we need a RESULT from a coroutine.
+- Returns Deferred<T>.
+- Starts immediately unless start = LAZY.
+
+---------------------------------------------------------------------
+
+2️⃣ What is Deferred<T>?
+
+- Deferred is a subclass of Job.
+- It represents:
+    ✔ Coroutine lifecycle (like Job)
+    ✔ Future result of type T
+
+Think of it as:
+"I will give you the result later."
+
+---------------------------------------------------------------------
+
+3️⃣ Why use async instead of launch?
+
+launch → Used for side effects (no result)
+async  → Used for returning result
+
+launch  → returns Job
+async   → returns Deferred<T>
+
+---------------------------------------------------------------------
+
+4️⃣ What is await()?
+
+- await() is a suspend function.
+- It waits until async finishes.
+- Then returns the final result.
+
+It does NOT block the thread.
+It only suspends the coroutine.
+
+---------------------------------------------------------------------
+
+5️⃣ Why await() is needed?
+
+Because async runs asynchronously.
+Result is not immediately available.
+
+So we must explicitly ask:
+"Wait and give me result."
+
+That is await().
+
+---------------------------------------------------------------------
+
+6️⃣ What happens if we don’t call await()?
+
+- Coroutine still runs.
+- But result is ignored.
+- Exceptions may go unnoticed.
+- Waste of async usage.
+
+---------------------------------------------------------------------
+
+7️⃣ async + await flow
+
+async {
+    return value
+}
+
+↓
+
+Deferred<T> created
+
+↓
+
+await()
+
+↓
+
+Suspends until completion
+
+↓
+
+Returns T
+
+---------------------------------------------------------------------
+
+8️⃣ When to use async?
+
+✔ Parallel API calls
+✔ Heavy background calculations
+✔ When multiple results needed
+✔ When returning data
+
+---------------------------------------------------------------------
+
+9️⃣ When NOT to use async?
+
+❌ Fire-and-forget tasks
+❌ Simple logging
+❌ UI only tasks
+
+Use launch instead.
+
+---------------------------------------------------------------------
+
+🔟 Important Android Rule
+
+Avoid GlobalScope.
+
+Use:
+✔ lifecycleScope
+✔ viewModelScope
+
+---------------------------------------------------------------------
+
+🔑 ONE LINE SUMMARY
+
+async is used when a coroutine must return a result,
+and await() is used to suspend and retrieve that result safely.
+
+=======================================================================
+*/
