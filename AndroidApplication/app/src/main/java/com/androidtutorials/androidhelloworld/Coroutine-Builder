@@ -1,0 +1,90 @@
+/*
+==================== COROUTINES — THEORY NOTES ====================
+
+1️⃣ What is a Coroutine?
+
+A Coroutine is a lightweight thread used to perform asynchronous
+(non-blocking) operations.
+
+- Runs without blocking the main thread
+- Much cheaper than Threads
+- Can be paused and resumed (suspend & resume)
+
+------------------------------------------------------------
+
+2️⃣ What is a Coroutine Builder?
+
+A Coroutine Builder is a function that CREATES and STARTS a coroutine.
+
+Without a coroutine builder, a coroutine cannot run.
+
+Think of it as a "START button" for a coroutine.
+
+------------------------------------------------------------
+
+3️⃣ Types of Coroutine Builders
+
+There are THREE main coroutine builders:
+
+1. launch
+   - Fire and forget
+   - Does NOT return a result
+   - Returns Job
+
+2. async
+   - Used when a result is needed
+   - Returns Deferred<T>
+   - Result obtained using await()
+
+3. runBlocking
+   - Blocks the current thread
+   - Mainly used in main() or unit tests
+   - NOT recommended in Android UI
+
+------------------------------------------------------------
+
+4️⃣ Syntax of a Coroutine Builder
+
+General syntax:
+
+<CoroutineScope>.<CoroutineBuilder>(<Dispatcher - optional>) {
+    // Business Logic (suspend functions allowed)
+}
+
+------------------------------------------------------------
+
+5️⃣ Examples of Syntax
+
+launch example:
+CoroutineScope(Dispatchers.IO).launch {
+    // background work
+}
+
+async example:
+val result = CoroutineScope(Dispatchers.IO).async {
+    return@async 10
+}
+
+runBlocking example:
+runBlocking {
+    delay(1000)
+}
+
+------------------------------------------------------------
+
+6️⃣ Important Notes
+
+- CoroutineScope decides the lifecycle of the coroutine
+- CoroutineBuilder decides HOW the coroutine runs
+- Dispatcher decides WHICH thread is used
+
+------------------------------------------------------------
+
+7️⃣ What is NOT a Coroutine Builder?
+
+- withContext → switches thread, does NOT start coroutine
+- delay → suspend function
+- suspend → keyword, not a builder
+
+============================================================
+*/
