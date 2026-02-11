@@ -1,0 +1,92 @@
+/*
+==================== JOB OBJECT — THEORY (launch Coroutine Builder) ====================
+
+1️⃣ What is a Job?
+
+- Job represents the lifecycle of a coroutine.
+- Every coroutine created using `launch` has a Job.
+- Even if you don’t store it, a Job is always created internally.
+
+---------------------------------------------------------------------
+
+2️⃣ Why does `launch` return a Job?
+
+- `launch` does NOT return a result.
+- Instead of data, Kotlin provides control.
+- That control object is Job.
+
+---------------------------------------------------------------------
+
+3️⃣ When does Job come into picture?
+
+- The moment `launch { }` is called.
+- Coroutine starts → Job is created → Job becomes ACTIVE.
+
+---------------------------------------------------------------------
+
+4️⃣ What does Job represent?
+
+Job represents:
+- Whether the coroutine is running
+- Whether it is cancelled
+- Whether it has completed
+- The ability to stop or wait for the coroutine
+
+---------------------------------------------------------------------
+
+5️⃣ What can we do using Job?
+
+Common Job operations:
+
+- job.cancel()       → Cancels the coroutine
+- job.join()         → Suspends until coroutine completes
+- job.isActive       → True if coroutine is running
+- job.isCancelled    → True if coroutine was cancelled
+- job.isCompleted    → True if coroutine finished
+- job.start()        → Starts LAZY coroutine only
+
+---------------------------------------------------------------------
+
+6️⃣ Important rule about job.start()
+
+- By default, `launch { }` starts immediately.
+- job.start() is useful ONLY when coroutine is created with:
+
+    launch(start = CoroutineStart.LAZY)
+
+- For normal launch, job.start() returns false.
+
+---------------------------------------------------------------------
+
+7️⃣ Typical real-world usage of Job
+
+- Cancel API call when user leaves screen
+- Stop search request when user types new text
+- Prevent duplicate background tasks
+- Control long-running background work
+
+---------------------------------------------------------------------
+
+8️⃣ When Job is usually NOT needed
+
+- Simple UI tasks
+- Fire-and-forget operations
+- lifecycleScope / viewModelScope coroutines
+
+In these cases, Job exists but is ignored.
+
+---------------------------------------------------------------------
+
+9️⃣ Job vs Deferred
+
+- launch → returns Job → lifecycle control
+- async  → returns Deferred<T> → result + control
+
+---------------------------------------------------------------------
+
+🔑 ONE-LINE SUMMARY
+
+Job is a handle to control the lifecycle of a coroutine created by `launch`.
+
+======================================================================================
+*/
