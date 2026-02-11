@@ -1,0 +1,94 @@
+/*
+==================== runBlocking — COMPLETE THEORY ====================
+
+1️⃣ What is runBlocking?
+
+- A coroutine builder.
+- Blocks the current thread.
+- Waits until coroutine finishes.
+- Returns the result of the coroutine block.
+
+---------------------------------------------------------------------
+
+2️⃣ Actual Signature
+
+fun <T> runBlocking(block: suspend CoroutineScope.() -> T): T
+
+It is generic.
+It returns whatever the block returns.
+
+---------------------------------------------------------------------
+
+3️⃣ Two Usage Styles
+
+A) With Return Type
+
+val result = runBlocking {
+    10 * 5
+}
+
+Return type = Int
+result = 50
+
+--------------------------------------------------
+
+B) Without Return Type
+
+runBlocking {
+    println("Hello")
+}
+
+Return type = Unit
+
+---------------------------------------------------------------------
+
+4️⃣ Why Both Are Allowed?
+
+Because runBlocking is generic.
+If block returns value → runBlocking returns value.
+If block returns nothing → return type is Unit.
+
+---------------------------------------------------------------------
+
+5️⃣ What Does Blocking Mean?
+
+It blocks the current thread.
+Next line will not execute until coroutine finishes.
+
+---------------------------------------------------------------------
+
+6️⃣ When To Use runBlocking?
+
+✔ main() function
+✔ Console apps
+✔ Unit tests
+✔ Bridging suspend functions
+
+---------------------------------------------------------------------
+
+7️⃣ When NOT To Use?
+
+❌ Android UI thread
+❌ Inside Activity
+❌ Inside Composable
+❌ Inside ViewModel
+
+Use lifecycleScope or viewModelScope instead.
+
+---------------------------------------------------------------------
+
+8️⃣ runBlocking vs launch vs async
+
+runBlocking → Blocks thread → Returns T
+launch      → Non-blocking → Returns Job
+async       → Non-blocking → Returns Deferred<T>
+
+---------------------------------------------------------------------
+
+🔑 ONE LINE SUMMARY
+
+runBlocking blocks the current thread until coroutine completes
+and returns the result of the coroutine block.
+
+=======================================================================
+*/
