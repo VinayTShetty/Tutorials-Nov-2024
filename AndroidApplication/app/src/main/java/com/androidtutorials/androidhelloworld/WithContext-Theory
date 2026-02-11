@@ -1,0 +1,127 @@
+/*
+========================================
+        withContext() — COMPLETE SUMMARY
+========================================
+
+Definition:
+withContext() is a suspending function that
+switches coroutine context for a block of code
+without creating a new coroutine.
+
+----------------------------------------
+WHAT withContext() CHANGES
+----------------------------------------
+
+1) Dispatcher  ✅ (If Provided)
+
+   withContext(Dispatchers.IO) {
+       // Runs under IO dispatcher
+   }
+
+   ✔ Execution responsibility moves to IO dispatcher
+   ✔ Scheduler decides which thread to use
+   ❗ Thread switching is NOT guaranteed
+
+
+2) CoroutineName  ✅ (If Provided)
+
+   withContext(CoroutineName("MyTask")) {
+       // Coroutine name becomes "MyTask"
+   }
+
+   ✔ Useful for debugging
+
+
+3) CoroutineExceptionHandler  ✅ (If Provided)
+
+   withContext(myExceptionHandler) {
+       // New handler used inside this block
+   }
+
+   ✔ Overrides parent handler inside this block
+
+
+----------------------------------------
+WHAT withContext() DOES NOT CHANGE
+----------------------------------------
+
+1) Job  ❌ (Does NOT change by default)
+
+   ✔ Same Job is preserved
+   ✔ Structured concurrency maintained
+   ✔ Cancellation propagates properly
+   ✔ Not a new coroutine
+
+   NOTE:
+   It CAN change only if you explicitly pass a new Job
+   (rare and usually not recommended)
+
+
+2) It does NOT create a new coroutine  ❌
+
+   launch { }  → Creates new coroutine
+   async { }   → Creates new coroutine
+   withContext { } → Suspends current coroutine
+
+   ✔ It pauses current coroutine
+   ✔ Executes block under new context
+   ✔ Resumes original coroutine after completion
+
+
+3) Thread is NOT guaranteed to change  ❌
+
+   Dispatcher switch ≠ Thread switch
+
+   Thread changes only if:
+   - Target dispatcher uses different thread pool
+   - Scheduler decides to move it
+
+   Example:
+   Default → IO may use same worker thread
+   Main → IO must switch thread
+
+
+----------------------------------------
+HOW IT WORKS INTERNALLY
+----------------------------------------
+
+Step 1: Suspend current coroutine
+Step 2: Create new context (Current + New)
+Step 3: Dispatcher resumes coroutine
+Step 4: Execute block
+Step 5: Resume back to original context
+
+
+----------------------------------------
+MENTAL MODEL
+----------------------------------------
+
+withContext(...) means:
+
+    "Temporarily change execution environment
+     of THIS coroutine, not create a new one."
+
+
+----------------------------------------
+FINAL INTERVIEW ONE-LINER
+----------------------------------------
+
+withContext switches coroutine context
+(dispatcher, name, exception handler if provided),
+keeps the same Job,
+does not create a new coroutine,
+and does not guarantee thread switching.
+*/
+
+
+
+Table
+*****
+| Element                | Changes?            |
+| ---------------------- | ------------------- |
+| Dispatcher             | ✅ Yes (if provided) |
+| Job                    | ❌ No (same Job)     |
+| Coroutine Name         | ✅ If provided       |
+| Exception Handler      | ✅ If provided       |
+| Thread                 | ❌ Not guaranteed    |
+| New Coroutine Created? | ❌ No                |
