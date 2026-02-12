@@ -1,0 +1,228 @@
+/*
+========================================================
+        withContext() — COMPLETE MASTER SUMMARY
+========================================================
+
+DEFINITION
+--------------------------------------------------------
+withContext() is a suspending function that:
+
+✔ Switches coroutine context (like Dispatcher)
+✔ Does NOT create a new coroutine
+✔ Keeps the same Job (structured concurrency)
+✔ Returns a result
+✔ May or may NOT switch physical thread
+
+========================================================
+YOUR TEST CASES EXPLAINED (VERY IMPORTANT)
+========================================================
+
+--------------------------------------------------------
+TEST CASE 1
+--------------------------------------------------------
+
+GlobalScope.launch {                 // Uses Dispatchers.Default
+    withContext(Dispatchers.IO) {
+    }
+}
+
+Flow:
+
+Default → IO
+
+Why thread did NOT change?
+
+✔ Dispatchers.Default and Dispatchers.IO
+  share the SAME CoroutineScheduler
+✔ Same worker thread reused
+✔ Context changed logically
+✔ Physical thread reuse happened for performance
+
+So:
+
+Context switched ✅
+Thread switched ❌ (not required)
+
+
+--------------------------------------------------------
+TEST CASE 2
+--------------------------------------------------------
+
+GlobalScope.launch(Dispatchers.Main) {
+    withContext(Dispatchers.IO) {
+    }
+}
+
+Flow:
+
+Main → IO
+
+Why thread changed?
+
+✔ Main dispatcher uses UI thread
+✔ IO dispatcher uses background worker pool
+✔ Different thread pools
+✔ Switching is REQUIRED
+✔ Scheduler moved coroutine to worker thread
+
+So:
+
+Context switched ✅
+Thread switched ✅ (mandatory due to different pools)
+
+
+========================================================
+WHAT withContext() CHANGES
+========================================================
+
+1) Dispatcher  ✅ (If Provided)
+
+   withContext(Dispatchers.IO) { }
+
+   ✔ Execution responsibility moves to IO dispatcher
+   ✔ Scheduler decides which thread to use
+
+
+2) CoroutineName  ✅ (If Provided)
+
+   withContext(CoroutineName("MyTask")) { }
+
+   ✔ Useful for debugging
+
+
+3) CoroutineExceptionHandler  ✅ (If Provided)
+
+   withContext(myExceptionHandler) { }
+
+   ✔ Overrides handler inside this block
+
+
+========================================================
+WHAT withContext() DOES NOT CHANGE
+========================================================
+
+1) Job  ❌ (Does NOT change by default)
+
+   ✔ Same Job is preserved
+   ✔ Structured concurrency maintained
+   ✔ Cancellation propagates properly
+   ✔ Not a new coroutine
+
+
+2) It does NOT create a new coroutine  ❌
+
+   launch { }  → Creates new coroutine
+   async { }   → Creates new coroutine
+   withContext { } → Suspends current coroutine
+
+
+3) Thread is NOT guaranteed to change  ❌
+
+   Dispatcher switch ≠ Thread switch
+
+   Thread changes only if:
+   - Target dispatcher uses different thread pool
+   - Scheduler decides to move it
+
+
+========================================================
+WHEN SHOULD YOU USE withContext() ?
+========================================================
+
+1) Move heavy work off Main thread (MOST COMMON)
+
+   lifecycleScope.launch {
+
+       val data = withContext(Dispatchers.IO) {
+           apiCall()
+       }
+
+       textView.text = data
+   }
+
+
+2) CPU Intensive Work
+
+   withContext(Dispatchers.Default) {
+       heavyCalculation()
+   }
+
+
+3) When you need result sequentially
+
+   val result = withContext(Dispatchers.IO) {
+       fetchData()
+   }
+
+
+========================================================
+WHEN NOT TO USE withContext()
+========================================================
+
+❌ If already on same dispatcher
+❌ If you don't need result (use launch instead)
+❌ Do NOT use GlobalScope in Android (use lifecycleScope)
+
+
+========================================================
+INTERNAL EXECUTION FLOW
+========================================================
+
+1) Suspend current coroutine
+2) Combine CurrentContext + NewContext
+3) Dispatcher schedules execution
+4) Execute block
+5) Resume back to original context
+
+
+========================================================
+CORE MENTAL MODEL
+========================================================
+
+withContext changes COROUTINE CONTEXT.
+Thread switching is only an implementation detail
+of the dispatcher.
+
+Context switch ALWAYS happens.
+Thread switch happens ONLY when required.
+
+
+========================================================
+INTERVIEW ONE-LINER
+========================================================
+
+withContext switches coroutine context (dispatcher,
+name, exception handler if provided), keeps the same Job,
+does not create a new coroutine, and thread switching
+depends on whether the target dispatcher uses a different
+thread pool.
+========================================================
+
+2 main execution environments:
+- UI Thread (Main)
+- CoroutineScheduler thread pool (Default + IO)
+
+✅ Main Dispatchers in Android Kotlin
+
+In Android (kotlinx.coroutines), you mainly have:
+
+Dispatchers.Main
+Dispatchers.Default
+Dispatchers.IO
+Dispatchers.Unconfined
+
+
+                Android App
+
+                ┌─────────────┐
+                │   Main      │
+                │ (UI Thread) │
+                └─────────────┘
+                        ↑
+                        │
+      -----------------------------------------
+      |        CoroutineScheduler Pool       |
+      |                                       |
+      |   Default Threads (CPU limited)       |
+      |   IO Threads (can expand up to 64+)   |
+      -----------------------------------------
