@@ -1,0 +1,50 @@
+=========================================================
+COROUTINE CANCELLATION – PREREQUISITES (DIRECT POINTS)
+=========================================================
+
+1️⃣ REQUIRED TO CANCEL A COROUTINE
+
+✔ It must have a Job reference
+   - launch {} returns a Job
+   - You need that Job to call cancel()
+
+✔ The Job must be in ACTIVE state
+   - You cannot cancel a completed coroutine
+   - You cannot cancel an already cancelled coroutine
+
+✔ The coroutine must be COOPERATIVE
+   - Cancellation in Kotlin is cooperative (not forceful)
+
+---------------------------------------------------------
+
+2️⃣ WHAT MAKES A COROUTINE COOPERATIVE?
+
+✔ It must reach a suspension point such as:
+     - delay()
+     - yield()
+     - withContext()
+     - await()
+     - Any suspend function
+
+OR
+
+✔ It must manually check cancellation state:
+     - isActive
+     - ensureActive()
+
+---------------------------------------------------------
+
+3️⃣ IF THESE ARE NOT PRESENT
+
+❌ Coroutine will NOT stop immediately
+❌ It will continue execution until completion
+
+---------------------------------------------------------
+
+CORE RULE:
+
+Cancellation works only if:
+
+Job is ACTIVE
+AND
+Coroutine is COOPERATIVE

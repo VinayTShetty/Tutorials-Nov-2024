@@ -1,0 +1,34 @@
+=========================================================
+CAN WE RESTART A CANCELLED COROUTINE?
+=========================================================
+
+Short Answer:
+❌ No.
+
+---------------------------------------------------------
+WHY?
+---------------------------------------------------------
+
+- A coroutine is tied to a Job.
+- Once the Job is:
+     → Cancelled
+     → Completed
+  it reaches a terminal state.
+- Terminal state cannot return to Active.
+
+Lifecycle:
+New → Active → Cancelling → Cancelled / Completed
+
+After Cancelled/Completed = Finished forever.
+
+---------------------------------------------------------
+WHAT TO DO INSTEAD?
+---------------------------------------------------------
+
+✔ Start a NEW coroutine.
+
+Cancellation does NOT pause.
+It permanently terminates.
+
+To run again → launch a new coroutine.
+=========================================================
