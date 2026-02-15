@@ -5,23 +5,46 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.snapshotFlow
 
-
+/**
+ * This composable listens to scroll changes.
+ *
+ * It detects when user reaches bottom
+ * and triggers loading more data.
+ */
 @Composable
-fun PaginationEffect(listState: LazyListState, totalItems: Int, onLoadMore: () -> Unit) {
+fun PaginationEffect(
+    listState: LazyListState,
+    totalItems: Int,
+    onLoadMore: () -> Unit
+) {
 
+    /**
+     * LaunchedEffect restarts when:
+     * - listState changes
+     * - totalItems changes
+     */
     LaunchedEffect(listState, totalItems) {
 
-        //Observec Scroll changes as Flow
+        /**
+         * snapshotFlow converts Compose state into Flow.
+         *
+         * Here we observe:
+         * Last visible item index.
+         */
         snapshotFlow {
-            listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index
-        }.collect { lastvisibleIndex ->
+            listState.layoutInfo
+                .visibleItemsInfo
+                .lastOrNull()
+                ?.index
+        }.collect { lastVisibleIndex ->
 
-            // Trigger Pagination when last item is visible
-            if(lastvisibleIndex==totalItems-1){
+            /**
+             * If last visible item is the last item in list,
+             * trigger pagination.
+             */
+            if (lastVisibleIndex == totalItems - 1) {
                 onLoadMore()
             }
-
         }
     }
-
 }

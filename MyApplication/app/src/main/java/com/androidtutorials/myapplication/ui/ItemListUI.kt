@@ -13,26 +13,49 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
+/**
+ * This composable displays a scrollable list.
+ *
+ * @param listState -> Controls and observes scroll position.
+ * Required for detecting pagination trigger.
+ *
+ * @param lazyitems -> List of items to display.
+ * Comes from ViewModel state.
+ */
 @Composable
 fun ItemList(
     listState: LazyListState,
-    items: List<Int>
+    lazyitems: List<Int>
 ) {
     LazyColumn(
-        state = listState,
-        contentPadding = PaddingValues(8.dp)
+        state = listState, // Needed for pagination scroll detection
+        contentPadding = PaddingValues(8.dp) // Space around list
     ) {
-        items(items) { item ->
+
+        /**
+         * items() is a LazyColumn DSL function.
+         *
+         * It takes:
+         * - a List
+         * - a lambda to describe how each item UI looks
+         *
+         * It only composes visible items (performance optimization).
+         */
+        items(lazyitems) { item ->
             ItemCard(item)
         }
     }
 }
 
+/**
+ * Represents a single row in the list.
+ */
 @Composable
 fun ItemCard(item: Int) {
+
     Card(
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxWidth() // Takes full width
             .padding(vertical = 6.dp),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 4.dp
