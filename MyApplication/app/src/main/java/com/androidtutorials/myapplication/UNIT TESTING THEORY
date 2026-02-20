@@ -1,0 +1,282 @@
+===============================
+UNIT TESTING THEORY (JUnit - Kotlin)
+===============================
+
+1) WHAT IS UNIT TESTING?
+-------------------------
+Unit Testing is a software testing technique where we test
+a small piece of code (usually a single function or class)
+in isolation to verify that it behaves as expected.
+
+In our case:
+We tested -> applyDiscount() function
+Class under test -> DiscountCalculator
+Test class -> DiscountCalculatorTest
+
+Goal:
+✔ Verify correct calculations
+✔ Verify edge cases
+✔ Verify exceptions
+✔ Prevent future bugs (regression safety)
+
+------------------------------------------------------------
+
+2) AAA PATTERN (Used in Our Test)
+----------------------------------
+
+Every good unit test follows:
+
+A → Arrange   (Prepare data)
+A → Act       (Call the method)
+A → Assert    (Verify result)
+
+Example:
+
+// Arrange
+val price = 100.0
+val discount = 10
+
+// Act
+val result = calculator.applyDiscount(price, discount)
+
+// Assert
+assertEquals(90.0, result, 0.001)
+
+------------------------------------------------------------
+
+3) WHAT IS ASSERTION?
+----------------------
+
+An Assertion is a statement that checks whether something is true.
+
+If assertion condition is TRUE → Test PASSES
+If assertion condition is FALSE → Test FAILS
+
+Assertions are provided by JUnit framework.
+
+------------------------------------------------------------
+
+4) IMPORTANT ASSERT METHODS (TABLE FORMAT)
+--------------------------------------------
+
+| Method                         | Purpose                                      | When To Use |
+|--------------------------------|----------------------------------------------|-------------|
+| assertEquals(expected, actual, delta) | Checks if expected == actual          | Comparing numbers (Double, Float) |
+| assertEquals(expected, actual) | Checks equality (no delta)                   | String, Int, Boolean |
+| assertNotEquals(expected, actual) | Ensures values are NOT equal             | Negative testing |
+| assertTrue(condition)          | Passes if condition is TRUE                  | Boolean checks |
+| assertFalse(condition)         | Passes if condition is FALSE                 | Boolean checks |
+| assertNull(value)              | Passes if value is NULL                      | Nullable testing |
+| assertNotNull(value)           | Passes if value is NOT NULL                  | Object existence |
+| assertSame(expected, actual)   | Checks same memory reference                 | Object reference testing |
+| assertNotSame(expected, actual)| Checks different references                  | Object identity testing |
+| assertThrows(Exception::class.java) | Verifies exception is thrown          | Error handling tests |
+| fail(message)                  | Forces test to fail manually                 | Unexpected execution |
+
+------------------------------------------------------------
+
+5) EXPLANATION OF EACH ASSERT (THEORY)
+----------------------------------------
+
+1️⃣ assertEquals()
+
+Definition:
+Checks whether expected value equals actual value.
+
+Important for floating numbers:
+We use delta because floating-point numbers
+have small precision differences.
+
+Example:
+assertEquals(90.0, result, 0.001)
+
+Without delta:
+Double comparisons may fail even if visually equal.
+
+------------------------------------------------------------
+
+2️⃣ assertNotEquals()
+
+Checks that two values are NOT equal.
+
+Useful when:
+We want to ensure incorrect result is not returned.
+
+------------------------------------------------------------
+
+3️⃣ assertTrue()
+
+Passes only if condition evaluates to TRUE.
+
+Example:
+assertTrue(result == 90.0)
+
+Usually used for:
+• Boolean results
+• Logical conditions
+
+------------------------------------------------------------
+
+4️⃣ assertFalse()
+
+Passes only if condition is FALSE.
+
+Example:
+assertFalse(result == 100.0)
+
+------------------------------------------------------------
+
+5️⃣ assertNull()
+
+Passes if object is NULL.
+
+Used for:
+• Nullable variables
+• Optional return values
+
+------------------------------------------------------------
+
+6️⃣ assertNotNull()
+
+Passes if object is NOT NULL.
+
+Used to confirm:
+• Object was created
+• Method did not return null
+
+------------------------------------------------------------
+
+7️⃣ assertSame()
+
+Checks if two references point to SAME object in memory.
+
+Example:
+val obj1 = "Hello"
+val obj2 = obj1
+
+assertSame(obj1, obj2)  // PASS
+
+------------------------------------------------------------
+
+8️⃣ assertNotSame()
+
+Checks if references are DIFFERENT objects.
+
+Even if values are equal, memory reference may differ.
+
+------------------------------------------------------------
+
+9️⃣ assertThrows()
+
+Definition:
+Checks whether a specific exception is thrown.
+
+Example:
+assertThrows(IllegalArgumentException::class.java) {
+    calculator.applyDiscount(-100.0, 10)
+}
+
+If exception NOT thrown → Test FAILS
+If correct exception thrown → Test PASSES
+
+Used for:
+• Validation rules
+• Error conditions
+• Input constraints
+
+------------------------------------------------------------
+
+🔟 fail()
+
+Manually fails the test.
+
+Example:
+fail("This code should not be reached")
+
+Used when:
+Execution reaches unexpected code.
+
+------------------------------------------------------------
+
+6) WHAT WE DID IN OUR TEST CLASS (THEORY)
+--------------------------------------------
+
+In DiscountCalculatorTest we tested:
+
+✔ Normal Case
+   applyDiscount(100,10) → 90
+
+✔ Edge Case
+   Discount 0% → same price
+   Discount 100% → zero price
+
+✔ Invalid Input Case
+   Negative price → Exception
+   Discount > 100 → Exception
+
+This ensures:
+• Correct logic
+• Boundary testing
+• Defensive programming
+• Error handling validation
+
+------------------------------------------------------------
+
+7) WHY UNIT TESTING IS IMPORTANT
+-----------------------------------
+
+✔ Detects bugs early
+✔ Prevents regression
+✔ Improves code quality
+✔ Makes refactoring safe
+✔ Documents expected behavior
+✔ Encourages clean architecture
+
+------------------------------------------------------------
+
+8) CHARACTERISTICS OF A GOOD UNIT TEST
+----------------------------------------
+
+✔ Independent
+✔ Fast
+✔ Repeatable
+✔ Clear naming
+✔ Tests one behavior only
+✔ Uses meaningful assertions
+
+------------------------------------------------------------
+
+9) DIFFERENCE BETWEEN assertEquals & assertSame
+------------------------------------------------
+
+assertEquals → compares VALUES
+assertSame   → compares MEMORY reference
+
+Example:
+
+val a = "Hello"
+val b = "Hello"
+
+assertEquals(a, b)   // PASS (values same)
+assertSame(a, b)     // May FAIL (different reference)
+
+------------------------------------------------------------
+
+10) SUMMARY
+------------
+
+We wrote unit tests that:
+
+• Follow AAA pattern
+• Cover normal + edge + error cases
+• Use different assertion methods
+• Verify both output and exception behavior
+• Demonstrate good testing practice
+
+This is proper foundational unit testing in Android/Kotlin
+before introducing ViewModel or advanced architecture.
+
+------------------------------------------------------------
+
+END OF THEORY
+------------------------------------------------------------

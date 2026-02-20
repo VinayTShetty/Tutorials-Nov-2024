@@ -1,0 +1,205 @@
+/*
+===========================================================
+WHY WE WRITE TEST ANNOTATIONS AND ASSERTIONS SEPARATELY
+===========================================================
+
+Testing has TWO major responsibilities:
+
+1️⃣ Control WHEN something runs  → (Annotations)
+2️⃣ Verify WHAT happened         → (Assertions)
+
+-----------------------------------------------------------
+PART 1️⃣ : TEST ANNOTATIONS (Lifecycle Control)
+-----------------------------------------------------------
+
+Annotations control execution timing.
+
+They do NOT verify logic.
+They only control WHEN code runs.
+
+-----------------------------------------------------------
+@Test
+-----------------------------------------------------------
+• Marks a method as a test case.
+• Without it, JUnit will NOT run the method.
+• Used to define actual test scenarios.
+
+When to use:
+→ Every time you write a test case.
+
+-----------------------------------------------------------
+@Before
+-----------------------------------------------------------
+• Runs BEFORE each test method.
+• Used for setup.
+• Ensures test isolation.
+• Creates fresh objects for each test.
+
+When to use:
+→ When you need a new instance before every test.
+→ When resetting variables before each test.
+
+Example usage:
+Create new object.
+Initialize mocks.
+Prepare test data.
+
+-----------------------------------------------------------
+@After
+-----------------------------------------------------------
+• Runs AFTER each test method.
+• Used for cleanup.
+• Ensures no leftover state affects other tests.
+
+When to use:
+→ Clearing mocks.
+→ Closing resources.
+→ Resetting shared variables.
+
+-----------------------------------------------------------
+@BeforeClass
+-----------------------------------------------------------
+• Runs ONLY ONCE before ALL test methods.
+• Must be static in JUnit 4.
+• Used for heavy or global setup.
+
+When to use:
+→ Database connection setup.
+→ Expensive initialization.
+→ One-time configuration.
+
+-----------------------------------------------------------
+@AfterClass
+-----------------------------------------------------------
+• Runs ONLY ONCE after ALL tests complete.
+• Used for global cleanup.
+
+When to use:
+→ Closing database.
+→ Releasing global resources.
+
+-----------------------------------------------------------
+@Ignore
+-----------------------------------------------------------
+• Skips a test temporarily.
+• Test will not execute.
+
+When to use:
+→ Feature not ready.
+→ Test under development.
+→ Temporary disabling.
+
+-----------------------------------------------------------
+PART 2️⃣ : ASSERTIONS (Verification)
+-----------------------------------------------------------
+
+Assertions verify behavior.
+
+Without assertions:
+→ Test will always PASS.
+→ No real validation happens.
+
+Assertions check expected vs actual result.
+
+-----------------------------------------------------------
+assertEquals(expected, actual)
+-----------------------------------------------------------
+• Checks if two values are equal.
+• Most commonly used assertion.
+
+Use when:
+→ Verifying return values.
+→ Comparing numbers or strings.
+
+-----------------------------------------------------------
+assertNotEquals(expected, actual)
+-----------------------------------------------------------
+• Checks values are NOT equal.
+
+Use when:
+→ Ensuring wrong value is not returned.
+
+-----------------------------------------------------------
+assertTrue(condition)
+-----------------------------------------------------------
+• Passes if condition is TRUE.
+
+Use when:
+→ Checking boolean conditions.
+
+-----------------------------------------------------------
+assertFalse(condition)
+-----------------------------------------------------------
+• Passes if condition is FALSE.
+
+Use when:
+→ Ensuring condition should not happen.
+
+-----------------------------------------------------------
+assertNull(value)
+-----------------------------------------------------------
+• Passes if value is NULL.
+
+Use when:
+→ Testing nullable returns.
+
+-----------------------------------------------------------
+assertNotNull(value)
+-----------------------------------------------------------
+• Passes if value is NOT NULL.
+
+Use when:
+→ Ensuring object was created.
+
+-----------------------------------------------------------
+assertThrows(Exception::class)
+-----------------------------------------------------------
+• Passes only if exception is thrown.
+
+Use when:
+→ Testing validation.
+→ Testing error cases.
+
+-----------------------------------------------------------
+IMPORTANT DIFFERENCE
+-----------------------------------------------------------
+
+Annotations  → Control execution timing.
+Assertions   → Validate results.
+
+-----------------------------------------------------------
+TEST EXECUTION FLOW (JUnit 4)
+-----------------------------------------------------------
+
+1️⃣ @BeforeClass   (Runs once)
+2️⃣ @Before        (Runs before each test)
+3️⃣ @Test          (Test logic runs)
+4️⃣ Assertions     (Validation happens)
+5️⃣ @After         (Cleanup after test)
+6️⃣ Repeat steps 2–5 for each test
+7️⃣ @AfterClass    (Runs once at end)
+
+-----------------------------------------------------------
+WHY WE DO NOT MIX EVERYTHING
+-----------------------------------------------------------
+
+• Keeps test clean and structured.
+• Ensures isolation between tests.
+• Makes debugging easier.
+• Prevents shared-state bugs.
+• Improves readability.
+• Follows professional testing standards.
+
+-----------------------------------------------------------
+CORE PRINCIPLE
+-----------------------------------------------------------
+
+Annotations answer:
+→ WHEN should this run?
+
+Assertions answer:
+→ IS the behavior correct?
+
+Both are required for proper unit testing.
+===========================================================
+*/
