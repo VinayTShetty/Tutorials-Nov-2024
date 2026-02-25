@@ -1,0 +1,40 @@
+
+     ===============================
+     📌 Compose BOM Version Rule
+     ===============================
+
+     If using:
+     implementation platform("androidx.compose:compose-bom:XXXX")
+
+     👉 DO NOT specify versions for Compose libraries.
+     The BOM (Bill Of Materials) manages compatible versions automatically.
+
+     ✅ Correct (No version needed):
+     implementation "androidx.compose.ui:ui"
+     implementation "androidx.compose.material3:material3"
+     implementation "androidx.compose.runtime:runtime-livedata"
+
+     ❌ Wrong (Do not manually add version when using BOM):
+     implementation "androidx.compose.ui:ui:1.x.x"
+
+     ---------------------------------
+
+     📌 Non-Compose Libraries Rule
+     ---------------------------------
+
+     For libraries NOT controlled by Compose BOM,
+     you MUST specify version manually.
+
+     Examples:
+
+     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.6.2"
+     implementation "androidx.activity:activity-compose:1.8.2"
+     implementation "androidx.core:core-ktx:1.12.0"
+
+     ---------------------------------
+
+     🔥 Simple Rule:
+     Compose libraries → NO version (if using BOM)
+     Non-Compose libraries → Version required
+
+

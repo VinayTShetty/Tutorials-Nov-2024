@@ -1,0 +1,11 @@
+🧠 What is observeAsState?
+
+Converts LiveData → State
+
+Allows Compose to recompose automatically
+
+Comes from dependency:
+
+implementation "androidx.compose.runtime:runtime-livedata"
+
+Without this dependency → observeAsState() won’t exist.

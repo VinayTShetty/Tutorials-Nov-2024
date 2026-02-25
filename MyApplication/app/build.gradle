@@ -64,4 +64,30 @@ dependencies {
     androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
     debugImplementation 'androidx.compose.ui:ui-tooling'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
+
+    /**
+     * Required to use LiveData inside Compose.
+     * Provides observeAsState() extension.
+     */
+    implementation "androidx.compose.runtime:runtime-livedata"
+
+    /**
+     * JUnit - Basic unit testing framework.
+     * Used for writing @Test functions.
+     */
+    testImplementation "junit:junit:4.13.2"
+
+    /**
+     * Used when testing coroutines or Flow.
+     * Provides runTest and TestDispatcher.
+     * Not required in your current ViewModel.
+     */
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3"
+
+    /**
+     * Required for testing LiveData in unit tests.
+     * Provides InstantTaskExecutorRule.
+     * Makes LiveData run synchronously.
+     */
+    testImplementation "androidx.arch.core:core-testing:2.2.0"
 }
