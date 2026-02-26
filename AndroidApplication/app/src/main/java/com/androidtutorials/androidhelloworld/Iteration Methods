@@ -1,0 +1,93 @@
+package com.androidtutorials
+
+fun main() {
+
+    // =========================================================================================
+    // ================================ 📦 LIST ITERATION ======================================
+    // =========================================================================================
+    /**
+     * List:
+     * - Ordered collection
+     * - Allows duplicates
+     * - Supports index-based access
+     */
+
+    val list = listOf(1, 2, 3, 4)
+
+    println("----- List using for loop -----")
+    for (item in list) {
+        println(item)
+    }
+
+    println("----- List using forEach -----")
+    list.forEach {
+        println(it)   // 'it' refers to each element
+    }
+
+    println("----- List using index -----")
+    for (index in list.indices) {
+        println("Index $index = ${list[index]}")
+    }
+
+
+
+    // =========================================================================================
+    // ================================ 📦 SET ITERATION =======================================
+    // =========================================================================================
+    /**
+     * Set:
+     * - No duplicates allowed
+     * - No index-based access
+     * - Order maintained (default implementation)
+     */
+
+    val set = setOf(10, 20, 30, 10)  // Duplicate 10 ignored
+
+    println("\n----- Set using for loop -----")
+    for (item in set) {
+        println(item)
+    }
+
+    println("----- Set using forEach -----")
+    set.forEach {
+        println(it)
+    }
+
+
+
+    // =========================================================================================
+    // ================================ 📦 MAP ITERATION =======================================
+    // =========================================================================================
+    /**
+     * Map:
+     * - Stores key-value pairs
+     * - Keys are unique
+     * - Access values using keys
+     */
+
+    val map = mapOf(
+        "A" to 1,
+        "B" to 2,
+        "C" to 3
+    )
+
+    println("\n----- Map using for loop -----")
+    for ((key, value) in map) {
+        println("$key = $value")
+    }
+
+    println("----- Map using forEach -----")
+    map.forEach { (key, value) ->
+        println("$key = $value")
+    }
+
+    println("----- Map using keys -----")
+    for (key in map.keys) {
+        println("Key: $key Value: ${map[key]}")
+    }
+
+    println("----- Map using values -----")
+    for (value in map.values) {
+        println("Value: $value")
+    }
+}

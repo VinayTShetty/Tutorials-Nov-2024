@@ -1,0 +1,215 @@
+============================================================
+KOTLIN COLLECTIONS – THEORY INTERVIEW Q&A
+============================================================
+
+1) What is the difference between MutableList and ArrayList?
+
+MutableList:
+- Kotlin interface
+- Defines read/write operations
+- Can have multiple implementations
+
+ArrayList:
+- Concrete class
+- Resizable array implementation
+- Implements MutableList
+
+Best Practice:
+val list: MutableList<Int> = ArrayList()
+
+
+2) Is Kotlin List thread-safe?
+
+No.
+- listOf() provides read-only view, not truly immutable.
+- MutableList is not thread-safe.
+- Use synchronized collections or CopyOnWriteArrayList for thread safety.
+
+
+3) Why prefer immutable collections?
+
+- Prevent accidental modification
+- Safer in multi-threaded environments
+- Better for functional programming
+- Easier debugging and predictable state management
+
+
+4) When to use Sequence?
+
+- Large datasets
+- Multiple chained operations (map, filter, etc.)
+- To avoid intermediate collections
+- When lazy evaluation is beneficial
+
+
+5) What happens if reduce() is called on an empty list?
+
+It throws NoSuchElementException.
+
+Example:
+emptyList<Int>().reduce { acc, i -> acc + i }
+
+
+6) How to avoid ConcurrentModificationException?
+
+- Use iterator.remove()
+- Use removeIf()
+- Iterate over a copy
+- Use concurrent collections
+
+Example:
+val iterator = list.iterator()
+while (iterator.hasNext()) {
+    val item = iterator.next()
+    if (condition) iterator.remove()
+}
+
+
+7) Difference between mapNotNull and filterNotNull?
+
+mapNotNull:
+- Transforms elements
+- Removes null results
+
+filterNotNull:
+- Only removes null values
+- Does not transform
+
+Example:
+listOf("1", "A").mapNotNull { it.toIntOrNull() }
+listOf(1, null, 2).filterNotNull()
+
+
+8) What is the return type of groupBy?
+
+Map<K, List<T>>
+
+Example:
+val result: Map<Int, List<String>>
+
+
+9) Difference between sortedBy and sortBy?
+
+sortedBy:
+- Returns new sorted list
+- Does not modify original
+
+sortBy:
+- Modifies original MutableList
+- Returns Unit
+
+
+10) How does HashSet achieve O(1) lookup?
+
+- Uses hash table internally
+- Uses hashCode() to determine bucket
+- Direct bucket access
+- Average O(1), worst case O(n)
+
+
+11) What is lazy evaluation?
+
+Operations execute only when terminal operation is called.
+Used in:
+- Sequence
+- Flow
+- lazy properties
+
+Example:
+list.asSequence()
+    .map { it * 2 }
+    .filter { it > 5 }
+    .toList()
+
+
+12) How to remove duplicates from a list?
+
+Using:
+list.distinct()
+or
+list.toSet()
+
+
+13) Difference between distinct() and toSet()?
+
+distinct():
+- Returns List
+- Maintains order
+
+toSet():
+- Returns Set
+- Removes duplicates
+- Order preserved only in LinkedHashSet
+
+
+14) How to flatten a nested list?
+
+val nested = listOf(listOf(1,2), listOf(3,4))
+
+Using:
+nested.flatten()
+or
+nested.flatMap { it }
+
+
+15) How to count occurrences using groupBy?
+
+val list = listOf("A", "B", "A")
+
+val countMap = list
+    .groupBy { it }
+    .mapValues { it.value.size }
+
+Result:
+{A=2, B=1}
+
+
+16) Difference between first() and firstOrNull()?
+
+first():
+- Returns first element
+- Throws exception if not found
+
+firstOrNull():
+- Returns null if not found
+
+
+17) What is the time complexity of sorting?
+
+O(n log n)
+
+Kotlin uses:
+- TimSort for objects
+- Dual-Pivot QuickSort for primitives
+
+
+18) Difference between find() and filter()?
+
+find():
+- Returns first matching element
+- Returns single object or null
+
+filter():
+- Returns list of all matching elements
+
+
+19) When to use LinkedHashSet?
+
+- When you need no duplicates
+- When insertion order must be preserved
+
+
+20) Why use fold in state management?
+
+- Accumulates state step by step
+- Common in Redux/MVI architecture
+- Produces new immutable state
+
+Example:
+val finalState = events.fold(initialState) { state, event ->
+    reduce(state, event)
+}
+
+============================================================
+END
+============================================================

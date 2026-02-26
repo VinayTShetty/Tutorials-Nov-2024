@@ -1,0 +1,248 @@
+/*
+============================================================
+KOTLIN COLLECTIONS – INTERVIEW QUESTIONS (BEGINNER → ADVANCED)
+============================================================
+*/
+
+
+// ============================================================
+// 1️⃣ Difference between List and Sequence
+// ============================================================
+
+/*
+Q: What is the difference between List and Sequence?
+
+Answer:
+- List operations are EAGER (executed immediately)
+- Sequence operations are LAZY (executed only when terminal operation is called)
+- Sequence is better for large datasets
+*/
+
+fun listVsSequenceExample() {
+
+    val listResult = listOf(1, 2, 3, 4, 5)
+        .map { it * 2 }      // Executes immediately
+        .filter { it > 5 }
+
+    val sequenceResult = listOf(1, 2, 3, 4, 5)
+        .asSequence()
+        .map { it * 2 }      // Executes lazily
+        .filter { it > 5 }
+        .toList()            // Terminal operation
+
+}
+
+
+// ============================================================
+// 2️⃣ When to use MutableList?
+// ============================================================
+
+/*
+Q: When should we use MutableList?
+
+Answer:
+- When elements need to be added/removed/updated
+- Avoid exposing mutable list publicly (encapsulation best practice)
+*/
+
+fun mutableListExample() {
+
+    val mutable = mutableListOf(1, 2, 3)
+    mutable.add(4)
+    mutable.remove(2)
+
+}
+
+
+// ============================================================
+// 3️⃣ Difference between map() and flatMap()
+// ============================================================
+
+/*
+Q: Difference between map and flatMap?
+
+map() → Transforms each element
+flatMap() → Transforms and flattens nested collections
+*/
+
+fun mapVsFlatMapExample() {
+
+    val numbers = listOf(1, 2, 3)
+
+    val mapResult = numbers.map { listOf(it, it * 10) }
+    // Output: [[1,10], [2,20], [3,30]]
+
+    val flatMapResult = numbers.flatMap { listOf(it, it * 10) }
+    // Output: [1,10,2,20,3,30]
+}
+
+
+// ============================================================
+// 4️⃣ Difference between fold() and reduce()
+// ============================================================
+
+/*
+reduce():
+- Uses first element as initial value
+- Fails on empty list
+
+fold():
+- Requires initial value
+- Works on empty list
+*/
+
+fun foldVsReduceExample() {
+
+    val numbers = listOf(1, 2, 3)
+
+    val reduceResult = numbers.reduce { acc, i -> acc + i }
+
+    val foldResult = numbers.fold(10) { acc, i -> acc + i }
+
+}
+
+
+// ============================================================
+// 5️⃣ How to group objects by property?
+// ============================================================
+
+data class User(val name: String, val age: Int)
+
+fun groupByExample() {
+
+    val users = listOf(
+        User("A", 20),
+        User("B", 30),
+        User("C", 20)
+    )
+
+    val grouped = users.groupBy { it.age }
+    // Output: {20=[User(A), User(C)], 30=[User(B)]}
+}
+
+
+// ============================================================
+// 6️⃣ Time Complexity of contains()
+// ============================================================
+
+/*
+List.contains() → O(n)
+Set.contains() → O(1) average (HashSet)
+*/
+
+fun containsExample() {
+
+    val list = listOf(1, 2, 3, 4, 5)
+    val set = setOf(1, 2, 3, 4, 5)
+
+    list.contains(4) // O(n)
+    set.contains(4)  // O(1)
+
+}
+
+
+// ============================================================
+// 7️⃣ Difference between associateBy and groupBy
+// ============================================================
+
+/*
+associateBy() → One key → one value
+groupBy() → One key → multiple values
+*/
+
+fun associateVsGroupExample() {
+
+    val users = listOf(
+        User("A", 20),
+        User("B", 20)
+    )
+
+    val associate = users.associateBy { it.age }
+    // Keeps last value for duplicate key
+
+    val group = users.groupBy { it.age }
+    // Keeps list of values
+
+}
+
+
+// ============================================================
+// 8️⃣ Partition
+// ============================================================
+
+fun partitionExample() {
+
+    val numbers = listOf(1, 2, 3, 4)
+
+    val (even, odd) = numbers.partition { it % 2 == 0 }
+
+}
+
+
+// ============================================================
+// 9️⃣ Sorting
+// ============================================================
+
+fun sortingExample() {
+
+    val users = listOf(
+        User("A", 30),
+        User("B", 20)
+    )
+
+    val sortedByAge = users.sortedBy { it.age }
+    val sortedDesc = users.sortedByDescending { it.age }
+
+}
+
+
+// ============================================================
+// 🔟 Chunked & Windowed
+// ============================================================
+
+fun chunkedWindowedExample() {
+
+    val numbers = listOf(1, 2, 3, 4, 5)
+
+    val chunked = numbers.chunked(2)
+    // [[1,2], [3,4], [5]]
+
+    val windowed = numbers.windowed(3)
+    // [[1,2,3], [2,3,4], [3,4,5]]
+}
+
+
+// ============================================================
+// 1️⃣1️⃣ Reduce Real Interview Question
+// ============================================================
+
+/*
+Q: Find product of all numbers using reduce
+*/
+
+fun productExample() {
+
+    val numbers = listOf(1, 2, 3, 4)
+
+    val product = numbers.reduce { acc, i -> acc * i }
+
+}
+
+
+// ============================================================
+// 1️⃣2️⃣ Fold Real Interview Question
+// ============================================================
+
+/*
+Q: Convert list into comma separated string using fold
+*/
+
+fun foldStringExample() {
+
+    val words = listOf("A", "B", "C")
+
+    val result = words.fold("") { acc, word ->
+        if (acc.isEmpty()) word else "$acc,$word"
+    }
+
+}

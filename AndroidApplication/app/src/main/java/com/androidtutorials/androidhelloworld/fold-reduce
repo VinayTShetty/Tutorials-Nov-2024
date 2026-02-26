@@ -1,0 +1,90 @@
+fun main() {
+
+    // =========================================
+    // Example 1: Using Int List
+    // =========================================
+
+    // List of integers
+    val numbers = listOf(1, 2, 3)
+
+    // -------------------------
+    // Using REDUCE (Int)
+    // -------------------------
+    // reduce() takes the FIRST element as initial value automatically
+    //
+    // So internally:
+    // Step 1: acc = 1, number = 2  → 1 + 2 = 3
+    // Step 2: acc = 3, number = 3  → 3 + 3 = 6
+    // Final result = 6
+
+    val reduceIntResult = numbers.reduce { acc, number ->
+        acc + number
+    }
+
+    println("Reduce Result (Int): $reduceIntResult")
+    // Output: 6
+
+
+    // -------------------------
+    // Using FOLD (Int)
+    // -------------------------
+    // fold() requires an initial value
+    // Here we start with 10
+    //
+    // Step 1: acc = 10, number = 1 → 11
+    // Step 2: acc = 11, number = 2 → 13
+    // Step 3: acc = 13, number = 3 → 16
+    // Final result = 16
+
+    val foldIntResult = numbers.fold(10) { acc, number ->
+        acc + number
+    }
+
+    println("Fold Result (Int): $foldIntResult")
+    // Output: 16
+
+
+    println("=========================================")
+
+
+    // =========================================
+    // Example 2: Using String List
+    // =========================================
+
+    // List of strings
+    val words = listOf("A", "B", "C")
+
+    // -------------------------
+    // Using REDUCE (String)
+    // -------------------------
+    // First element is used as starting value automatically
+    //
+    // Step 1: acc = "A", word = "B" → "AB"
+    // Step 2: acc = "AB", word = "C" → "ABC"
+    // Final result = "ABC"
+
+    val reduceStringResult = words.reduce { acc, word ->
+        acc + word
+    }
+
+    println("Reduce Result (String): $reduceStringResult")
+    // Output: ABC
+
+
+    // -------------------------
+    // Using FOLD (String)
+    // -------------------------
+    // We provide initial value "Start-"
+    //
+    // Step 1: "Start-" + "A"
+    // Step 2: + "B"
+    // Step 3: + "C"
+    // Final result = "Start-ABC"
+
+    val foldStringResult = words.fold("Start-") { acc, word ->
+        acc + word
+    }
+
+    println("Fold Result (String): $foldStringResult")
+    // Output: Start-ABC
+}

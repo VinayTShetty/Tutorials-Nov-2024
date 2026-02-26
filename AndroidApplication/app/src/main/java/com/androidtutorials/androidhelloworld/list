@@ -1,0 +1,90 @@
+package com.androidtutorials
+
+fun main() {
+
+    // =========================================================================================
+    // =============================== 📦 IMMUTABLE LIST (listOf) ==============================
+    // =========================================================================================
+    /**
+     * listOf() creates an IMMUTABLE List.
+     *
+     * ❌ You CANNOT add, remove, or modify elements.
+     * ✅ You can read/access elements safely.
+     */
+
+    val numbers = listOf(1, 2, 3, 4, 5)
+
+    println("Items in the List: $numbers")
+    println("Size of the List: ${numbers.size}")
+    println("Element at index 0: ${numbers[0]}")
+
+    // -----------------------------------------------------------------------------------------
+    // Common Read-Only List Functions
+    // -----------------------------------------------------------------------------------------
+
+    /**
+     * These functions are available for immutable (read-only) lists.
+     * They do NOT modify the list.
+     */
+
+    println("First Item: ${numbers.first()}")      // Returns first element
+    println("Last Item: ${numbers.last()}")        // Returns last element
+    println("List contains 5? ${numbers.contains(5)}")  // Checks if element exists
+    println("Index of element 3: ${numbers.indexOf(3)}") // Returns index of element
+
+    /**
+     * ❌ Cannot Modify Immutable List
+     * The following will give compile-time error:
+     */
+
+    // numbers.add(6)       // ❌ ERROR - Unresolved reference
+    // numbers.remove(1)    // ❌ ERROR - Not allowed
+
+
+
+    // =========================================================================================
+    // =============================== 📦 MUTABLE LIST (mutableListOf) =========================
+    // =========================================================================================
+    /**
+     * mutableListOf() creates a MUTABLE List.
+     *
+     * ✅ You CAN add elements
+     * ✅ You CAN remove elements
+     * ✅ You CAN modify elements
+     */
+
+    val numbers_1 = mutableListOf(6, 7, 8, 9, 10, 11, 12, 13)
+
+    println("\nOriginal Mutable List: $numbers_1")
+
+    // -----------------------------------------------------------------------------------------
+    // Adding Elements
+    // -----------------------------------------------------------------------------------------
+
+    numbers_1.add(99)  // Adds element at the end
+    println("After Adding 99: $numbers_1")
+
+    // -----------------------------------------------------------------------------------------
+    // Removing Elements
+    // -----------------------------------------------------------------------------------------
+
+    numbers_1.remove(13)  // Removes element by value
+    println("After Removing 13: $numbers_1")
+
+    // -----------------------------------------------------------------------------------------
+    // Modifying Elements
+    // -----------------------------------------------------------------------------------------
+
+    numbers_1[0] = 100  // Replace element at index 0
+    println("After Modifying index 0: $numbers_1")
+
+    // -----------------------------------------------------------------------------------------
+    // Mutable List Functions
+    // -----------------------------------------------------------------------------------------
+
+    println("Mutable List Size: ${numbers_1.size}")
+    println("Mutable List First Element: ${numbers_1.first()}")
+    println("Mutable List Last Element: ${numbers_1.last()}")
+
+}
+

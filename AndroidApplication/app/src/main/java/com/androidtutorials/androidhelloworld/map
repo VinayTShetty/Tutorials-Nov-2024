@@ -1,0 +1,90 @@
+package com.androidtutorials
+
+fun main() {
+
+    // =========================================================================================
+    // ================================ 📦 IMMUTABLE MAP (mapOf) ===============================
+    // =========================================================================================
+    /**
+     * mapOf() creates an IMMUTABLE Map.
+     *
+     * ✅ Stores data in Key-Value pairs
+     * ✅ Keys are UNIQUE
+     * ❌ Cannot add, remove, or modify entries
+     *
+     * Syntax:
+     * "key" to value
+     */
+
+    val map = mapOf(
+        "name" to "Vinay",
+        "age" to 25
+    )
+
+    println("Immutable Map: $map")
+
+    // -----------------------------------------------------------------------------------------
+    // Accessing Values
+    // -----------------------------------------------------------------------------------------
+
+    println("Name: ${map["name"]}")
+    println("Age: ${map["age"]}")
+    println("Map Size: ${map.size}")
+    println("Contains key 'name'? ${map.containsKey("name")}")
+    println("Contains value 25? ${map.containsValue(25)}")
+
+    /**
+     * ❌ Cannot Modify Immutable Map
+     */
+    // map["city"] = "Bangalore"  // ❌ ERROR
+    // map.remove("age")          // ❌ ERROR
+
+
+
+    // =========================================================================================
+    // ================================ 📦 MUTABLE MAP (mutableMapOf) ==========================
+    // =========================================================================================
+    /**
+     * mutableMapOf() creates a MUTABLE Map.
+     *
+     * ✅ Keys are UNIQUE
+     * ✅ You CAN add new entries
+     * ✅ You CAN update existing entries
+     * ✅ You CAN remove entries
+     */
+
+    val map_1 = mutableMapOf<String, Int>()
+
+    println("\nOriginal Mutable Map: $map_1")
+
+    // -----------------------------------------------------------------------------------------
+    // Adding Entries
+    // -----------------------------------------------------------------------------------------
+
+    map_1["Math"] = 95
+    map_1["Science"] = 97
+
+    println("After Adding Subjects: $map_1")
+
+    // -----------------------------------------------------------------------------------------
+    // Updating Entry
+    // -----------------------------------------------------------------------------------------
+
+    map_1["Math"] = 99   // Updates existing key value
+    println("After Updating Math Marks: $map_1")
+
+    // -----------------------------------------------------------------------------------------
+    // Removing Entry
+    // -----------------------------------------------------------------------------------------
+
+    map_1.remove("Science")
+    println("After Removing Science: $map_1")
+
+    // -----------------------------------------------------------------------------------------
+    // Common Mutable Map Functions
+    // -----------------------------------------------------------------------------------------
+
+    println("Mutable Map Size: ${map_1.size}")
+    println("Keys: ${map_1.keys}")
+    println("Values: ${map_1.values}")
+}

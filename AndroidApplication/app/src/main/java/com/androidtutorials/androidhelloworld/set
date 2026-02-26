@@ -1,0 +1,82 @@
+package com.androidtutorials
+
+fun main() {
+
+    // =========================================================================================
+    // ================================ 📦 IMMUTABLE SET (setOf) ===============================
+    // =========================================================================================
+    /**
+     * setOf() creates an IMMUTABLE Set.
+     *
+     * ✅ Duplicates are NOT allowed
+     * ✅ Order is generally maintained (LinkedHashSet internally)
+     * ❌ Cannot add or remove elements
+     *
+     * If duplicate values are provided,
+     * Kotlin automatically removes them.
+     */
+
+    val set = setOf(1, 2, 3, 1, 2, 3)
+
+    /**
+     * Even though duplicates (1,2,3) are added twice,
+     * the final output will contain only unique elements.
+     */
+
+    println("Items in the Immutable Set: $set")
+    println("Size of the Set: ${set.size}")
+    println("Does set contain 2? ${set.contains(2)}")
+
+    /**
+     * ❌ Cannot modify Immutable Set
+     */
+    // set.add(5)     // ❌ ERROR
+    // set.remove(1)  // ❌ ERROR
+
+
+
+    // =========================================================================================
+    // ================================ 📦 MUTABLE SET (mutableSetOf) ==========================
+    // =========================================================================================
+    /**
+     * mutableSetOf() creates a MUTABLE Set.
+     *
+     * ✅ Duplicates are NOT allowed
+     * ✅ You CAN add elements
+     * ✅ You CAN remove elements
+     * ✅ You CAN modify the set
+     */
+
+    val set_1 = mutableSetOf(4, 5, 6)
+
+    println("\nOriginal Mutable Set: $set_1")
+
+    // -----------------------------------------------------------------------------------------
+    // Adding Elements
+    // -----------------------------------------------------------------------------------------
+
+    set_1.add(7)
+    set_1.add(8)
+
+    /**
+     * Trying to add duplicate value:
+     * It will NOT be added again.
+     */
+    set_1.add(8)  // No effect (duplicate)
+
+    println("After Adding Elements: $set_1")
+
+    // -----------------------------------------------------------------------------------------
+    // Removing Elements
+    // -----------------------------------------------------------------------------------------
+
+    set_1.remove(5)
+    println("After Removing 5: $set_1")
+
+    // -----------------------------------------------------------------------------------------
+    // Common Mutable Set Functions
+    // -----------------------------------------------------------------------------------------
+
+    println("Size of Mutable Set: ${set_1.size}")
+    println("Does Mutable Set contain 6? ${set_1.contains(6)}")
+}

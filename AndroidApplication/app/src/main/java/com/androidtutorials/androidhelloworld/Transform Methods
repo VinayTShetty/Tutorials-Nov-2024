@@ -1,0 +1,128 @@
+package com.androidtutorials
+
+fun main() {
+
+    // =========================================================================================
+    // =========================== 📦 1️⃣ map() - TRANSFORM EACH ELEMENT =======================
+    // =========================================================================================
+    /**
+     * map():
+     * - Transforms each element into something else
+     * - Returns a NEW collection
+     * - Does NOT modify original collection
+     */
+
+    // -------------------- LIST Example --------------------
+    val numberList = listOf(1, 2, 3)
+
+    val doubledList = numberList.map { it * 2 }
+
+    println("Original List: $numberList")
+    println("Doubled List using map(): $doubledList")
+
+
+    // -------------------- SET Example --------------------
+    val numberSet = setOf(4, 5, 6)
+
+    val squaredSet = numberSet.map { it * it }  // returns List
+
+    println("Original Set: $numberSet")
+    println("Squared Set using map(): $squaredSet")
+
+
+    // -------------------- MAP Example --------------------
+    val studentMarks = mapOf(
+        "Math" to 90,
+        "Science" to 80
+    )
+
+    val updatedMarks = studentMarks.mapValues { (_, value) ->
+        value + 5
+    }
+
+    println("Original Map: $studentMarks")
+    println("Updated Marks using mapValues(): $updatedMarks")
+
+
+
+    // =========================================================================================
+    // =========================== 📦 2️⃣ filter() - SELECT BASED ON CONDITION =================
+    // =========================================================================================
+    /**
+     * filter():
+     * - Returns elements that match a condition
+     * - Used heavily in UI filtering
+     */
+
+    // -------------------- LIST Example --------------------
+    val evenNumbers = numberList.filter { it % 2 == 0 }
+    println("\nEven Numbers from List: $evenNumbers")
+
+    // -------------------- SET Example --------------------
+    val filteredSet = numberSet.filter { it > 4 }
+    println("Filtered Set (>4): $filteredSet")
+
+    // -------------------- MAP Example --------------------
+    val highMarks = studentMarks.filter { (_, value) ->
+        value > 85
+    }
+    println("Filtered Map (marks > 85): $highMarks")
+
+
+
+    // =========================================================================================
+    // =========================== 📦 3️⃣ mapNotNull() =========================================
+    // =========================================================================================
+    /**
+     * mapNotNull():
+     * - Transforms elements
+     * - Removes NULL results automatically
+     * - Very useful for safe parsing
+     */
+
+    val values = listOf("1", "2", "abc")
+
+    val convertedNumbers = values.mapNotNull {
+        it.toIntOrNull()   // Returns null for "abc"
+    }
+
+    println("\nOriginal String List: $values")
+    println("After mapNotNull(): $convertedNumbers")
+
+
+
+    // =========================================================================================
+    // =========================== 📦 4️⃣ flatMap() - FLATTEN NESTED COLLECTION =================
+    // =========================================================================================
+    /**
+     * flatMap():
+     * - Used when each item produces a list
+     * - Flattens nested lists into a single list
+     * - Very common in API response mapping
+     */
+
+    // -------------------- LIST of LIST Example --------------------
+    val nestedList = listOf(
+        listOf(1, 2),
+        listOf(3, 4)
+    )
+
+    val flatList = nestedList.flatMap { it }
+
+    println("\nNested List: $nestedList")
+    println("Flattened List using flatMap(): $flatList")
+
+
+    // -------------------- MAP with List Values Example --------------------
+    val departmentEmployees = mapOf(
+        "IT" to listOf("Vinay", "Rahul"),
+        "HR" to listOf("Anita")
+    )
+
+    val allEmployees = departmentEmployees.flatMap { (_, employees) ->
+        employees
+    }
+
+    println("All Employees from Map using flatMap(): $allEmployees")
+
+}
