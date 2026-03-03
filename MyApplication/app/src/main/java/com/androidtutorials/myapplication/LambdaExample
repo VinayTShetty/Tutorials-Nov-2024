@@ -1,0 +1,147 @@
+/**
+  Cannot pass directly the values to the Lambda.
+  Compulsary we need to pass Variable Name
+
+ */
+
+
+fun main() {
+    demoLambda(
+        "Calling Lambda",
+        { a: Int, b: Int -> }
+    )
+}
+
+fun demoLambda(text: String, operation: (Int, Int) -> Unit) {
+    println("Hello World")
+}
+
+/**
+  Invalid
+
+  1) While calling a lambda, we cannot pass direct values as parameters.
+
+  ❌ Wrong:
+
+  {"Hello World" 10, 20 -> }
+
+  Note :- Here return type not there.
+  If return type is there . We can pass directly the value i.e like this.
+
+  demoLambda( "Calling Lambda",
+              { a: Int, b: Int -> 100}
+  )
+
+  Because the left side of -> must always be VARIABLE NAMES,
+  not actual values.
+
+ */
+//---------------------------------------------------------------------------------------------------------------------------
+
+// Trailing Lambda
+
+/**
+  If  the last parameter of the funciton , then we can write that function outside the function.
+ */
+
+package com.androidtutorials.myapplication
+
+fun main() {
+    demoLambda(
+        "Calling Lambda") {
+            a: Int, b: Int -> 100
+    }
+}
+
+fun demoLambda(text: String, operation: (Int, Int) -> Int) {
+    println("Hello World")
+}
+
+//-----------------------------------------------------------------------------------------------------------------
+
+// Writing functions as variables.
+
+fun add(a: Int, b: Int): Int {
+    return a + b
+}
+
+val add = { a: Int, b: Int -> a + b }
+
+
+=================================================================================================================
+
+🟢 4️⃣ Single Parameter – it Keyword
+
+If only one parameter → you can use it
+
+val square: (Int) -> Int = { it * it }
+
+println(square(4))  // 16
+
+
+Example 1
+
+Return Type :- Compulsary
+
+package com.androidtutorials.myapplication
+
+fun main() {
+    val square: (Int) -> Unit = { it * it }
+    println(square(4))  // 16
+}
+
+Example 2
+
+package com.androidtutorials.myapplication
+
+fun main() {
+    val square: (Int) -> Int = { it * it }
+    println(square(4))  // 16
+}
+
+
+Example 3 :- CE
+
+Explicit Fucntion should have a return type.
+
+package com.androidtutorials.myapplication
+
+fun main() {
+    val square: (Int) ->  = { it * it }
+    println(square(4))  // 16
+}
+
+========================================================================================================
+
+Passing Lambda as a Parameter.
+
+🟢 5️⃣ Passing Lambda as Parameter (Very Important 🔥)
+
+fun calculate(a: Int, b: Int, operation: (Int, Int) -> Int): Int {
+    return operation(a, b)
+}
+
+Use it:
+
+val result1 = calculate(5, 3) { x, y -> x + y }
+val result2 = calculate(5, 3) { x, y -> x * y }
+
+println(result1)  // 8
+println(result2)  // 15
+
+======================================================================
+🟢 7️⃣ Lambdas with Collections (Real Usage)
+map()
+val numbers = listOf(1, 2, 3, 4)
+
+val doubled = numbers.map { it * 2 }
+
+println(doubled)  // [2, 4, 6, 8]
+=============================================================
+🟢 3️⃣ Lambda Without Explicit Type
+
+Kotlin can infer types:
+
+val multiply = { a: Int, b: Int -> a * b }
+
+println(multiply(5, 3))  // 15

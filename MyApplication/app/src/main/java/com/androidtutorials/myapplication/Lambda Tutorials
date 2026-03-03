@@ -1,0 +1,118 @@
+package com.androidtutorials.myapplication
+
+fun main() {
+    demoLambda(
+        "Calling Lambda",
+        { a: Int, b: Int -> }
+    )
+}
+
+fun demoLambda(text: String, operation: (Int, Int) -> Unit) {
+    println("Hello World")
+}
+
+/*
+------------------------------------------------------------
+EXPLANATION
+------------------------------------------------------------
+
+1) While calling a lambda, we cannot pass direct values as parameters.
+
+   ❌ Wrong:
+       { 10, 20 -> }
+
+   Because the left side of -> must always be VARIABLE NAMES,
+   not actual values.
+
+   ✅ Correct:
+       { a: Int, b: Int -> }
+
+   Here:
+       a and b are parameter variables.
+       Kotlin will assign values to them when the lambda is invoked.
+
+------------------------------------------------------------
+
+2) If the lambda has empty implementation:
+
+   Since the return type is Unit,
+   we just need to write the arrow (->) and we can leave the body empty.
+
+   Example:
+       { a: Int, b: Int -> }
+
+   This is valid because:
+       (Int, Int) -> Unit
+       means it does not need to return anything.
+
+------------------------------------------------------------
+
+3) Lambda Structure Reminder:
+
+   General Format:
+       { parameters -> body }
+
+   Even if body is empty, the arrow (->) is mandatory.
+
+------------------------------------------------------------
+*/
+
+=========================================================================================================================================
+
+Trailing Lambda Explanation
+***************************
+
+package com.androidtutorials.myapplication
+
+fun main() {
+
+    // Trailing Lambda Call
+    demoLambda("Calling Lambda using Trailing") { a: Int, b: Int -> }
+
+}
+
+fun demoLambda(text: String, operation: (Int, Int) -> Unit) {
+    println("Hello World")
+}
+
+/*
+------------------------------------------------------------
+TRAILING LAMBDA EXPLANATION
+------------------------------------------------------------
+
+If the last parameter of a function is a lambda,
+Kotlin allows us to move that lambda outside the parentheses.
+
+Example:
+
+    demoLambda("Text") { a: Int, b: Int -> }
+
+Here:
+- "Text" is the first parameter (String).
+- The lambda is the second and last parameter.
+- Since it is the last parameter, we can write it
+  outside the round brackets.
+
+This improves readability and is commonly used in Kotlin.
+The behavior remains exactly the same.
+
+------------------------------------------------------------
+*/
+==========================================================================================================================
+
+Lambda with Return Types and Calling them.
+
+package com.androidtutorials.myapplication
+
+fun main() {
+    demoLambda(
+        "Calling Lambda",
+        { a: Int, b: Char -> 100 }
+    )
+}
+
+fun demoLambda(text: String, operation: (Int, Char) -> Int) {
+    println("Hello World")
+}
+===============================================================================================================================
+

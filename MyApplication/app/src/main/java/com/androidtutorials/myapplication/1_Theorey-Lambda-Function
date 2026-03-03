@@ -1,0 +1,159 @@
+Normal Function call
+********************
+
+package com.androidtutorials.myapplication
+
+fun main() {
+    add(10, 20)
+}
+
+fun add(num1: Int, num2: Int) {
+    val result = num1+num2
+    println("Sum is "+result)
+}
+
+----------------------------------------------------------
+Suppose i want to do Add, Mul , Div , Sub then what is the change. ?
+Create 4 methods for each operation
+
+package com.androidtutorials.myapplication
+
+fun main() {
+
+    add(10, 20)
+    subtract(20, 5)
+    multiply(5, 4)
+    divide(20, 4)
+}
+
+// ---------------- ADD ----------------
+fun add(num1: Int, num2: Int) {
+    val result = num1 + num2
+    println("Sum is $result")
+}
+
+// ---------------- SUBTRACT ----------------
+fun subtract(num1: Int, num2: Int) {
+    val result = num1 - num2
+    println("Difference is $result")
+}
+
+// ---------------- MULTIPLY ----------------
+fun multiply(num1: Int, num2: Int) {
+    val result = num1 * num2
+    println("Product is $result")
+}
+
+// ---------------- DIVIDE ----------------
+fun divide(num1: Int, num2: Int) {
+    if (num2 != 0) {
+        val result = num1 / num2
+        println("Division result is $result")
+    } else {
+        println("Cannot divide by zero")
+    }
+}
+
+DisAdvantage is for evey operation new method should be created.
+Assume 500 logic then 500 method creation will lead to issue.
+==============================================================================================
+
+
+Lambda Function
+***************
+
+🔥 Lambda Function in Kotlin (Android)
+
+✅ Definition
+
+A Lambda function is an anonymous function (a function without a name) that can be:
+
+Stored in a variable
+Passed as a parameter
+Returned from another function
+
+In Kotlin, lambdas are heavily used because Kotlin is a functional + object-oriented language.
+
+✅ When To Use Lambda Function in Kotlin (Android)
+**************************************************
+You use a Lambda when:
+You want to pass behavior (logic) as a parameter instead of hardcoding it.
+
+******************************************************************************************************************
+
+Syntax For Writing Lambda function in a method.
+
+fun demoExample ( param1: Type1, param2: Type1 , operation: (param3 : InputType, param4 : InputType) -> ReturnType ) {
+            // Business Logic
+}
+
+demoExample --> Function Name
+param1: Type1,param2: Type1 , operation: (InputType, InputType) -> ReturnType    ----> demoExample takes 3 parameter
+
+param1: Type1,param2: Type1   ---> 2 Normal Parameter
+operation: (InputType, InputType) -> ReturnType  -----> 1 Lambda function
+
+operation: (InputType, InputType) -> ReturnType
+ operation--> Method Name
+ (InputType, InputType) ---> Takes 2 parameter
+ ReturnType ---> Method is having a return type.
+
+Real Example
+************
+fun methodName(
+    param1: Int,
+    param2: Int,
+    operation: (Int, Int) -> Int
+ ) {
+
+}
+
+
+/*
+======================== EXPLANATION ========================
+
+1) fun
+   - Keyword used to declare a function in Kotlin.
+
+2) methodName
+   - Name of the function.
+
+3) param1: Int
+   - A normal parameter.
+   - param1 is the variable name.
+   - Int is its data type.
+
+4) param2: Int
+   - Another normal parameter.
+   - Works like any regular function input.
+
+5) operation: (Int, Int) -> Int
+   - This is a lambda (function type) parameter.
+   - operation is a variable that stores a function.
+
+   (Int, Int) -> Int means:
+   - Takes first Int input
+   - Takes second Int input
+   - Returns an Int value
+
+   General pattern:
+   (InputType1, InputType2) -> ReturnType
+
+6) : Int
+   - This is the return type of methodName itself.
+   - So methodName returns an Int.
+
+7) operation(param1, param2)
+   - This executes the lambda.
+   - param1 is passed as first argument.
+   - param2 is passed as second argument.
+   - The returned value is stored in 'result'.
+
+==============================================================
+*/
+
+
+
+
+Example 1
+**********
