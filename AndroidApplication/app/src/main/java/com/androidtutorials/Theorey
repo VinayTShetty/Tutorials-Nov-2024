@@ -1,0 +1,54 @@
+https://chatgpt.com/share/69adfe90-aa74-8006-8578-3b695b11807e
+
+
+PROJECT STRUCTURE
+-----------------
+
+com.androidtutorials
+│
+├── androidhelloworld      // Main application entry package. Usually contains MainActivity, Application class, and app startup logic. This is where the app starts executing.
+│
+├── data                   // Responsible for handling WHERE the data comes from (API, Database, Cache, Files). Implements repository logic and manages data sources.
+│   ├── local              // Handles local storage such as Room Database. Contains DAO interfaces, database classes, and Entity models used for storing data locally.
+│   ├── mapper             // Converts models between layers. Example: API model (UserDto) → Database model (UserEntity) → Domain model (User). Keeps layers independent.
+│   ├── model              // Contains API response models that match server JSON structure. Example: UserDto, LoginResponse, ProductDto.
+│   ├── remote             // Handles network communication. Contains Retrofit API interfaces that define server endpoints and HTTP requests.
+│   └── repository         // Implements repository interfaces defined in the domain layer. Combines API calls and database operations to provide data to the domain layer.
+│
+├── domain                 // Core business logic layer. Independent of Android framework. Contains pure Kotlin code with no dependency on Retrofit, Room, or Android classes.
+│   ├── model              // Business models used throughout the app. Clean data models not tied to API or database structures. Example: User, Product, Order.
+│   ├── repository         // Repository interfaces that define what operations the app can perform (e.g., fetch users, login user). Implementation exists in data layer.
+│   └── usecase            // Represents a single business operation or action. Example: GetUsersUseCase, LoginUseCase, UploadFileUseCase. Called by ViewModel.
+│
+└── presentation           // UI layer responsible for displaying data and handling user interaction. Communicates with the domain layer through ViewModels.
+├── adapter            // RecyclerView adapters used to bind data to list UI components. Example: UserAdapter, ProductAdapter.
+├── ui                 // UI screens such as Activities, Fragments, or Compose screens. Responsible only for displaying UI and observing ViewModel state.
+└── viewmodel          // Bridge between UI and domain layer. Calls use cases, prepares UI state, and survives configuration changes like screen rotation.
+
+
+APPLICATION FLOW
+----------------
+
+MainActivity (UI Layer)
+↓
+UserViewModel (Presentation Layer)
+↓
+GetUsersUseCase (Domain Layer)
+↓
+UserRepository Interface (Domain Layer)
+↓
+UserRepositoryImpl (Data Layer)
+↓
+ApiService or UserDao (Network / Database)
+↓
+Data returned to ViewModel
+↓
+UI updated
+
+
+SIMPLE MEMORY RULE
+------------------
+
+presentation → HOW data is shown to the user
+domain       → WHAT business operation the app performs
+data         → WHERE the data comes from
