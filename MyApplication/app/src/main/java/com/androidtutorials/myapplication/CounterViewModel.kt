@@ -8,23 +8,37 @@ import androidx.lifecycle.ViewModel
 class CounterViewModel : ViewModel() {
 
     private val TAG = CounterViewModel::class.java.simpleName
-    /**
-     * Private MutableLiveData variable will not be exposed to other classes.
-     * Also add a default value for it.
-     */
-    private val _countervalue=MutableLiveData<Int>().apply { value=0 }
-    /**
-     * LiveData exposed to other classes for getting the values.
-     */
-    val counter:LiveData<Int> = _countervalue
 
-    fun increaseCounterValue(){
-        Log.i(TAG, "increaseCounterValue: ")
-        _countervalue.value = (counter.value ?: 0) + 1
+    /**
+     * Private MutableLiveData variable.
+     * It is not directly exposed to other classes.
+     * Initial value is set to 0.
+     */
+    private val _countervalue = MutableLiveData<Int>().apply {
+        value = 0
     }
 
-    fun decreaseCounterValue(){
+    /**
+     * LiveData exposed to other classes for observing/getting the value.
+     * Other classes cannot directly modify the value.
+     */
+    val counter: LiveData<Int> = _countervalue
+
+    /**
+     * Increases the counter value by 1.
+     */
+    fun increaseCounterValue() {
+        Log.i(TAG, "increaseCounterValue: ")
+
+        _countervalue.value = (_countervalue.value ?: 0) + 1
+    }
+
+    /**
+     * Decreases the counter value by 1.
+     */
+    fun decreaseCounterValue() {
         Log.i(TAG, "decreaseCounterValue: ")
-        _countervalue.value = (counter.value ?: 0) - 1
+
+        _countervalue.value = (_countervalue.value ?: 0) - 1
     }
 }
